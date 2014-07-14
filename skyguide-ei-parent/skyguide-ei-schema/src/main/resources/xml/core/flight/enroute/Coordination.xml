@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?><Coordination>
+
+<!--Type AssignedSpeedType-->
+   <AssignedSpeedType speedCondition="AT_OR_LESS" uom="KILOMETERS_PER_HOUR">0.0</AssignedSpeedType>
+
+<!--Type BoundaryCrossingCoordinatedType-->
+   <BoundaryCrossingCoordinatedType crossingTime="1900-01-01T00:00:00">
+      <altitude ref="MEAN_SEA_LEVEL" uom="FEET">0.0</altitude>
+      <assignedSpeed speedCondition="AT_OR_GREATER" uom="KNOTS">0.0</assignedSpeed>
+      <clearedBlock>
+         <lowerBoundaryCrossingLevel ref="FLIGHT_LEVEL" uom="METERS">0.0</lowerBoundaryCrossingLevel>
+         <upperBoundaryCrossingLevel ref="MEAN_SEA_LEVEL" uom="FEET">0.0</upperBoundaryCrossingLevel>
+      </clearedBlock>
+      <crossingPoint fix="string" type="FixPointType"/>
+      <offTrackDeviation deviationDirection="LEFT" deviationReason="OFFSET">
+         <deviationDistance uom="NAUTICAL_MILES">0.0</deviationDistance>
+      </offTrackDeviation>
+      <transitionAltitude crossingCondition="AT_OR_ABOVE" ref="FLIGHT_LEVEL" uom="METERS">0.0</transitionAltitude>
+   </BoundaryCrossingCoordinatedType>
+
+<!--Type BoundaryCrossingProposedType-->
+   <BoundaryCrossingProposedType crossingTime="1900-01-01T00:00:00">
+      <altitude ref="MEAN_SEA_LEVEL" uom="FEET">0.0</altitude>
+      <crossingPoint>
+         <!--suppressed expansion of duplicate type SignificantPointType-->
+      </crossingPoint>
+      <directRoutingRequest>
+         <from>
+            <!--suppressed expansion of duplicate type SignificantPointType-->
+         </from>
+         <to>
+            <!--suppressed expansion of duplicate type SignificantPointType-->
+         </to>
+      </directRoutingRequest>
+      <offTrackDeviation deviationDirection="RIGHT" deviationReason="WEATHER">
+         <deviationDistance uom="MILES">0.0</deviationDistance>
+      </offTrackDeviation>
+      <requestedRoute airfileRouteStartTime="1900-01-01T00:00:00" flightDuration="P00H00M00S" initialFlightRules="IFR" routeText="string">
+         <estimatedElapsedTime elapsedTime="P00H00M00S">
+            <location>
+               <!--alternative 1 of choice type ElapsedTimeLocationType-->
+               <longitude>0.0</longitude>
+            </location>
+         </estimatedElapsedTime>
+         <expandedRoute>
+            <routeImpactList>
+               <predictedAirway>string string</predictedAirway>
+               <predictedSector>string string</predictedSector>
+               <predictedUnit delegated="AUTHORITY_DELEGATED" sectorIdentifier="string" type="UnitBoundaryType" unitBoundaryIndicator="PAST">
+                  <boundaryCrossing>
+                     <boundaryCrossingCoordinated crossingTime="1900-01-01T00:00:00">
+                        <altitude ref="FLIGHT_LEVEL" uom="METERS">0.0</altitude>
+                        <!--suppressed optional element assignedSpeed of type AssignedSpeedType-->
+                        <!--suppressed optional element clearedBlock of type ClearedLevelBlockType-->
+                        <crossingPoint>
+                           <!--suppressed expansion of duplicate type SignificantPointType-->
+                        </crossingPoint>
+                        <!--suppressed optional element offTrackDeviation of type OffTrackDeviationType-->
+                        <!--suppressed optional element transitionAltitude of type TransitionAltitudeType-->
+                     </boundaryCrossingCoordinated>
+                     <boundaryCrossingProposed crossingTime="1900-01-01T00:00:00">
+                        <altitude ref="MEAN_SEA_LEVEL" uom="FEET">0.0</altitude>
+                        <crossingPoint>
+                           <!--suppressed expansion of duplicate type SignificantPointType-->
+                        </crossingPoint>
+                        <!--suppressed optional element directRoutingRequest of type DirectRoutingType-->
+                        <!--suppressed optional element offTrackDeviation of type OffTrackDeviationType-->
+                        <!--suppressed optional element requestedRoute of type RouteType-->
+                        <transitionAltitude crossingCondition="AT_OR_BELOW" ref="FLIGHT_LEVEL" uom="METERS">0.0</transitionAltitude>
+                     </boundaryCrossingProposed>
+                  </boundaryCrossing>
+                  <downstreamUnit>
+                     <!--suppressed expansion of duplicate type AtcUnitReferenceType-->
+                  </downstreamUnit>
+                  <handoff>
+                     <coordinationStatus abrogationReason="TFL" coordinationStatus="NOTIFIED" nonStandardCommunicationReason="LATE_ACTIVATION" releaseConditions="CLIMB"/>
+                     <receivingUnit>
+                        <!--suppressed expansion of duplicate type AtcUnitReferenceType-->
+                     </receivingUnit>
+                     <transferringUnit>
+                        <!--suppressed expansion of duplicate type AtcUnitReferenceType-->
+                     </transferringUnit>
+                  </handoff>
+                  <upstreamUnit>
+                     <!--suppressed expansion of duplicate type AtcUnitReferenceType-->
+                  </upstreamUnit>
+               </predictedUnit>
+            </routeImpactList>
+            <routePoint airTrafficType="OAT" delayAtPoint="P00H00M00S" estimatedTime="1900-01-01T00:00:00" flightRules="VFR">
+               <point>
+                  <!--suppressed expansion of duplicate type SignificantPointType-->
+               </point>
+               <constraint constraintType="EXECUTIVE_CONTROL" positionQualification="AT_OR_BEFORE_POINT" type="SpeedConstraintType">
+                  <speed uom="MACH">0.0</speed>
+                  <timeConstraint constraintType="CONTROLLER_TACTICAL_PLANNING" requiredTime="1900-01-01T00:00:00" timeQualification="AT_OR_BEFORE_TIME"/>
+               </constraint>
+               <estimatedLevel ref="MEAN_SEA_LEVEL" uom="FEET">0.0</estimatedLevel>
+            </routePoint>
+         </expandedRoute>
+         <holdFix>
+            <!--suppressed expansion of duplicate type SignificantPointType-->
+         </holdFix>
+         <initialCruisingSpeed uom="KILOMETERS_PER_HOUR">0.0</initialCruisingSpeed>
+         <requestedAltitude ref="FLIGHT_LEVEL" uom="METERS">0.0</requestedAltitude>
+         <segment airway="string">
+            <routePoint airTrafficType="GAT" delayAtPoint="P00H00M00S" flightRules="IFR">
+               <point>
+                  <!--suppressed expansion of duplicate type SignificantPointType-->
+               </point>
+               <constraint>
+                  <!--suppressed expansion of duplicate type RouteConstraintType-->
+               </constraint>
+            </routePoint>
+         </segment>
+      </requestedRoute>
+      <!--suppressed optional element transitionAltitude of type TransitionAltitudeType-->
+   </BoundaryCrossingProposedType>
+
+<!--Type BoundaryCrossingType-->
+   <BoundaryCrossingType>
+      <!--suppressed optional element boundaryCrossingCoordinated of type BoundaryCrossingCoordinatedType-->
+      <!--suppressed optional element boundaryCrossingProposed of type BoundaryCrossingProposedType-->
+   </BoundaryCrossingType>
+
+<!--Type ClearedLevelBlockType-->
+   <ClearedLevelBlockType>
+      <lowerBoundaryCrossingLevel ref="MEAN_SEA_LEVEL" uom="FEET">0.0</lowerBoundaryCrossingLevel>
+      <upperBoundaryCrossingLevel ref="FLIGHT_LEVEL" uom="METERS">0.0</upperBoundaryCrossingLevel>
+   </ClearedLevelBlockType>
+
+<!--Type DirectRoutingType-->
+   <DirectRoutingType>
+      <from>
+         <!--suppressed expansion of duplicate type SignificantPointType-->
+      </from>
+      <to>
+         <!--suppressed expansion of duplicate type SignificantPointType-->
+      </to>
+   </DirectRoutingType>
+
+<!--Type EnRouteBoundaryCrossingsType-->
+   <EnRouteBoundaryCrossingsType>
+      <unitBoundary delegated="AUTHORITY_DELEGATED" sectorIdentifier="string" unitBoundaryIndicator="CURRENT">
+         <boundaryCrossing>
+            <!--suppressed optional element boundaryCrossingCoordinated of type BoundaryCrossingCoordinatedType-->
+            <!--suppressed optional element boundaryCrossingProposed of type BoundaryCrossingProposedType-->
+         </boundaryCrossing>
+         <!--suppressed optional element downstreamUnit of type AtcUnitReferenceType-->
+         <!--suppressed optional element handoff of type HandoffType-->
+         <!--suppressed optional element upstreamUnit of type AtcUnitReferenceType-->
+      </unitBoundary>
+   </EnRouteBoundaryCrossingsType>
+
+<!--Type HandoffType-->
+   <HandoffType>
+      <coordinationStatus abrogationReason="ROUTE" coordinationStatus="OFFERED" nonStandardCommunicationReason="LATERAL_DEVIATION" releaseConditions="DESCENT"/>
+      <receivingUnit>
+         <!--suppressed expansion of duplicate type AtcUnitReferenceType-->
+      </receivingUnit>
+      <transferringUnit>
+         <!--suppressed expansion of duplicate type AtcUnitReferenceType-->
+      </transferringUnit>
+   </HandoffType>
+
+<!--Type OffTrackDeviationType-->
+   <OffTrackDeviationType deviationDirection="EITHER" deviationReason="OFFSET">
+      <deviationDistance uom="KILOMETERS">0.0</deviationDistance>
+   </OffTrackDeviationType>
+
+<!--Type TransitionAltitudeType-->
+   <TransitionAltitudeType crossingCondition="AT_OR_ABOVE" ref="MEAN_SEA_LEVEL" uom="FEET">0.0</TransitionAltitudeType>
+
+<!--Type UnitBoundaryType-->
+   <UnitBoundaryType delegated="AUTHORITY_DELEGATED" sectorIdentifier="string" unitBoundaryIndicator="FUTURE">
+      <boundaryCrossing>
+         <!--suppressed optional element boundaryCrossingCoordinated of type BoundaryCrossingCoordinatedType-->
+         <!--suppressed optional element boundaryCrossingProposed of type BoundaryCrossingProposedType-->
+      </boundaryCrossing>
+      <!--suppressed optional element downstreamUnit of type AtcUnitReferenceType-->
+      <!--suppressed optional element handoff of type HandoffType-->
+      <!--suppressed optional element upstreamUnit of type AtcUnitReferenceType-->
+   </UnitBoundaryType>
+</Coordination>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><DangerousGoods>
+
+<!--Type AdditionalHandlingInformationType-->
+   <AdditionalHandlingInformationType>
+      <responsibleAgent>
+         <!--alternative 1 of choice type PersonOrOrganizationType-->
+         <organization category="AVIATION_AUTHORITY" name="string" otherOrganization="string">
+            <contact name="string" title="string">
+               <address administrativeArea="string" city="string" countryCode="string" countryName="string" postalCode="string">
+                  <deliveryPoint>string string</deliveryPoint>
+               </address>
+               <onlineContact eMail="string"/>
+               <phoneFax facsimile="string" voice="string"/>
+            </contact>
+         </organization>
+      </responsibleAgent>
+   </AdditionalHandlingInformationType>
+
+<!--Type AirWaybillType-->
+   <AirWaybillType airWaybillNumber="string">string</AirWaybillType>
+
+<!--Type DangerousGoodsType-->
+   <DangerousGoodsType aircraftLimitation="PASSENGER_AND_CARGO_AIRCRAFT" guidebookNumber="string" onboardHazardousCargoLocation="string" shipment="RADIOACTIVE">
+      <airWayBill airWaybillNumber="string">string</airWayBill>
+      <handlingInformation>
+         <responsibleAgent>
+            <!--alternative 2 of choice type PersonOrOrganizationType-->
+            <person name="string">
+               <contact name="string" title="string">
+                  <!--suppressed optional element address of type PostalAddressType-->
+                  <!--suppressed optional element onlineContact of type OnlineContactType-->
+                  <!--suppressed optional element phoneFax of type TelephoneContactType-->
+               </contact>
+            </person>
+         </responsibleAgent>
+      </handlingInformation>
+      <packageGroup shipmentUseIndicator="EXCLUSIVE">
+         <dangerousGoodsPackage dangerousGoodsLimitation="CARGO_AIRCRAFT_ONLY" dangerousGoodsQuantity="0" marinePollutantIndicator="MARINE_POLLUTANT" overpackIndicator="OVERPACK_USED" packingGroup="I" packingInstructionNumber="string" productName="string" properShippingName="string" reportableQuantity="0" shipmentType="RADIOACTIVE" supplementaryInformation="string" technicalName="string" typeOfPackaging="string" unNumber="string">
+            <allPackedInOne numberOfPackages="0" qValue="0.0"/>
+            <compatibilityGroup hazardClass="string">string</compatibilityGroup>
+            <hazardClassAndDivision hazardClass="string" hazardDivision="0"/>
+            <packageDimensions>
+               <height uom="FEET">0.0</height>
+               <length uom="INCHES">0.0</length>
+               <width uom="METERS">0.0</width>
+            </packageDimensions>
+            <radioactiveMaterials category="I_WHITE" criticalitySafetyIndex="0.0" fissileExceptedIndicator="EXCEPTED" transportIndex="0.0">
+               <radionuclide lowDispersibleMaterialIndicator="LOW_DISPERSIBLE" physicalChemicalForm="string" radionuclideId="string" radionuclideName="string" specialFormIndicator="SPECIAL_FORM">
+                  <activity uom="GRAMS">0.0</activity>
+               </radionuclide>
+            </radioactiveMaterials>
+            <shipmentDimensions>
+               <grossWeight uom="KILOGRAMS">0.0</grossWeight>
+               <netWeight uom="POUNDS">0.0</netWeight>
+               <volume uom="LITERS">0.0</volume>
+            </shipmentDimensions>
+            <subsidiaryHazardClassDivision hazardClass="string" hazardDivision="0"/>
+            <temperatures>
+               <controlTemperature uom="FARENHEIT">0.0</controlTemperature>
+               <emergencyTemperature uom="CELSIUS">0.0</emergencyTemperature>
+               <flashpointTemperature uom="KELVIN">0.0</flashpointTemperature>
+            </temperatures>
+         </dangerousGoodsPackage>
+         <shipmentDimensions>
+            <grossWeight uom="KILOGRAMS">0.0</grossWeight>
+            <netWeight uom="POUNDS">0.0</netWeight>
+            <volume uom="GALLONS">0.0</volume>
+         </shipmentDimensions>
+      </packageGroup>
+      <shippingInformation dangerousGoodsScreeningLocation="string" departureCountry="string" destinationCountry="string" originCountry="string" shipmentAuthorizations="string" subsidiaryHazardClassAndDivision="string" supplementaryInformation="string">
+         <aerodromeOfLoading code="string" type="IcaoAerodromeReferenceType"/>
+         <aerodromeOfUnloading>
+            <!--suppressed expansion of duplicate type AerodromeReferenceType-->
+         </aerodromeOfUnloading>
+         <consignee name="string" title="string">
+            <!--suppressed optional element address of type PostalAddressType-->
+            <!--suppressed optional element onlineContact of type OnlineContactType-->
+            <!--suppressed optional element phoneFax of type TelephoneContactType-->
+         </consignee>
+         <declarationText compliance="string" consignor="string" shipper="string"/>
+         <shipper name="string" title="string">
+            <!--suppressed optional element address of type PostalAddressType-->
+            <!--suppressed optional element onlineContact of type OnlineContactType-->
+            <!--suppressed optional element phoneFax of type TelephoneContactType-->
+         </shipper>
+         <transferAerodromes>string string</transferAerodromes>
+      </shippingInformation>
+   </DangerousGoodsType>
+
+<!--Type DeclarationTextType-->
+   <DeclarationTextType compliance="string" consignor="string" shipper="string"/>
+
+<!--Type ShippingInformationType-->
+   <ShippingInformationType dangerousGoodsScreeningLocation="string" departureCountry="string" destinationCountry="string" originCountry="string" shipmentAuthorizations="string" subsidiaryHazardClassAndDivision="string" supplementaryInformation="string">
+      <!--suppressed optional element aerodromeOfLoading of type AerodromeReferenceType-->
+      <!--suppressed optional element aerodromeOfUnloading of type AerodromeReferenceType-->
+      <!--suppressed optional element consignee of type StructuredPostalAddressType-->
+      <!--suppressed optional element declarationText of type DeclarationTextType-->
+      <!--suppressed optional element shipper of type StructuredPostalAddressType-->
+      <!--suppressed optional element transferAerodromes of type null-->
+   </ShippingInformationType>
+
+<!--Type StructuredPostalAddressType-->
+   <StructuredPostalAddressType name="string" title="string">
+      <!--suppressed optional element address of type PostalAddressType-->
+      <!--suppressed optional element onlineContact of type OnlineContactType-->
+      <!--suppressed optional element phoneFax of type TelephoneContactType-->
+   </StructuredPostalAddressType>
+</DangerousGoods>

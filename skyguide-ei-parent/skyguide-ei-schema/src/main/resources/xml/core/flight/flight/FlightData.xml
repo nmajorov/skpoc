@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?><FlightData>
+
+<!--Type AircraftOperatorType-->
+   <AircraftOperatorType operatorCategory="AIR_CARRIER">
+      <operatingOrganization>
+         <!--alternative 1 of choice type PersonOrOrganizationType-->
+         <organization category="AVIATION_AUTHORITY" name="string" otherOrganization="string">
+            <contact name="string" title="string">
+               <address administrativeArea="string" city="string" countryCode="string" countryName="string" postalCode="string">
+                  <deliveryPoint>string string</deliveryPoint>
+               </address>
+               <onlineContact eMail="string"/>
+               <phoneFax facsimile="string" voice="string"/>
+            </contact>
+         </organization>
+      </operatingOrganization>
+   </AircraftOperatorType>
+
+<!--Type ClearedFlightInformationType-->
+   <ClearedFlightInformationType>
+      <cruisingSpeed uom="KILOMETERS_PER_HOUR">0.0</cruisingSpeed>
+      <directRoutingCleared>
+         <from fix="string" type="FixPointType"/>
+         <to>
+            <!--suppressed expansion of duplicate type SignificantPointType-->
+         </to>
+      </directRoutingCleared>
+      <flightLevel ref="MEAN_SEA_LEVEL" uom="FEET">0.0</flightLevel>
+      <heading ref="TRUE">0.0</heading>
+      <offset uom="NAUTICAL_MILES">0.0</offset>
+      <rateOfClimbDescend uom="FEET_PER_MINUTE">0.0</rateOfClimbDescend>
+   </ClearedFlightInformationType>
+
+<!--Type EnRouteDiversionType-->
+   <EnRouteDiversionType diversionRecoveryInformation="string"/>
+
+<!--Type FlightIdentificationType-->
+   <FlightIdentificationType aircraftIdentification="string" majorCarrierIdentifier="string">
+      <marketingCarrierFlightIdentifier>string string</marketingCarrierFlightIdentifier>
+   </FlightIdentificationType>
+
+<!--Type FlightType-->
+   <FlightType flightType="MILITARY" gufi="string" remarks="string">
+      <aircraftDescription aircraftAddress="string" aircraftColours="string" aircraftPerformance="A" aircraftQuantity="0" engineType="PISTON" registration="string" wakeTurbulence="L">
+         <aircraftType>
+            <!--alternative 2 of choice type AircraftTypeType-->
+            <otherModelData>string</otherModelData>
+         </aircraftType>
+         <capabilities standardCapabilities="STANDARD">
+            <communication otherCommunicationCapabilities="string" otherDataLinkCapabilities="string" selectiveCallingCode="string">
+               <communicationCode>E1 E2</communicationCode>
+               <dataLinkCode>J1 J2</dataLinkCode>
+            </communication>
+            <navigation otherNavigationCapabilities="string">
+               <navigationCode>A B</navigationCode>
+               <performanceBasedCode>A1 B1</performanceBasedCode>
+            </navigation>
+            <surveillance otherSurveillanceCapabilities="string">
+               <surveillanceCode>A B1</surveillanceCode>
+            </surveillance>
+            <survival survivalEquipmentRemarks="string">
+               <dinghyInformation covered="COVERED" quantity="0" totalCapacity="0">
+                  <colour>
+                     <!--alternative 1 of choice type DinghyColourType-->
+                     <colourCode>ORANGE</colourCode>
+                  </colour>
+               </dinghyInformation>
+               <emergencyRadioCode>ULTRA_HIGH_FREQUENCY VERY_HIGH_FREQUENCY</emergencyRadioCode>
+               <lifeJacketCode>FLUORESCEIN VERY_HIGH_FREQUENCY</lifeJacketCode>
+               <survivalEquipmentCode>POLAR DESERT</survivalEquipmentCode>
+            </survival>
+         </capabilities>
+      </aircraftDescription>
+      <arrival arrivalFleetPrioritization="0" arrivalSequenceNumber="0" standardInstrumentArrival="string">
+         <approachFix>
+            <!--suppressed expansion of duplicate type SignificantPointType-->
+         </approachFix>
+         <approachTime>
+            <actual center="string" source="string" system="string" time="1900-01-01T00:00:00" timestamp="1900-01-01T00:00:00"/>
+            <estimated center="string" source="string" system="string" time="1900-01-01T00:00:00" timestamp="1900-01-01T00:00:00"/>
+         </approachTime>
+         <arrivalAerodrome code="string" type="IcaoAerodromeReferenceType"/>
+         <arrivalAerodromeAlternate>
+            <!--suppressed expansion of duplicate type AerodromeReferenceType-->
+         </arrivalAerodromeAlternate>
+         <arrivalAerodromeOriginal>
+            <!--suppressed expansion of duplicate type AerodromeReferenceType-->
+         </arrivalAerodromeOriginal>
+         <arrivalFix>
+            <!--suppressed expansion of duplicate type SignificantPointType-->
+         </arrivalFix>
+         <arrivalFixTime>
+            <!--suppressed optional element actual of type ReportedTimeType-->
+            <!--suppressed optional element estimated of type ReportedTimeType-->
+         </arrivalFixTime>
+         <arrivalPositionsAndTimes>
+            <positionTime>
+               <arriveAtPosition>
+                  <!--suppressed optional element actual of type ReportedTimeType-->
+                  <!--suppressed optional element estimated of type ReportedTimeType-->
+                  <controlled center="string" source="string" system="string" time="1900-01-01T00:00:00" timestamp="1900-01-01T00:00:00"/>
+                  <initial center="string" source="string" system="string" time="1900-01-01T00:00:00" timestamp="1900-01-01T00:00:00"/>
+                  <target center="string" source="string" system="string" time="1900-01-01T00:00:00" timestamp="1900-01-01T00:00:00"/>
+               </arriveAtPosition>
+               <departFromPosition>
+                  <!--suppressed optional element actual of type ReportedTimeType-->
+                  <!--suppressed optional element estimated of type ReportedTimeType-->
+                  <!--suppressed optional element controlled of type ReportedTimeType-->
+                  <!--suppressed optional element initial of type ReportedTimeType-->
+                  <!--suppressed optional element target of type ReportedTimeType-->
+               </departFromPosition>
+               <position standName="string" terminalName="string" type="StandPositionType"/>
+            </positionTime>
+         </arrivalPositionsAndTimes>
+      </arrival>
+      <cleared>
+         <!--suppressed optional element cruisingSpeed of type TrueAirspeedType-->
+         <!--suppressed optional element directRoutingCleared of type DirectRoutingType-->
+         <!--suppressed optional element flightLevel of type AltitudeType-->
+         <!--suppressed optional element heading of type DirectionType-->
+         <!--suppressed optional element offset of type DistanceType-->
+         <!--suppressed optional element rateOfClimbDescend of type VerticalRateType-->
+      </cleared>
+      <controllingUnit delegated="AUTHORITY_DELEGATED" sectorIdentifier="string" type="UnitBoundaryType" unitBoundaryIndicator="PAST">
+         <boundaryCrossing>
+            <boundaryCrossingCoordinated crossingTime="1900-01-01T00:00:00">
+               <altitude ref="FLIGHT_LEVEL" uom="METERS">0.0</altitude>
+               <assignedSpeed speedCondition="AT_OR_LESS" uom="KNOTS">0.0</assignedSpeed>
+               <clearedBlock>
+                  <lowerBoundaryCrossingLevel ref="MEAN_SEA_LEVEL" uom="FEET">0.0</lowerBoundaryCrossingLevel>
+                  <upperBoundaryCrossingLevel ref="FLIGHT_LEVEL" uom="METERS">0.0</upperBoundaryCrossingLevel>
+               </clearedBlock>
+               <crossingPoint>
+                  <!--suppressed expansion of duplicate type SignificantPointType-->
+               </crossingPoint>
+               <offTrackDeviation deviationDirection="LEFT" deviationReason="OFFSET">
+                  <deviationDistance uom="MILES">0.0</deviationDistance>
+               </offTrackDeviation>
+               <transitionAltitude crossingCondition="AT_OR_ABOVE" ref="MEAN_SEA_LEVEL" uom="FEET">0.0</transitionAltitude>
+            </boundaryCrossingCoordinated>
+            <boundaryCrossingProposed crossingTime="1900-01-01T00:00:00">
+               <altitude ref="FLIGHT_LEVEL" uom="METERS">0.0</altitude>
+               <crossingPoint>
+                  <!--suppressed expansion of duplicate type SignificantPointType-->
+               </crossingPoint>
+               <directRoutingRequest>
+                  <from>
+                     <!--suppressed expansion of duplicate type SignificantPointType-->
+                  </from>
+                  <to>
+                     <!--suppressed expansion of duplicate type SignificantPointType-->
+                  </to>
+               </directRoutingRequest>
+               <offTrackDeviation deviationDirection="RIGHT" deviationReason="WEATHER">
+                  <deviationDistance uom="KILOMETERS">0.0</deviationDistance>
+               </offTrackDeviation>
+               <requestedRoute airfileRouteStartTime="1900-01-01T00:00:00" flightDuration="P00H00M00S" initialFlightRules="IFR" routeText="string">
+                  <estimatedElapsedTime elapsedTime="P00H00M00S">
+                     <location>
+                        <!--alternative 1 of choice type ElapsedTimeLocationType-->
+                        <longitude>0.0</longitude>
+                     </location>
+                  </estimatedElapsedTime>
+                  <expandedRoute>
+                     <routeImpactList>
+                        <predictedAirway>string string</predictedAirway>
+                        <predictedSector>string string</predictedSector>
+                        <predictedUnit>
+                           <!--suppressed expansion of duplicate type AtcUnitReferenceType-->
+                        </predictedUnit>
+                     </routeImpactList>
+                     <routePoint airTrafficType="OAT" delayAtPoint="P00H00M00S" estimatedTime="1900-01-01T00:00:00" flightRules="VFR">
+                        <point>
+                           <!--suppressed expansion of duplicate type SignificantPointType-->
+                        </point>
+                        <constraint constraintType="EXECUTIVE_CONTROL" positionQualification="AT_OR_BEFORE_POINT" type="SpeedConstraintType">
+                           <speed uom="MACH">0.0</speed>
+                           <timeConstraint constraintType="CONTROLLER_TACTICAL_PLANNING" requiredTime="1900-01-01T00:00:00" timeQualification="AT_OR_BEFORE_TIME"/>
+                        </constraint>
+                        <estimatedLevel ref="MEAN_SEA_LEVEL" uom="FEET">0.0</estimatedLevel>
+                     </routePoint>
+                  </expandedRoute>
+                  <holdFix>
+                     <!--suppressed expansion of duplicate type SignificantPointType-->
+                  </holdFix>
+                  <initialCruisingSpeed uom="KILOMETERS_PER_HOUR">0.0</initialCruisingSpeed>
+                  <requestedAltitude ref="FLIGHT_LEVEL" uom="METERS">0.0</requestedAltitude>
+                  <segment airway="string">
+                     <routePoint airTrafficType="GAT" delayAtPoint="P00H00M00S" flightRules="IFR">
+                        <point>
+                           <!--suppressed expansion of duplicate type SignificantPointType-->
+                        </point>
+                        <constraint>
+                           <!--suppressed expansion of duplicate type RouteConstraintType-->
+                        </constraint>
+                     </routePoint>
+                  </segment>
+               </requestedRoute>
+               <transitionAltitude crossingCondition="AT_OR_BELOW" ref="MEAN_SEA_LEVEL" uom="FEET">0.0</transitionAltitude>
+            </boundaryCrossingProposed>
+         </boundaryCrossing>
+         <downstreamUnit>
+            <!--suppressed expansion of duplicate type AtcUnitReferenceType-->
+         </downstreamUnit>
+         <handoff>
+            <coordinationStatus abrogationReason="TFL" coordinationStatus="NOTIFIED" nonStandardCommunicationReason="LATE_ACTIVATION" releaseConditions="CLIMB"/>
+            <receivingUnit>
+               <!--suppressed expansion of duplicate type AtcUnitReferenceType-->
+            </receivingUnit>
+            <transferringUnit>
+               <!--suppressed expansion of duplicate type AtcUnitReferenceType-->
+            </transferringUnit>
+         </handoff>
+         <upstreamUnit>
+            <!--suppressed expansion of duplicate type AtcUnitReferenceType-->
+         </upstreamUnit>
+      </controllingUnit>
+      <dangerousGoods aircraftLimitation="PASSENGER_AND_CARGO_AIRCRAFT" guidebookNumber="string" onboardHazardousCargoLocation="string" shipment="RADIOACTIVE">
+         <airWayBill airWaybillNumber="string">string</airWayBill>
+         <handlingInformation>
+            <responsibleAgent>
+               <!--alternative 1 of choice type PersonOrOrganizationType-->
+               <!--suppressed optional element organization of type OrganizationType-->
+            </responsibleAgent>
+         </handlingInformation>
+         <packageGroup shipmentUseIndicator="EXCLUSIVE">
+            <dangerousGoodsPackage dangerousGoodsLimitation="CARGO_AIRCRAFT_ONLY" dangerousGoodsQuantity="0" marinePollutantIndicator="MARINE_POLLUTANT" overpackIndicator="OVERPACK_USED" packingGroup="I" packingInstructionNumber="string" productName="string" properShippingName="string" reportableQuantity="0" shipmentType="RADIOACTIVE" supplementaryInformation="string" technicalName="string" typeOfPackaging="string" unNumber="string">
+               <allPackedInOne numberOfPackages="0" qValue="0.0"/>
+               <compatibilityGroup hazardClass="string">string</compatibilityGroup>
+               <hazardClassAndDivision hazardClass="string" hazardDivision="0"/>
+               <packageDimensions>
+                  <height uom="FEET">0.0</height>
+                  <length uom="INCHES">0.0</length>
+                  <width uom="METERS">0.0</width>
+               </packageDimensions>
+               <radioactiveMaterials category="I_WHITE" criticalitySafetyIndex="0.0" fissileExceptedIndicator="EXCEPTED" transportIndex="0.0">
+                  <radionuclide lowDispersibleMaterialIndicator="LOW_DISPERSIBLE" physicalChemicalForm="string" radionuclideId="string" radionuclideName="string" specialFormIndicator="SPECIAL_FORM">
+                     <activity uom="GRAMS">0.0</activity>
+                  </radionuclide>
+               </radioactiveMaterials>
+               <shipmentDimensions>
+                  <grossWeight uom="KILOGRAMS">0.0</grossWeight>
+                  <netWeight uom="POUNDS">0.0</netWeight>
+                  <volume uom="LITERS">0.0</volume>
+               </shipmentDimensions>
+               <subsidiaryHazardClassDivision hazardClass="string" hazardDivision="0"/>
+               <temperatures>
+                  <controlTemperature uom="FARENHEIT">0.0</controlTemperature>
+                  <emergencyTemperature uom="CELSIUS">0.0</emergencyTemperature>
+                  <flashpointTemperature uom="KELVIN">0.0</flashpointTemperature>
+               </temperatures>
+            </dangerousGoodsPackage>
+            <shipmentDimensions>
+               <grossWeight uom="KILOGRAMS">0.0</grossWeight>
+               <netWeight uom="POUNDS">0.0</netWeight>
+               <volume uom="GALLONS">0.0</volume>
+            </shipmentDimensions>
+         </packageGroup>
+         <shippingInformation dangerousGoodsScreeningLocation="string" departureCountry="string" destinationCountry="string" originCountry="string" shipmentAuthorizations="string" subsidiaryHazardClassAndDivision="string" supplementaryInformation="string">
+            <aerodromeOfLoading>
+               <!--suppressed expansion of duplicate type AerodromeReferenceType-->
+            </aerodromeOfLoading>
+            <aerodromeOfUnloading>
+               <!--suppressed expansion of duplicate type AerodromeReferenceType-->
+            </aerodromeOfUnloading>
+            <consignee name="string" title="string">
+               <!--suppressed optional element address of type PostalAddressType-->
+               <!--suppressed optional element onlineContact of type OnlineContactType-->
+               <!--suppressed optional element phoneFax of type TelephoneContactType-->
+            </consignee>
+            <declarationText compliance="string" consignor="string" shipper="string"/>
+            <shipper name="string" title="string">
+               <!--suppressed optional element address of type PostalAddressType-->
+               <!--suppressed optional element onlineContact of type OnlineContactType-->
+               <!--suppressed optional element phoneFax of type TelephoneContactType-->
+            </shipper>
+            <transferAerodromes>string string</transferAerodromes>
+         </shippingInformation>
+      </dangerousGoods>
+      <departure departureFleetPrioritization="0" departureSlot="string" standardInstrumentDeparture="string">
+         <departureAerodrome>
+            <!--suppressed expansion of duplicate type AerodromeReferenceType-->
+         </departureAerodrome>
+         <departureFix>
+            <!--suppressed expansion of duplicate type SignificantPointType-->
+         </departureFix>
+         <departureFixTime>
+            <!--suppressed optional element actual of type ReportedTimeType-->
+            <!--suppressed optional element estimated of type ReportedTimeType-->
+         </departureFixTime>
+         <departurePositionsAndTimes>
+            <!--suppressed optional element positionTime of type AerodromePositionTimeType-->
+         </departurePositionsAndTimes>
+         <departureTimes>
+            <boardingTime>
+               <approval>
+                  <!--suppressed optional element actual of type ReportedTimeType-->
+                  <!--suppressed optional element estimated of type ReportedTimeType-->
+               </approval>
+               <begin>
+                  <!--suppressed optional element actual of type ReportedTimeType-->
+                  <!--suppressed optional element estimated of type ReportedTimeType-->
+               </begin>
+               <end>
+                  <!--suppressed optional element actual of type ReportedTimeType-->
+                  <!--suppressed optional element estimated of type ReportedTimeType-->
+               </end>
+               <ready>
+                  <!--suppressed optional element actual of type ReportedTimeType-->
+                  <!--suppressed optional element estimated of type ReportedTimeType-->
+               </ready>
+               <request>
+                  <!--suppressed optional element actual of type ReportedTimeType-->
+                  <!--suppressed optional element estimated of type ReportedTimeType-->
+               </request>
+            </boardingTime>
+            <deIcingTime>
+               <!--suppressed optional element approval of type MultiTimeType-->
+               <!--suppressed optional element begin of type MultiTimeType-->
+               <!--suppressed optional element end of type MultiTimeType-->
+               <!--suppressed optional element ready of type MultiTimeType-->
+               <!--suppressed optional element request of type MultiTimeType-->
+            </deIcingTime>
+            <groundHandlingTime>
+               <!--suppressed optional element approval of type MultiTimeType-->
+               <!--suppressed optional element begin of type MultiTimeType-->
+               <!--suppressed optional element end of type MultiTimeType-->
+               <!--suppressed optional element ready of type MultiTimeType-->
+               <!--suppressed optional element request of type MultiTimeType-->
+            </groundHandlingTime>
+            <startupTime>
+               <!--suppressed optional element approval of type MultiTimeType-->
+               <!--suppressed optional element begin of type MultiTimeType-->
+               <!--suppressed optional element end of type MultiTimeType-->
+               <!--suppressed optional element ready of type MultiTimeType-->
+               <!--suppressed optional element request of type MultiTimeType-->
+            </startupTime>
+         </departureTimes>
+         <offBlockReadyTime>
+            <!--suppressed optional element actual of type ReportedTimeType-->
+            <!--suppressed optional element estimated of type ReportedTimeType-->
+         </offBlockReadyTime>
+         <takeoffAlternateAerodrome>
+            <!--suppressed expansion of duplicate type AerodromeReferenceType-->
+         </takeoffAlternateAerodrome>
+      </departure>
+      <emergency actionTaken="string" emergencyDescription="string" otherInformation="string" phase="INCERFA">
+         <contact lastContactTime="1900-01-01T00:00:00" lastContactUnit="string">
+            <contactFrequency band="HIGH_FREQUENCY" uom="MEGAHERTZ">string</contactFrequency>
+            <position determinationMethod="string" timeAtPosition="1900-01-01T00:00:00">
+               <position>
+                  <!--suppressed expansion of duplicate type SignificantPointType-->
+               </position>
+            </position>
+         </contact>
+         <originator aftnAddress="string" delegated="AUTHORITY_DELEGATED" sectorIdentifier="string"/>
+      </emergency>
+      <enRoute fleetPrioritization="0">
+         <alternateAerodrome>
+            <!--suppressed expansion of duplicate type AerodromeReferenceType-->
+         </alternateAerodrome>
+         <beaconCodeAssignment>
+            <currentBeaconCode ssrMode="A">string</currentBeaconCode>
+            <previousBeaconCode ssrMode="C">string</previousBeaconCode>
+            <reassignedBeaconCode ssrMode="S">string</reassignedBeaconCode>
+            <reassigningUnit>
+               <!--suppressed expansion of duplicate type AtcUnitReferenceType-->
+            </reassigningUnit>
+         </beaconCodeAssignment>
+         <boundaryCrossings>
+            <unitBoundary delegated="AUTHORITY_DELEGATED" sectorIdentifier="string" unitBoundaryIndicator="CURRENT">
+               <boundaryCrossing>
+                  <!--suppressed optional element boundaryCrossingCoordinated of type BoundaryCrossingCoordinatedType-->
+                  <!--suppressed optional element boundaryCrossingProposed of type BoundaryCrossingProposedType-->
+               </boundaryCrossing>
+               <!--suppressed optional element downstreamUnit of type AtcUnitReferenceType-->
+               <!--suppressed optional element handoff of type HandoffType-->
+               <!--suppressed optional element upstreamUnit of type AtcUnitReferenceType-->
+            </unitBoundary>
+         </boundaryCrossings>
+         <controlElement>
+            <!--alternative 2 of choice type ControlElementType-->
+            <flowConstrainedArea airspaceControlledEntryTime="1900-01-01T00:00:00">string</flowConstrainedArea>
+         </controlElement>
+         <cpdlcConnection atnLogonParameters="string" connectionStatus="NO_CONNECTION" fans1ALogonParameters="string" frequencyUsage="VOICE" sendCpldcIndicator="SEND_CPDLC_START_REQUEST">
+            <receivingUnitFrequency band="VERY_HIGH_FREQUENCY" uom="KILOHERTZ">string</receivingUnitFrequency>
+         </cpdlcConnection>
+         <pointout>
+            <originatingUnit>
+               <!--suppressed expansion of duplicate type AtcUnitReferenceType-->
+            </originatingUnit>
+            <receivingUnit>
+               <!--suppressed expansion of duplicate type AtcUnitReferenceType-->
+            </receivingUnit>
+         </pointout>
+         <position positionTime="1900-01-01T00:00:00" source="PROGRESS_REPORT">
+            <actualSpeed>
+               <calculated uom="KILOMETERS_PER_HOUR">0.0</calculated>
+               <pilotReported uom="KNOTS">0.0</pilotReported>
+               <surveillance uom="KNOTS">0.0</surveillance>
+            </actualSpeed>
+            <altitude ref="FLIGHT_LEVEL" uom="METERS">0.0</altitude>
+            <followingPosition positionEstimatedTime="1900-01-01T00:00:00">
+               <position>
+                  <!--suppressed expansion of duplicate type SignificantPointType-->
+               </position>
+               <positionAltitude ref="MEAN_SEA_LEVEL" uom="FEET">0.0</positionAltitude>
+            </followingPosition>
+            <nextPosition positionEstimatedTime="1900-01-01T00:00:00">
+               <!--suppressed optional element position of type SignificantPointType-->
+               <!--suppressed optional element positionAltitude of type AltitudeType-->
+            </nextPosition>
+            <position>
+               <!--suppressed expansion of duplicate type SignificantPointType-->
+            </position>
+            <track ref="MAGNETIC">0.0</track>
+         </position>
+      </enRoute>
+      <enRouteDiversion diversionRecoveryInformation="string"/>
+      <flightIdentification aircraftIdentification="string" majorCarrierIdentifier="string">
+         <!--suppressed optional element marketingCarrierFlightIdentifier of type null-->
+      </flightIdentification>
+      <flightStatus accepted="ACCEPTED" airborne="AIRBORNE" airborneHold="AIRBORNE_HOLD" airfile="AIRFILE" cancelled="CANCELLED" completed="COMPLETED" filed="FILED"/>
+      <operator operatorCategory="FREIGHT_CARGO_CARRIER">
+         <operatingOrganization>
+            <!--alternative 1 of choice type PersonOrOrganizationType-->
+            <!--suppressed optional element organization of type OrganizationType-->
+         </operatingOrganization>
+      </operator>
+      <originator>
+         <aftnAddress aftnAddress="string" delegated="AUTHORITY_DELEGATED" sectorIdentifier="string"/>
+         <flightOriginator>
+            <!--alternative 2 of choice type PersonOrOrganizationType-->
+            <person name="string">
+               <contact name="string" title="string">
+                  <!--suppressed optional element address of type PostalAddressType-->
+                  <!--suppressed optional element onlineContact of type OnlineContactType-->
+                  <!--suppressed optional element phoneFax of type TelephoneContactType-->
+               </contact>
+            </person>
+         </flightOriginator>
+      </originator>
+      <publication publisherName="string">
+         <recipient aftnAddress="string" delegated="AUTHORITY_DELEGATED" recipientReason="VICINITY" sectorIdentifier="string"/>
+      </publication>
+      <radioCommunicationFailure failureType="DEGRADED" radioFailureRemarks="string" remainingComCapability="string">
+         <contact lastContactTime="1900-01-01T00:00:00" lastContactUnit="string">
+            <!--suppressed optional element contactFrequency of type RadioFrequencyType-->
+            <!--suppressed optional element position of type LastPositionReportType-->
+         </contact>
+      </radioCommunicationFailure>
+      <route airfileRouteStartTime="1900-01-01T00:00:00" flightDuration="P00H00M00S" initialFlightRules="VFR" routeText="string">
+         <!--suppressed optional element estimatedElapsedTime of type EstimatedElapsedTimeType-->
+         <!--suppressed optional element expandedRoute of type ExpandedRouteType-->
+         <!--suppressed optional element holdFix of type SignificantPointType-->
+         <!--suppressed optional element initialCruisingSpeed of type TrueAirspeedType-->
+         <!--suppressed optional element requestedAltitude of type AltitudeType-->
+         <!--suppressed optional element segment of type RouteSegmentType-->
+      </route>
+      <routeToRevisedDestination airfileRouteStartTime="1900-01-01T00:00:00" flightDuration="P00H00M00S" initialFlightRules="IFR" routeText="string">
+         <!--suppressed optional element estimatedElapsedTime of type EstimatedElapsedTimeType-->
+         <!--suppressed optional element expandedRoute of type ExpandedRouteType-->
+         <!--suppressed optional element holdFix of type SignificantPointType-->
+         <!--suppressed optional element initialCruisingSpeed of type TrueAirspeedType-->
+         <!--suppressed optional element requestedAltitude of type AltitudeType-->
+         <!--suppressed optional element segment of type RouteSegmentType-->
+      </routeToRevisedDestination>
+      <specialHandling>ALTRV ATFMS</specialHandling>
+      <supplementalData fuelEndurance="P00H00M00S" personsOnBoard="0">
+         <additionalFlightInformation>
+            <nameValue name="string" value="string"/>
+         </additionalFlightInformation>
+         <pilotInCommand name="string">
+            <!--suppressed optional element contact of type ContactInformationType-->
+         </pilotInCommand>
+      </supplementalData>
+   </FlightType>
+
+<!--Type OriginatorType-->
+   <OriginatorType>
+      <!--suppressed optional element aftnAddress of type AftnUnitReferenceType-->
+      <!--suppressed optional element flightOriginator of type PersonOrOrganizationType-->
+   </OriginatorType>
+
+<!--Type SupplementalDataType-->
+   <SupplementalDataType fuelEndurance="P00H00M00S" personsOnBoard="0">
+      <!--suppressed optional element additionalFlightInformation of type NameValueListType-->
+      <!--suppressed optional element pilotInCommand of type PersonType-->
+   </SupplementalDataType>
+</FlightData>

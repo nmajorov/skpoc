@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+   attributeFormDefault="unqualified"
+   elementFormDefault="unqualified"
+   targetNamespace="http://www.fixm.aero/flight/2.0"
+   version="2.0.0"
+   xmlns="http://www.w3.org/2001/XMLSchema"
+   xmlns:fb="http://www.fixm.aero/base/2.0"
+   xmlns:ff="http://www.fixm.aero/foundation/2.0"
+   xmlns:fx="http://www.fixm.aero/flight/2.0"
+   xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   
+   <annotation>
+      <documentation>
+         Copyright (c) 2013 FIXM CCB membership comprising: Airservices Australia, EUROCONTROL, 
+         JCAB, NATS, NavCanada, SESAR Joint Undertaking and US FAA 
+         =========================================== 
+         All rights reserved. 
+          
+         Redistribution and use in source and binary forms, with or without modification, 
+         are permitted provided that the following conditions are met: 
+         * Redistributions of source code must retain the above copyright notice, this list 
+         of conditions and the disclaimer. 
+         * Redistributions in binary form must reproduce the above copyright notice, this 
+         list of conditions and the disclaimer in the documentation and/or other materials 
+         provided with the distribution. 
+         * Neither the names of Airservices Australia, EUROCONTROL, JCAB, NATS, NavCanada, 
+         SESAR Joint Undertaking and US FAA nor the names of their contributors may be used 
+         to endorse or promote products derived from this specification without specific prior 
+         written permission. 
+          
+         DISCLAIMER 
+          
+         THIS SPECIFICATION IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+         AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+         WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+         IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, 
+         INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
+         TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
+         BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+         CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN 
+         ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
+         DAMAGE. 
+          
+         ========================================== 
+         Editorial note: this license is an instance of the BSD license template as provided 
+         by the Open Source Initiative: 
+         http://www.opensource.org/licenses/bsd-license.php 
+          
+         The authoritative reference for FIXM is www.FIXM.aero. 
+          
+         Details on Airservices Australia: http://www.airservicesaustralia.com/ 
+         Details on EUROCONTROL: http://www.eurocontrol.int/ 
+         Details on JCAB: http://www.mlit.go.jp/en/koku/index.html 
+         Details on NATS: http://www.nats.co.uk/ 
+         Details on NavCanada: http://www.navcanada.ca/ 
+         Details on the SESAR JU and its members: http://www.sesarju.eu/players/members 
+         Details on the US FAA: http://www.faa.gov/ 
+      </documentation>
+   </annotation>
+   <import namespace="http://www.fixm.aero/base/2.0" schemaLocation="./../../base/Base.xsd"/>
+   <import namespace="http://www.fixm.aero/foundation/2.0" schemaLocation="./../../foundation/Foundation.xsd"/>
+   <include schemaLocation="./FlightRoute.xsd"/>
+   <annotation>
+      <documentation>
+         Route package contains details about the flight route. 
+      </documentation>
+   </annotation>
+
+   <complexType abstract="true" name="AbstractRoutePointType">
+      <annotation>
+         <documentation>
+            An abstract route point containing basic shared data between RoutePoint and ExpandedRoutePoint. 
+            
+         </documentation>
+      </annotation>
+      <sequence>
+         <element name="point" type="fb:SignificantPointType" minOccurs="1" maxOccurs="1" nillable="true" > 
+            <annotation>
+               <documentation>
+                  .Significant Point: A single point along the flight route. 
+               </documentation>
+            </annotation>
+         </element>
+      </sequence>
+      <attribute name="airTrafficType" type="fb:AirTrafficTypeType" use="optional" > 
+         <annotation>
+            <documentation>
+               .Route-Change Air Traffic Type: The type of flight value associated with the point. 
+               It is associated with the first point on 
+            </documentation>
+         </annotation>
+      </attribute>
+      <attribute name="delayAtPoint" type="ff:DurationType" use="optional" > 
+         <annotation>
+            <documentation>
+               .En Route Delay - Filed: The length of time the flight is expected to be delayed 
+               at a specific point en route. 
+            </documentation>
+         </annotation>
+      </attribute>
+      <attribute name="flightRules" type="fb:FlightRulesType" use="optional" > 
+         <annotation>
+            <documentation>
+               .Change Flight Rules: The regulation, or combination of regulations, that governs 
+               all aspects of operations under which the pilot plans to fly. 
+            </documentation>
+         </annotation>
+      </attribute>
+   </complexType>
+   <element name="AbstractRoutePoint" type="fx:AbstractRoutePointType" /> 
+
+   <complexType name="ElapsedTimeLocationType">
+      <annotation>
+         <documentation>
+            The location associated with estimated elapsed time. It can be a longitude, significant 
+            point of flight information region. 
+         </documentation>
+      </annotation>
+      <choice>
+         <element name="longitude" type="ff:LongitudeType" minOccurs="0" maxOccurs="1" > 
+            <annotation>
+               <documentation>
+                  Longitude associated with the elapsed time. 
+               </documentation>
+            </annotation>
+         </element>
+         <element name="point" type="fb:SignificantPointType" minOccurs="0" maxOccurs="1" > 
+            <annotation>
+               <documentation>
+                  Point associated with the estimated elapsed time that represents the initial approach 
+                  fix. 
+               </documentation>
+            </annotation>
+         </element>
+         <element name="region" type="ff:FlightInformationRegionType" minOccurs="0" maxOccurs="1" > 
+            <annotation>
+               <documentation>
+                  Flight information boundary associated with the elapsed time. 
+               </documentation>
+            </annotation>
+         </element>
+      </choice>
+   </complexType>
+   <element name="ElapsedTimeLocation" type="fx:ElapsedTimeLocationType" /> 
+
+   <complexType name="EstimatedElapsedTimeType">
+      <annotation>
+         <documentation>
+            .Elapsed Time - Estimated: The estimated amount of time from takeoff to arrival over 
+            the initial approach fix (for IFR flights), or over the destination aerodrome (for 
+            VFR flights), or FIR boundary. 
+         </documentation>
+      </annotation>
+      <sequence>
+         <element name="location" type="fx:ElapsedTimeLocationType" minOccurs="1" maxOccurs="1" nillable="true" > 
+            <annotation>
+               <documentation>
+                  The location associated with estimated elapsed time. It can be a longitude, significant 
+                  point of flight information region. 
+               </documentation>
+            </annotation>
+         </element>
+      </sequence>
+      <attribute name="elapsedTime" type="ff:DurationType" use="required" > 
+         <annotation>
+            <documentation>
+               The estimated amount of elapsed time. 
+            </documentation>
+         </annotation>
+      </attribute>
+   </complexType>
+   <element name="EstimatedElapsedTime" type="fx:EstimatedElapsedTimeType" /> 
+
+   <complexType name="ExpandedRouteType">
+      <annotation>
+         <documentation>
+            .Expanded Route: The expansion of the route into a set of points which describe the 
+            aircraft's expected 2D path from the departure aerodrome to the destination aerodrome. 
+            
+         </documentation>
+      </annotation>
+      <sequence>
+         <element name="routeImpactList" type="fx:RouteImpactListType" minOccurs="0" maxOccurs="1" > 
+            <annotation>
+               <documentation>
+                  .Route Impact List: Current traffic flow management prediction of en route Air Traffic 
+                  Control units (centres), sectors and airspace elements along the trajectory of a 
+                  flight. 
+               </documentation>
+            </annotation>
+         </element>
+         <element name="routePoint" type="fx:ExpandedRoutePointType" minOccurs="0" maxOccurs="unbounded" > 
+            <annotation>
+               <documentation>
+                  Expanded Route contains an ordered list of expanded route points. 
+               </documentation>
+            </annotation>
+         </element>
+      </sequence>
+   </complexType>
+   <element name="ExpandedRoute" type="fx:ExpandedRouteType" /> 
+
+   <complexType name="ExpandedRoutePointType">
+      <annotation>
+         <documentation>
+            .Expanded Route Point: A point that is part of the aircraft's expanded route of flight. 
+            
+         </documentation>
+      </annotation>
+      <complexContent>
+         <extension base="fx:AbstractRoutePointType">
+            <sequence>
+               <element name="constraint" type="fx:RouteConstraintType" minOccurs="0" maxOccurs="unbounded" > 
+                  <annotation>
+                     <documentation>
+                        An Expanded route point may contain an ordered list of constraints. 
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="estimatedLevel" type="ff:AltitudeType" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        .Expanded Route Point Altitude: The estimated altitude over the expanded route point. 
+                        
+                     </documentation>
+                  </annotation>
+               </element>
+            </sequence>
+            <attribute name="estimatedTime" type="ff:TimeType" use="optional" > 
+               <annotation>
+                  <documentation>
+                     .Expanded Route Point Time: The estimated time over the expanded route point. 
+                  </documentation>
+               </annotation>
+            </attribute>
+         </extension>
+      </complexContent>
+   </complexType>
+   <element name="ExpandedRoutePoint" type="fx:ExpandedRoutePointType" substitutionGroup="fx:AbstractRoutePoint" /> 
+
+   <complexType name="RouteType">
+      <annotation>
+         <documentation>
+            Contains information about the Flight Route. The route is comprised of Route Segments, 
+            which are comprised of Route Points. Route also contains an expanded route. 
+            .Route: The ICAO route string as depicted from the flight plan. 
+         </documentation>
+      </annotation>
+      <complexContent>
+         <extension base="fb:FeatureType">
+            <sequence>
+               <element name="estimatedElapsedTime" type="fx:EstimatedElapsedTimeType" minOccurs="0" maxOccurs="unbounded" > 
+                  <annotation>
+                     <documentation>
+                        .Estimated Elapsed Time: The estimated amount of time from takeoff to arrival over 
+                        the initial approach fix (for IFR flights), or over the destination aerodrome (for 
+                        VFR flights), or FIR boundary. 
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="expandedRoute" type="fx:ExpandedRouteType" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        A route may contain an optional expanded route where the route consisting of expanded 
+                        route points. 
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="holdFix" type="fb:SignificantPointType" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        .Hold Fix: The location for the flight to Hold along the route of flight. 
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="initialCruisingSpeed" type="ff:TrueAirspeedType" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        .Cruising Speed: The true airspeed for the first or the whole cruising portion of 
+                        the flight.  This can be for a filed flight or an active flight.  This element is 
+                        strategic in nature. 
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="requestedAltitude" type="ff:AltitudeType" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        .Cruising Altitude - Requested: The filed altitude (flight level) for the first or 
+                        the whole cruising portion of the flight. 
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="segment" type="fx:RouteSegmentType" minOccurs="0" maxOccurs="unbounded" > 
+                  <annotation>
+                     <documentation>
+                        Route consists of an optional ordered list of route segments. 
+                     </documentation>
+                  </annotation>
+               </element>
+            </sequence>
+            <attribute name="airfileRouteStartTime" type="ff:TimeType" use="optional" > 
+               <annotation>
+                  <documentation>
+                     .Airfile Route Start Time: The actual or estimated time of departure from the first 
+                     point on the route for a flight that has been filed in the air. 
+                  </documentation>
+               </annotation>
+            </attribute>
+            <attribute name="flightDuration" type="ff:DurationType" use="optional" > 
+               <annotation>
+                  <documentation>
+                     .Time En Route - Estimated: The total estimated time enroute, from the departure 
+                     time (runway) to the arrival at the destination (runway).  For an airfile flight 
+                     this is the total estimated time enroute, from the route start point to the arrival 
+                     at the destination (runway). 
+                  </documentation>
+               </annotation>
+            </attribute>
+            <attribute name="initialFlightRules" type="fb:FlightRulesType" use="optional" > 
+               <annotation>
+                  <documentation>
+                     .Flight Rules: The regulation, or combination of regulations, that governs all aspects 
+                     of operations under which the pilot plans to fly. 
+                  </documentation>
+               </annotation>
+            </attribute>
+            <attribute name="routeText" use="optional" > 
+               <annotation>
+                  <documentation>
+                     .Route: The ICAO route string as depicted from the flight plan. 
+                  </documentation>
+               </annotation>
+               <simpleType>
+                  <restriction base="fb:FreeTextType">
+                     <pattern value="[A-Z0-9/ ]+"/>
+                  </restriction>
+               </simpleType>
+            </attribute>
+         </extension>
+      </complexContent>
+   </complexType>
+   <element name="Route" type="fx:RouteType" substitutionGroup="fb:Feature" /> 
+
+   <complexType name="RouteImpactListType">
+      <annotation>
+         <documentation>
+            .Route Impact List: Current traffic flow management prediction of en route Air Traffic 
+            Control units (centres), sectors and airspace elements along the trajectory of a 
+            flight. 
+         </documentation>
+      </annotation>
+      <sequence>
+         <element name="predictedAirway" minOccurs="0" maxOccurs="1" > 
+            <annotation>
+               <documentation>
+                  .Predicted Airways: Current prediction of the airways along the trajectory of a flight. 
+                  
+               </documentation>
+            </annotation>
+            <simpleType>
+               <list itemType="ff:AtsRouteType"/>
+            </simpleType>
+         </element>
+         <element name="predictedSector" minOccurs="0" maxOccurs="1" > 
+            <annotation>
+               <documentation>
+                  .Predicted Sectors: Current prediction of the sectors along the trajectory of a flight 
+                  
+               </documentation>
+            </annotation>
+            <simpleType>
+               <list itemType="ff:SectorType"/>
+            </simpleType>
+         </element>
+         <element name="predictedUnit" type="fb:AtcUnitReferenceType" minOccurs="0" maxOccurs="unbounded" > 
+            <annotation>
+               <documentation>
+                  .Predicted Units: Current prediction of the en route Air Traffic Control units (centers) 
+                  along the trajectory of a flight 
+               </documentation>
+            </annotation>
+         </element>
+      </sequence>
+   </complexType>
+   <element name="RouteImpactList" type="fx:RouteImpactListType" /> 
+
+   <complexType name="RoutePointType">
+      <annotation>
+         <documentation>
+            Route point along a route of the flight. 
+         </documentation>
+      </annotation>
+      <complexContent>
+         <extension base="fx:AbstractRoutePointType">
+            <sequence>
+               <element name="constraint" type="fx:RouteConstraintType" minOccurs="0" maxOccurs="unbounded" > 
+                  <annotation>
+                     <documentation>
+                        A Route point may contain an ordered list of constraints. 
+                     </documentation>
+                  </annotation>
+               </element>
+            </sequence>
+         </extension>
+      </complexContent>
+   </complexType>
+   <element name="RoutePoint" type="fx:RoutePointType" substitutionGroup="fx:AbstractRoutePoint" /> 
+
+   <complexType name="RouteSegmentType">
+      <annotation>
+         <documentation>
+            Route Segment contained within the route. Each segment may contain a route point 
+            and an airway. 
+         </documentation>
+      </annotation>
+      <sequence>
+         <element name="routePoint" type="fx:RoutePointType" minOccurs="0" maxOccurs="1" > 
+            <annotation>
+               <documentation>
+                  Route Segment consists of an optional route point. 
+               </documentation>
+            </annotation>
+         </element>
+      </sequence>
+      <attribute name="airway" type="ff:AtsRouteType" use="optional" > 
+         <annotation>
+            <documentation>
+               .Airway: The coded designator for a published ATS route or route segment. 
+            </documentation>
+         </annotation>
+      </attribute>
+   </complexType>
+   <element name="RouteSegment" type="fx:RouteSegmentType" /> 
+</schema>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>ch.skyguide.fuse.prototype</groupId>
+    <artifactId>skyguide-ei-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>skyguide-ei-correlation</artifactId>
+  <packaging>bundle</packaging>
+  <name>Asterix Integration Flow Prototype :: Correlation</name>
+
+  <properties>
+    <skyguide-osgi-default-import>*,
+      aero.fixm.model.base,
+      aero.fixm.model.flight,
+      aero.fixm.model.foundation,
+      ch.skyguide.fixm.extension.flight.enroute
+    </skyguide-osgi-default-import>
+  </properties>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+  
+  
+  <dependencies>
+
+    <!-- apache modules -->
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-cxf</artifactId>
+    </dependency>
+
+    <!-- own modules -->
+    <dependency>
+      <groupId>ch.skyguide.fuse.prototype</groupId>
+      <artifactId>skyguide-ei-commons</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>ch.skyguide.fuse.prototype</groupId>
+      <artifactId>skyguide-ei-foservice</artifactId>
+    </dependency>
+	
+
+    <!-- logging support -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+    </dependency>
+
+    <!-- testing support -->
+    
+    <dependency>
+	  <groupId>${project.groupId}</groupId>
+  	  <artifactId>skyguide-ei-commons</artifactId>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+   
+   <dependency>
+	  <groupId>${project.groupId}</groupId>
+  	  <artifactId>skyguide-ei-foservice</artifactId>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+   
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-test-blueprint</artifactId>
+	  <scope>test</scope>
+    </dependency>
+   
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-rt-transports-http-jetty</artifactId>
+	  <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.ow2.asm</groupId>
+      <artifactId>asm-all</artifactId>
+	  <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

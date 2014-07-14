@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:fixmAsterixMessage xmlns:ns2="http://www.fixm.aero/flight/2.0/skyguide" xmlns:ns3="http://www.fixm.aero/foundation/2.0" xmlns:ns4="http://www.fixm.aero/flight/2.0" xmlns:ns5="http://www.fixm.aero/base/2.0">
+    <ns2:fixmAsterixDataBlock dataCategory="62" lengthIndicator="107">
+        <ns2:fixmAsterixRecord xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:SystemTrackDataType">
+            <fieldSpecification>
+                <fieldReference frn="1" dataItem="I62/10">
+                    <present>true</present>
+                </fieldReference>
+                <fieldReference frn="2">
+                    <present>false</present>
+                </fieldReference>
+                <fieldReference frn="3">
+                    <present>false</present>
+                </fieldReference>
+                <fieldReference frn="4" dataItem="I62/70">
+                    <present>true</present>
+                </fieldReference>
+                <fieldReference frn="5">
+                    <present>false</present>
+                </fieldReference>
+                <fieldReference frn="6" dataItem="I62/100">
+                    <present>true</present>
+                </fieldReference>
+                <fieldReference frn="7" dataItem="I62/185">
+                    <present>true</present>
+                </fieldReference>
+                <fieldReference frn="8">
+                    <present>false</present>
+                </fieldReference>
+                <fieldReference frn="9" dataItem="I62/60">
+                    <present>true</present>
+                </fieldReference>
+                <fieldReference frn="10">
+                    <present>false</present>
+                </fieldReference>
+                <fieldReference frn="11" dataItem="I62/380">
+                    <present>true</present>
+                </fieldReference>
+                <fieldReference frn="12" dataItem="I62/40">
+                    <present>true</present>
+                </fieldReference>
+                <fieldReference frn="13" dataItem="I62/80">
+                    <present>true</present>
+                </fieldReference>
+                <fieldReference frn="14" dataItem="I62/290">
+                    <present>true</present>
+                </fieldReference>
+                <fieldReference frn="15" dataItem="I62/200">
+                    <present>true</present>
+                </fieldReference>
+                <fieldReference frn="16" dataItem="I62/295">
+                    <present>true</present>
+                </fieldReference>
+                <fieldReference frn="17" dataItem="I62/136">
+                    <present>true</present>
+                </fieldReference>
+                <fieldReference frn="18">
+                    <present>false</present>
+                </fieldReference>
+                <fieldReference frn="19" dataItem="I62/135">
+                    <present>true</present>
+                </fieldReference>
+                <fieldReference frn="20" dataItem="I62/220">
+                    <present>true</present>
+                </fieldReference>
+                <fieldReference frn="21">
+                    <present>false</present>
+                </fieldReference>
+                <fieldReference frn="22">
+                    <present>false</present>
+                </fieldReference>
+                <fieldReference frn="23">
+                    <present>false</present>
+                </fieldReference>
+                <fieldReference frn="24">
+                    <present>false</present>
+                </fieldReference>
+                <fieldReference frn="25">
+                    <present>false</present>
+                </fieldReference>
+                <fieldReference frn="26">
+                    <present>false</present>
+                </fieldReference>
+                <fieldReference frn="27">
+                    <present>false</present>
+                </fieldReference>
+                <fieldReference frn="28" dataItem="I62/340">
+                    <present>true</present>
+                </fieldReference>
+                <fieldReference frn="29">
+                    <present>false</present>
+                </fieldReference>
+                <fieldReference frn="30">
+                    <present>false</present>
+                </fieldReference>
+                <fieldReference frn="31">
+                    <present>false</present>
+                </fieldReference>
+                <fieldReference frn="32">
+                    <present>false</present>
+                </fieldReference>
+                <fieldReference frn="33">
+                    <present>false</present>
+                </fieldReference>
+                <fieldReference frn="34" dataItem="I62/810">
+                    <present>true</present>
+                </fieldReference>
+            </fieldSpecification>
+            <ns2:dataSourceIdentifier>
+                <systemAreaCode>125</systemAreaCode>
+                <systemIdentificationCode>17</systemIdentificationCode>
+            </ns2:dataSourceIdentifier>
+            <ns2:trackNumber>1</ns2:trackNumber>
+            <trackMode3ACode>9409</trackMode3ACode>
+            <timeOfTrackInformation>5529633</timeOfTrackInformation>
+            <ns2:trackStatus>1</ns2:trackStatus>
+            <calculatedTrackPositionCartesian>
+                <location>
+                    <pos>-364560.0 -179685.0</pos>
+                </location>
+            </calculatedTrackPositionCartesian>
+            <calculatedTrackBarometricAltitude>520</calculatedTrackBarometricAltitude>
+            <measuredFlightLevel>520</measuredFlightLevel>
+            <calculatedTrackVelocityCartesian>
+                <Vx>-298</Vx>
+                <Vy>676</Vy>
+            </calculatedTrackVelocityCartesian>
+            <ns2:modeOfMovement>80</ns2:modeOfMovement>
+            <calculatedRateOfClimb>0</calculatedRateOfClimb>
+            <ns2:systemTrackUpdateAges>0 0 0 0</ns2:systemTrackUpdateAges>
+            <ns2:trackDataAges>-109 -95 95 -64 0 0 0 0 0 0 0 0 0 0 0 0</ns2:trackDataAges>
+            <ns2:measuredInformation/>
+            <ns2:aircraftDerivedData>
+                <targetIdentification>EZS37P  </targetIdentification>
+                <magneticHeading>61005</magneticHeading>
+            </ns2:aircraftDerivedData>
+        </ns2:fixmAsterixRecord>
+    </ns2:fixmAsterixDataBlock>
+    <ns2:fixmAsterixDataBlock dataCategory="65" lengthIndicator="12">
+        <ns2:fixmAsterixRecord xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:SDPSServiceType">
+            <fieldSpecification>
+                <fieldReference frn="1" dataItem="I65/10">
+                    <present>true</present>
+                </fieldReference>
+                <fieldReference frn="2" dataItem="I65/0">
+                    <present>true</present>
+                </fieldReference>
+                <fieldReference frn="3" dataItem="I65/15">
+                    <present>true</present>
+                </fieldReference>
+                <fieldReference frn="4" dataItem="I65/30">
+                    <present>true</present>
+                </fieldReference>
+                <fieldReference frn="5" dataItem="I65/20">
+                    <present>true</present>
+                </fieldReference>
+                <fieldReference frn="6">
+                    <present>false</present>
+                </fieldReference>
+                <fieldReference frn="7">
+                    <present>false</present>
+                </fieldReference>
+            </fieldSpecification>
+            <messageType>0</messageType>
+            <ns2:dataSourceIdentifier>
+                <systemAreaCode>125</systemAreaCode>
+                <systemIdentificationCode>17</systemIdentificationCode>
+            </ns2:dataSourceIdentifier>
+            <ns2:serviceIdentifier>0</ns2:serviceIdentifier>
+            <batchNumber>8</batchNumber>
+            <timeOfMessage>5529831</timeOfMessage>
+        </ns2:fixmAsterixRecord>
+    </ns2:fixmAsterixDataBlock>
+</ns2:fixmAsterixMessage>

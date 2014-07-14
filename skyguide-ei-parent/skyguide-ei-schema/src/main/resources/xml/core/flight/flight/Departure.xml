@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><Departure>
+
+<!--Type DepartureActivityTimesType-->
+   <DepartureActivityTimesType>
+      <boardingTime>
+         <approval>
+            <actual center="string" source="string" system="string" time="1900-01-01T00:00:00" timestamp="1900-01-01T00:00:00"/>
+            <estimated center="string" source="string" system="string" time="1900-01-01T00:00:00" timestamp="1900-01-01T00:00:00"/>
+         </approval>
+         <begin>
+            <!--suppressed optional element actual of type ReportedTimeType-->
+            <!--suppressed optional element estimated of type ReportedTimeType-->
+         </begin>
+         <end>
+            <!--suppressed optional element actual of type ReportedTimeType-->
+            <!--suppressed optional element estimated of type ReportedTimeType-->
+         </end>
+         <ready>
+            <!--suppressed optional element actual of type ReportedTimeType-->
+            <!--suppressed optional element estimated of type ReportedTimeType-->
+         </ready>
+         <request>
+            <!--suppressed optional element actual of type ReportedTimeType-->
+            <!--suppressed optional element estimated of type ReportedTimeType-->
+         </request>
+      </boardingTime>
+      <deIcingTime>
+         <!--suppressed optional element approval of type MultiTimeType-->
+         <!--suppressed optional element begin of type MultiTimeType-->
+         <!--suppressed optional element end of type MultiTimeType-->
+         <!--suppressed optional element ready of type MultiTimeType-->
+         <!--suppressed optional element request of type MultiTimeType-->
+      </deIcingTime>
+      <groundHandlingTime>
+         <!--suppressed optional element approval of type MultiTimeType-->
+         <!--suppressed optional element begin of type MultiTimeType-->
+         <!--suppressed optional element end of type MultiTimeType-->
+         <!--suppressed optional element ready of type MultiTimeType-->
+         <!--suppressed optional element request of type MultiTimeType-->
+      </groundHandlingTime>
+      <startupTime>
+         <!--suppressed optional element approval of type MultiTimeType-->
+         <!--suppressed optional element begin of type MultiTimeType-->
+         <!--suppressed optional element end of type MultiTimeType-->
+         <!--suppressed optional element ready of type MultiTimeType-->
+         <!--suppressed optional element request of type MultiTimeType-->
+      </startupTime>
+   </DepartureActivityTimesType>
+
+<!--Type FlightDepartureType-->
+   <FlightDepartureType departureFleetPrioritization="0" departureSlot="string" standardInstrumentDeparture="string">
+      <departureAerodrome code="string" type="IcaoAerodromeReferenceType"/>
+      <departureFix type="LocationPointType">
+         <location srsName="string">
+            <pos>0.0 0.0</pos>
+         </location>
+      </departureFix>
+      <departureFixTime>
+         <!--suppressed optional element actual of type ReportedTimeType-->
+         <!--suppressed optional element estimated of type ReportedTimeType-->
+      </departureFixTime>
+      <departurePositionsAndTimes>
+         <positionTime>
+            <arriveAtPosition>
+               <!--suppressed optional element actual of type ReportedTimeType-->
+               <!--suppressed optional element estimated of type ReportedTimeType-->
+               <controlled center="string" source="string" system="string" time="1900-01-01T00:00:00" timestamp="1900-01-01T00:00:00"/>
+               <initial center="string" source="string" system="string" time="1900-01-01T00:00:00" timestamp="1900-01-01T00:00:00"/>
+               <target center="string" source="string" system="string" time="1900-01-01T00:00:00" timestamp="1900-01-01T00:00:00"/>
+            </arriveAtPosition>
+            <departFromPosition>
+               <!--suppressed optional element actual of type ReportedTimeType-->
+               <!--suppressed optional element estimated of type ReportedTimeType-->
+               <!--suppressed optional element controlled of type ReportedTimeType-->
+               <!--suppressed optional element initial of type ReportedTimeType-->
+               <!--suppressed optional element target of type ReportedTimeType-->
+            </departFromPosition>
+            <position standName="string" terminalName="string" type="StandPositionType"/>
+         </positionTime>
+      </departurePositionsAndTimes>
+      <departureTimes>
+         <!--suppressed optional element boardingTime of type TimeSequenceType-->
+         <!--suppressed optional element deIcingTime of type TimeSequenceType-->
+         <!--suppressed optional element groundHandlingTime of type TimeSequenceType-->
+         <!--suppressed optional element startupTime of type TimeSequenceType-->
+      </departureTimes>
+      <offBlockReadyTime>
+         <!--suppressed optional element actual of type ReportedTimeType-->
+         <!--suppressed optional element estimated of type ReportedTimeType-->
+      </offBlockReadyTime>
+      <takeoffAlternateAerodrome>
+         <!--suppressed expansion of duplicate type AerodromeReferenceType-->
+      </takeoffAlternateAerodrome>
+   </FlightDepartureType>
+</Departure>

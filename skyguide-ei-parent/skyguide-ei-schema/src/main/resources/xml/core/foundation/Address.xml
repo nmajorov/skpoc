@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><Address>
+
+<!--Type ContactInformationType-->
+   <ContactInformationType name="string" title="string">
+      <address administrativeArea="string" city="string" countryCode="string" countryName="string" postalCode="string">
+         <deliveryPoint>string string</deliveryPoint>
+      </address>
+      <onlineContact eMail="string"/>
+      <phoneFax facsimile="string" voice="string"/>
+   </ContactInformationType>
+
+<!--Type OnlineContactType-->
+   <OnlineContactType eMail="string"/>
+
+<!--Type PostalAddressType-->
+   <PostalAddressType administrativeArea="string" city="string" countryCode="string" countryName="string" postalCode="string">
+      <!--suppressed optional element deliveryPoint of type null-->
+   </PostalAddressType>
+
+<!--Type TelephoneContactType-->
+   <TelephoneContactType facsimile="string" voice="string"/>
+</Address>

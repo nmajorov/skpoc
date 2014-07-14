@@ -1,0 +1,124 @@
+#Network UDP troubleshooting for JBoss fuse on RHEL 6.1
+
+author: Nikolaj Majorov
+
+
+##check if interface get data with command:
+
+		tcpdump -i eth1
+
+
+
+you should get something like this:
+
+
+		[root@zhwtdvcproto01 ~]# tcpdump -ni eth1 
+		tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+		listening on eth1, link-type EN10MB (Ethernet), capture size 65535 bytes
+		14:29:23.490066 IP 192.168.0.10.icl-twobase2 > 239.193.192.3.icl-twobase2: UDP, length 118
+		14:29:23.601999 STP 802.1d, Config, Flags [none], bridge-id 8001.00:26:ca:c4:4d:80.8002, length 43
+		14:29:23.674458 IP 192.168.0.10.icl-twobase2 > 239.193.192.3.icl-twobase2: UDP, length 12
+		14:29:23.879587 IP 192.168.0.10.icl-twobase2 > 239.193.192.3.icl-twobase2: UDP, length 118
+		14:29:23.944046 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:26:ca:c4:4d:c0, length 576
+		14:29:24.084712 IP 192.168.0.10.icl-twobase2 > 239.193.192.3.icl-twobase2: UDP, length 12
+		14:29:24.289843 IP 192.168.0.10.icl-twobase2 > 239.193.192.3.icl-twobase2: UDP, length 12
+		14:29:24.494719 IP 192.168.0.10.icl-twobase2 > 239.193.192.3.icl-twobase2: UDP, length 12
+
+
+
+check the corresponding port:
+
+		[root@zhwtdvcproto01 ~]# grep twobase2  /etc/services
+		icl-twobase2    25001/tcp               # icl-twobase2
+		icl-twobase2    25001/udp               # icl-twobase2
+
+
+
+
+
+check route with commands:
+
+		[root@zhwtdvcproto01 ~]# netstat -gn
+		IPv6/IPv4 Group Memberships
+		Interface       RefCnt Group
+		--------------- ------ ---------------------
+		lo              1      224.0.0.1
+		eth0            1      224.0.0.1
+		eth1            1      239.193.192.3
+		eth1            1      224.0.0.1
+		lo              1      ff02::1
+		eth0            1      ff02::1:ffde:f055
+		eth0            1      ff02::1
+		eth1            1      ff02::1:ffd0:43fc
+		eth1            1      ff02::1
+		eth2            1      ff02::1
+
+
+
+		root@zhwtdvcproto01 ~]# route
+		Kernel IP routing table
+		Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+		239.0.0.0       *               255.255.255.255 UH    0      0        0 eth1
+		239.193.192.3   *               255.255.255.255 UH    0      0        0 eth1
+		192.168.0.0     *               255.255.255.0   U     0      0        0 eth1
+		172.21.160.0    *               255.255.255.0   U     0      0        0 eth0
+		link-local      *               255.255.0.0     U     1002   0        0 eth0
+		link-local      *               255.255.0.0     U     1003   0        0 eth1
+		default         172.21.160.3    0.0.0.0         UG    0      0        0 eth0
+
+
+
+Add route to device with command:
+
+
+		route add 239.193.192.3 dev eth1
+
+
+Check if connections are established:
+
+
+	[root@zhwtdvcproto01 ~]# netstat -nul
+	Active Internet connections (only servers)
+	Proto Recv-Q Send-Q Local Address               Foreign Address             State      
+	udp        0      0 192.168.0.1:123             0.0.0.0:*                               
+	udp        0      0 172.21.160.158:123          0.0.0.0:*                               
+	udp        0      0 127.0.0.1:123               0.0.0.0:*                               
+	udp        0      0 0.0.0.0:123                 0.0.0.0:*                               
+	udp        0      0 239.193.192.3:25001         0.0.0.0:*                               
+	udp        0      0 0.0.0.0:68                  0.0.0.0:*                               
+	udp        0      0 fe80::204:23ff:fed0:43fc:123 :::*                                    
+	udp        0      0 fe80::212:79ff:fede:f055:123 :::*                                    
+	udp        0      0 ::1:123                     :::*                                    
+	udp        0      0 :::123                      :::*  
+
+check if firewall is off or configured correctly:
+
+	[root@zhwtdvcproto01 ~]# service --status-all | grep iptables
+	iptables: Firewall is not running.
+
+
+run python script sender and receiver to test multicast group communication.	
+
+
+
+Netty UDP consumer configuration in the context:
+	
+	
+	<from uri="netty:udp://239.193.192.3:25001?decoder=#nettyDecoder&amp;disconnectOnNoReply=false&amp;sync=false&amp;networkInterface=eth1" />
+   
+
+Netty UPD producer :
+
+		<to uri="netty:udp://239.193.192.3:25002?encoder=#nettyEncoder&amp;broadcast=true&amp;sync=false&amp;networkInterface=eth1" customId="true" id="to6"/>
+
+
+
+**Attention:** Do not add forget add networkInterface flag.
+
+Since Camel 2.12, you can use this option to specify the interface to be
+used : networkInterface
+
+
+
+
+

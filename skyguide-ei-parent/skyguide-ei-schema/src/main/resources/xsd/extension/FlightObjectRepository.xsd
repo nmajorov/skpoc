@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by Ross Wilson (skyguide, swiss air navigation services ltd.) -->
+<!-- Copyright (c) 2003 skyguide swiss air navigation services ltd -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:fx="http://www.fixm.aero/flight/2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fs="http://www.fixm.aero/flight/2.0/skyguide" targetNamespace="http://www.fixm.aero/flight/2.0/skyguide" elementFormDefault="qualified" attributeFormDefault="qualified" version="2.0.0">
+	<import namespace="http://www.fixm.aero/flight/2.0" schemaLocation="../flight/FlightObject.xsd"/>
+	<element name="FlightObjectRepositoryMessage">
+		<annotation>
+			<documentation>TODO.</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element name="Message" type="fs:MessageType"/>
+			</sequence>
+			<attribute name="Version" type="string" use="required" fixed="1.0"/>
+		</complexType>
+	</element>
+	<complexType name="MessageType" abstract="true"/>
+	<complexType name="RequestType" abstract="true">
+		<annotation>
+			<documentation> Abstact base class for all requests.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="fs:MessageType">
+				<sequence>
+					<element ref="fx:Flight" maxOccurs="unbounded" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="ResponseType" abstract="true">
+		<annotation>
+			<documentation> Abstract base class for all responses.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="fs:MessageType">
+				<sequence>
+					<element name="OriginalRequest" type="fs:RequestType" maxOccurs="unbounded"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="AcknowledgementType">
+		<annotation>
+			<documentation>The acknowledgement response is sent by servers to indicate that a request/command has been received, understood and accepted. The command will be executed asynchronously at a later point in time.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="fs:ResponseType"/>
+		</complexContent>
+	</complexType>
+	<complexType name="ErrorType">
+		<annotation>
+			<documentation>Error responses are sent by servers to indicate some kind of failure during the processing or execution of a request/command.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="fs:ResponseType">
+				<sequence>
+					<element name="ErrorCode">
+						<complexType>
+							<simpleContent>
+								<extension base="fs:ErrorCodeType"/>
+							</simpleContent>
+						</complexType>
+					</element>
+					<element name="ErrorText">
+						<annotation>
+							<documentation>Error text (reason phrase).</documentation>
+						</annotation>
+						<simpleType>
+							<restriction base="string"/>
+						</simpleType>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<simpleType name="ErrorCodeType">
+		<annotation>
+			<documentation>There are two classes of error codes: Client Errors indicate that the request contains bad syntax or cannot be fulfilled. Server Errors indicate that the server failed to fulfill an apparently valid request.</documentation>
+		</annotation>
+		<restriction base="string">
+			<enumeration value="BadRequest">
+				<annotation>
+					<documentation>The request could not be understood by the server due to malformed syntax. The client should not repeat the request without modifications.</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="PreconditionFailed">
+				<annotation>
+					<documentation>A precondition of the request/command was not fulfilled when it was tested on the server.</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="InvalidState">
+				<annotation>
+					<documentation>The request/command could not be accepted or executed in the current state of the server and is therefore ignored (unhandled message).</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="InternalServerError">
+				<annotation>
+					<documentation>The server encountered an unexpected condition which prevented it from fulfilling the request.</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="NotImplemented">
+				<annotation>
+					<documentation>The server does not support the functionality required to fulfill the request (unsupported message). This is the appropriate response when the server does not recognize the request method and is not capable of supporting it (e.g. if the server uses a different version of the protocol).</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<complexType name="CreateType">
+		<annotation>
+			<documentation>Creates a Flight object in the Repository</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="fs:RequestType"/>
+		</complexContent>
+	</complexType>
+	<complexType name="RetrieveType">
+		<annotation>
+			<documentation>Retrieves a Flight object from the Repository</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="fs:RequestType"/>
+		</complexContent>
+	</complexType>
+	<complexType name="UpdateType">
+		<annotation>
+			<documentation>Updates a Flight object in the Repository.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="fs:RequestType"/>
+		</complexContent>
+	</complexType>
+	<complexType name="DeleteType">
+		<annotation>
+			<documentation>Deletes a Flight object in the Repository.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="fs:RequestType"/>
+		</complexContent>
+	</complexType>
+</schema>

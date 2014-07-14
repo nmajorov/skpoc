@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><AircraftDescription>
+
+<!--Type AircraftCapabilitiesType-->
+   <AircraftCapabilitiesType standardCapabilities="STANDARD">
+      <communication otherCommunicationCapabilities="string" otherDataLinkCapabilities="string" selectiveCallingCode="string">
+         <communicationCode>E1 E2</communicationCode>
+         <dataLinkCode>J1 J2</dataLinkCode>
+      </communication>
+      <navigation otherNavigationCapabilities="string">
+         <navigationCode>A B</navigationCode>
+         <performanceBasedCode>A1 B1</performanceBasedCode>
+      </navigation>
+      <surveillance otherSurveillanceCapabilities="string">
+         <surveillanceCode>A B1</surveillanceCode>
+      </surveillance>
+      <survival survivalEquipmentRemarks="string">
+         <dinghyInformation covered="COVERED" quantity="0" totalCapacity="0">
+            <colour>
+               <!--alternative 1 of choice type DinghyColourType-->
+               <colourCode>ORANGE</colourCode>
+            </colour>
+         </dinghyInformation>
+         <emergencyRadioCode>ULTRA_HIGH_FREQUENCY VERY_HIGH_FREQUENCY</emergencyRadioCode>
+         <lifeJacketCode>FLUORESCEIN VERY_HIGH_FREQUENCY</lifeJacketCode>
+         <survivalEquipmentCode>POLAR DESERT</survivalEquipmentCode>
+      </survival>
+   </AircraftCapabilitiesType>
+
+<!--Type AircraftType-->
+   <AircraftType aircraftAddress="string" aircraftColours="string" aircraftPerformance="A" aircraftQuantity="0" engineType="PISTON" registration="string" wakeTurbulence="L">
+      <aircraftType>
+         <!--alternative 2 of choice type AircraftTypeType-->
+         <otherModelData>string</otherModelData>
+      </aircraftType>
+      <capabilities standardCapabilities="STANDARD">
+         <!--suppressed optional element communication of type CommunicationCapabilitiesType-->
+         <!--suppressed optional element navigation of type NavigationCapabilitiesType-->
+         <!--suppressed optional element surveillance of type SurveillanceCapabilitiesType-->
+         <!--suppressed optional element survival of type SurvivalCapabilitiesType-->
+      </capabilities>
+   </AircraftType>
+
+<!--Type AircraftTypeType-->
+   <AircraftTypeType>
+      <!--alternative 1 of choice type AircraftTypeType-->
+      <icaoModelIdentifier>string</icaoModelIdentifier>
+   </AircraftTypeType>
+</AircraftDescription>

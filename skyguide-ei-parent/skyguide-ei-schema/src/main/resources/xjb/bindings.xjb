@@ -1,0 +1,96 @@
+<jaxb:bindings
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:annox="http://annox.dev.java.net"
+  xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+  xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+  jaxb:extensionBindingPrefixes="xjc annox"
+  version="2.1">
+
+  <jaxb:globalBindings fixedAttributeAsConstantProperty="false" typesafeEnumBase="xs:string" typesafeEnumMemberName="generateName" generateIsSetMethod="true" mapSimpleTypeDef="true">
+    <xjc:simple />
+  </jaxb:globalBindings>
+
+  <jaxb:bindings schemaLocation="../xsd/base/Base.xsd" node="/xs:schema">
+    <jaxb:schemaBindings>
+      <jaxb:package name="aero.fixm.model.base" />
+    </jaxb:schemaBindings>
+  </jaxb:bindings>
+
+  <jaxb:bindings schemaLocation="../xsd/flight/FlightObject.xsd" node="/xs:schema">
+    <jaxb:schemaBindings>
+      <jaxb:package name="aero.fixm.model.flight" />
+      <jaxb:nameXmlTransform>
+        <jaxb:elementName suffix="Element" />
+      </jaxb:nameXmlTransform>
+    </jaxb:schemaBindings>
+  </jaxb:bindings>
+
+  <jaxb:bindings schemaLocation="../xsd/flight/flight/FlightData.xsd" node="/xs:schema">
+    <jaxb:bindings node="//xs:complexType[@name='FlightType']">
+      <annox:annotate target="field">
+        <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="Flight" namespace="http://www.fixm.aero/flight/2.0" />
+      </annox:annotate>
+    </jaxb:bindings>
+  </jaxb:bindings>
+
+  <jaxb:bindings schemaLocation="../xsd/extension/FlightObjectRepository.xsd" node="/xs:schema">
+    <jaxb:bindings node="//xs:complexType[@name='CreateType']">
+      <annox:annotate target="field">
+        <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="CreateType" namespace="http://www.fixm.aero/flight/2.0" />
+      </annox:annotate>
+    </jaxb:bindings>
+  </jaxb:bindings>
+
+  <jaxb:bindings schemaLocation="../xsd/extension/FlightObjectRepository.xsd" node="/xs:schema">
+    <jaxb:bindings node="//xs:complexType[@name='UpdateType']">
+      <annox:annotate target="field">
+        <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="UpdateType" namespace="http://www.fixm.aero/flight/2.0" />
+      </annox:annotate>
+    </jaxb:bindings>
+  </jaxb:bindings>
+
+  <jaxb:bindings schemaLocation="../xsd/extension/FlightObjectRepository.xsd" node="/xs:schema">
+    <jaxb:bindings node="//xs:complexType[@name='DeleteType']">
+      <annox:annotate target="field">
+        <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="DeleteType" namespace="http://www.fixm.aero/flight/2.0" />
+      </annox:annotate>
+    </jaxb:bindings>
+  </jaxb:bindings>
+
+  <jaxb:bindings schemaLocation="../xsd/extension/FlightObjectRepository.xsd" node="/xs:schema">
+    <jaxb:bindings node="//xs:complexType[@name='RetrieveType']">
+      <annox:annotate target="field">
+        <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="RetrieveType" namespace="http://www.fixm.aero/flight/2.0" />
+      </annox:annotate>
+    </jaxb:bindings>
+  </jaxb:bindings>
+
+  <jaxb:bindings schemaLocation="../xsd/extension/FlightObjectRepository.xsd" node="/xs:schema">
+    <jaxb:bindings node="//xs:complexType[@name='AcknowledgementType']">
+      <annox:annotate target="field">
+        <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="AcknowledgementType" namespace="http://www.fixm.aero/flight/2.0" />
+      </annox:annotate>
+    </jaxb:bindings>
+  </jaxb:bindings>
+
+  <jaxb:bindings schemaLocation="../xsd/extension/FlightObjectRepository.xsd" node="/xs:schema">
+    <jaxb:bindings node="//xs:complexType[@name='ErrorType']">
+      <annox:annotate target="field">
+        <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="ErrorType" namespace="http://www.fixm.aero/flight/2.0" />
+      </annox:annotate>
+    </jaxb:bindings>
+  </jaxb:bindings>
+
+  <jaxb:bindings schemaLocation="../xsd/foundation/Foundation.xsd" node="/xs:schema">
+    <jaxb:schemaBindings>
+      <jaxb:package name="aero.fixm.model.foundation" />
+    </jaxb:schemaBindings>
+  </jaxb:bindings>
+
+  <jaxb:bindings schemaLocation="../xsd/extension/flight/enroute/SkyguidePosition.xsd" node="/xs:schema">
+    <jaxb:schemaBindings>
+      <jaxb:package name="ch.skyguide.fixm.extension.flight.enroute" />
+    </jaxb:schemaBindings>
+  </jaxb:bindings>
+
+</jaxb:bindings> 

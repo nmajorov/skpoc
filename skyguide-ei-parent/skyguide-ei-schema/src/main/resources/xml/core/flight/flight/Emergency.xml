@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><Emergency>
+
+<!--Type FlightEmergencyType-->
+   <FlightEmergencyType actionTaken="string" emergencyDescription="string" otherInformation="string" phase="INCERFA">
+      <contact lastContactTime="1900-01-01T00:00:00" lastContactUnit="string">
+         <contactFrequency band="HIGH_FREQUENCY" uom="MEGAHERTZ">string</contactFrequency>
+         <position determinationMethod="string" timeAtPosition="1900-01-01T00:00:00">
+            <position type="LocationPointType">
+               <location srsName="string">
+                  <pos>0.0 0.0</pos>
+               </location>
+            </position>
+         </position>
+      </contact>
+      <originator aftnAddress="string" delegated="AUTHORITY_DELEGATED" sectorIdentifier="string"/>
+   </FlightEmergencyType>
+
+<!--Type LastContactType-->
+   <LastContactType lastContactTime="1900-01-01T00:00:00" lastContactUnit="string">
+      <!--suppressed optional element contactFrequency of type RadioFrequencyType-->
+      <!--suppressed optional element position of type LastPositionReportType-->
+   </LastContactType>
+
+<!--Type LastPositionReportType-->
+   <LastPositionReportType determinationMethod="string" timeAtPosition="1900-01-01T00:00:00">
+      <!--suppressed optional element position of type SignificantPointType-->
+   </LastPositionReportType>
+
+<!--Type RadioCommunicationFailureType-->
+   <RadioCommunicationFailureType failureType="DEGRADED" radioFailureRemarks="string" remainingComCapability="string">
+      <contact lastContactTime="1900-01-01T00:00:00" lastContactUnit="string">
+         <!--suppressed optional element contactFrequency of type RadioFrequencyType-->
+         <!--suppressed optional element position of type LastPositionReportType-->
+      </contact>
+   </RadioCommunicationFailureType>
+</Emergency>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><Organization>
+
+<!--Type OrganizationType-->
+   <OrganizationType category="AVIATION_AUTHORITY" name="string" otherOrganization="string">
+      <contact name="string" title="string">
+         <address administrativeArea="string" city="string" countryCode="string" countryName="string" postalCode="string">
+            <deliveryPoint>string string</deliveryPoint>
+         </address>
+         <onlineContact eMail="string"/>
+         <phoneFax facsimile="string" voice="string"/>
+      </contact>
+   </OrganizationType>
+
+<!--Type PersonOrOrganizationType-->
+   <PersonOrOrganizationType>
+      <!--alternative 1 of choice type PersonOrOrganizationType-->
+      <organization category="AIRLINE" name="string" otherOrganization="string">
+         <!--suppressed optional element contact of type ContactInformationType-->
+      </organization>
+   </PersonOrOrganizationType>
+
+<!--Type PersonType-->
+   <PersonType name="string">
+      <contact name="string" title="string">
+         <!--suppressed optional element address of type PostalAddressType-->
+         <!--suppressed optional element onlineContact of type OnlineContactType-->
+         <!--suppressed optional element phoneFax of type TelephoneContactType-->
+      </contact>
+   </PersonType>
+</Organization>

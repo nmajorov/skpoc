@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><Measures>
+
+<!--Type DimensionsType-->
+   <DimensionsType>
+      <height uom="FEET">0.0</height>
+      <length uom="INCHES">0.0</length>
+      <width uom="METERS">0.0</width>
+   </DimensionsType>
+
+<!--Type DistanceType-->
+   <DistanceType uom="NAUTICAL_MILES">0.0</DistanceType>
+
+<!--Type GroundspeedType-->
+   <GroundspeedType uom="KILOMETERS_PER_HOUR">0.0</GroundspeedType>
+
+<!--Type IndicatedAirspeedType-->
+   <IndicatedAirspeedType uom="KILOMETERS_PER_HOUR">0.0</IndicatedAirspeedType>
+
+<!--Type LengthType-->
+   <LengthType uom="CENTIMETERS">0.0</LengthType>
+
+<!--Type TemperatureType-->
+   <TemperatureType uom="FARENHEIT">0.0</TemperatureType>
+
+<!--Type TrueAirspeedType-->
+   <TrueAirspeedType uom="KNOTS">0.0</TrueAirspeedType>
+
+<!--Type VolumeType-->
+   <VolumeType uom="LITERS">0.0</VolumeType>
+
+<!--Type WeightType-->
+   <WeightType uom="KILOGRAMS">0.0</WeightType>
+</Measures>

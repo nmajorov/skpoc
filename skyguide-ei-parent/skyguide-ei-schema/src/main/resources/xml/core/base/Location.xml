@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><Location>
+
+<!--Type DirectionType-->
+   <DirectionType ref="TRUE">0.0</DirectionType>
+
+<!--Type FixPointType-->
+   <FixPointType fix="string"/>
+
+<!--Type LocationPointType-->
+   <LocationPointType>
+      <location srsName="string">
+         <pos>0.0 0.0</pos>
+      </location>
+   </LocationPointType>
+
+<!--Type RelativePointType-->
+   <RelativePointType fix="string">
+      <distance uom="NAUTICAL_MILES">0.0</distance>
+      <radial ref="MAGNETIC">0.0</radial>
+   </RelativePointType>
+</Location>

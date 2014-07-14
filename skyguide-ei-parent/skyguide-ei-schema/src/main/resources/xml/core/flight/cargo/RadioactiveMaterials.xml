@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><RadioactiveMaterials>
+
+<!--Type RadioactiveMaterialActivityType-->
+   <RadioactiveMaterialActivityType uom="GRAMS">0.0</RadioactiveMaterialActivityType>
+
+<!--Type RadioactiveMaterialType-->
+   <RadioactiveMaterialType category="I_WHITE" criticalitySafetyIndex="0.0" fissileExceptedIndicator="EXCEPTED" transportIndex="0.0">
+      <radionuclide lowDispersibleMaterialIndicator="LOW_DISPERSIBLE" physicalChemicalForm="string" radionuclideId="string" radionuclideName="string" specialFormIndicator="SPECIAL_FORM">
+         <activity uom="BECQUERELS">0.0</activity>
+      </radionuclide>
+   </RadioactiveMaterialType>
+
+<!--Type RadionuclideType-->
+   <RadionuclideType lowDispersibleMaterialIndicator="LOW_DISPERSIBLE" physicalChemicalForm="string" radionuclideId="string" radionuclideName="string" specialFormIndicator="SPECIAL_FORM">
+      <!--suppressed optional element activity of type RadioactiveMaterialActivityType-->
+   </RadionuclideType>
+</RadioactiveMaterials>

@@ -1,0 +1,59 @@
+1) The following warning pops up after installing the feature 'skyguide-outflow'. It's because of bnd tool. Seems to be harmeless but is not nice.
+...
+...
+2014-04-25 12:12:16,755 | INFO  | ExtenderThread-4 | JaxbDataFormat                   | ?                                   ? | 231 - org.apache.camel.camel-jaxb - 2.12.0.redhat-610379 | Creating JAXBContext with contextPath: ch.skyguide.ei.prototype.schema.flight and ApplicationContextClassLoader: BundleDelegatingClassLoader for [skyguide-ei-outflow (ch.skyguide.fuse.prototype.skyguide-ei-outflow)]
+2014-04-25 12:12:17,301 | WARN  | Thread-55        | BndUtils                         | ?                                   ? | 2 - org.ops4j.pax.url.wrap - 1.3.7 | Bundle cannot be generated
+java.io.IOException: Pipe closed
+	at java.io.PipedInputStream.checkStateForReceive(PipedInputStream.java:261)[:1.7.0_55]
+	at java.io.PipedInputStream.receive(PipedInputStream.java:202)[:1.7.0_55]
+	at java.io.PipedOutputStream.write(PipedOutputStream.java:122)[:1.7.0_55]
+	at java.util.zip.ZipOutputStream.writeInt(ZipOutputStream.java:592)[:1.7.0_55]
+	at java.util.zip.ZipOutputStream.writeEXT(ZipOutputStream.java:428)[:1.7.0_55]
+	at java.util.zip.ZipOutputStream.closeEntry(ZipOutputStream.java:262)[:1.7.0_55]
+	at aQute.lib.osgi.Jar.createDirectories(Jar.java:318)[2:org.ops4j.pax.url.wrap:1.3.7]
+	at aQute.lib.osgi.Jar.createDirectories(Jar.java:315)[2:org.ops4j.pax.url.wrap:1.3.7]
+	at aQute.lib.osgi.Jar.createDirectories(Jar.java:315)[2:org.ops4j.pax.url.wrap:1.3.7]
+	at aQute.lib.osgi.Jar.writeResource(Jar.java:288)[2:org.ops4j.pax.url.wrap:1.3.7]
+	at aQute.lib.osgi.Jar.write(Jar.java:211)[2:org.ops4j.pax.url.wrap:1.3.7]
+	at org.ops4j.pax.swissbox.bnd.BndUtils$1.run(BndUtils.java:174)[2:org.ops4j.pax.url.wrap:1.3.7]
+2014-04-25 12:12:17,322 | WARN  | Thread-56        | BndUtils                         | ?                                   ? | 2 - org.ops4j.pax.url.wrap - 1.3.7 | Bundle cannot be generated
+java.io.IOException: Pipe closed
+	at java.io.PipedInputStream.checkStateForReceive(PipedInputStream.java:261)[:1.7.0_55]
+	at java.io.PipedInputStream.receive(PipedInputStream.java:227)[:1.7.0_55]
+	at java.io.PipedOutputStream.write(PipedOutputStream.java:149)[:1.7.0_55]
+	at java.util.zip.DeflaterOutputStream.deflate(DeflaterOutputStream.java:253)[:1.7.0_55]
+	at java.util.zip.ZipOutputStream.closeEntry(ZipOutputStream.java:238)[:1.7.0_55]
+	at aQute.lib.osgi.Jar.writeResource(Jar.java:305)[2:org.ops4j.pax.url.wrap:1.3.7]
+	at aQute.lib.osgi.Jar.write(Jar.java:211)[2:org.ops4j.pax.url.wrap:1.3.7]
+	at org.ops4j.pax.swissbox.bnd.BndUtils$1.run(BndUtils.java:174)[2:org.ops4j.pax.url.wrap:1.3.7]
+2014-04-25 12:12:17,331 | WARN  | Thread-57        | BndUtils                         | ?                                   ? | 2 - org.ops4j.pax.url.wrap - 1.3.7 | Bundle cannot be generated
+java.io.IOException: Pipe closed
+	at java.io.PipedInputStream.checkStateForReceive(PipedInputStream.java:261)[:1.7.0_55]
+	at java.io.PipedInputStream.receive(PipedInputStream.java:202)[:1.7.0_55]
+	at java.io.PipedOutputStream.write(PipedOutputStream.java:122)[:1.7.0_55]
+	at java.util.zip.ZipOutputStream.writeInt(ZipOutputStream.java:590)[:1.7.0_55]
+	at java.util.zip.ZipOutputStream.writeEXT(ZipOutputStream.java:427)[:1.7.0_55]
+	at java.util.zip.ZipOutputStream.closeEntry(ZipOutputStream.java:262)[:1.7.0_55]
+	at aQute.lib.osgi.Jar.writeResource(Jar.java:305)[2:org.ops4j.pax.url.wrap:1.3.7]
+	at aQute.lib.osgi.Jar.write(Jar.java:211)[2:org.ops4j.pax.url.wrap:1.3.7]
+	at org.ops4j.pax.swissbox.bnd.BndUtils$1.run(BndUtils.java:174)[2:org.ops4j.pax.url.wrap:1.3.7]
+2014-04-25 12:12:17,336 | WARN  | Thread-58        | BndUtils                         | ?                                   ? | 2 - org.ops4j.pax.url.wrap - 1.3.7 | Bundle cannot be generated
+java.io.IOException: Pipe closed
+	at java.io.PipedInputStream.checkStateForReceive(PipedInputStream.java:261)[:1.7.0_55]
+	at java.io.PipedInputStream.receive(PipedInputStream.java:202)[:1.7.0_55]
+	at java.io.PipedOutputStream.write(PipedOutputStream.java:122)[:1.7.0_55]
+	at java.util.zip.ZipOutputStream.writeInt(ZipOutputStream.java:590)[:1.7.0_55]
+	at java.util.zip.ZipOutputStream.writeEXT(ZipOutputStream.java:427)[:1.7.0_55]
+	at java.util.zip.ZipOutputStream.closeEntry(ZipOutputStream.java:262)[:1.7.0_55]
+	at aQute.lib.osgi.Jar.writeResource(Jar.java:305)[2:org.ops4j.pax.url.wrap:1.3.7]
+	at aQute.lib.osgi.Jar.write(Jar.java:211)[2:org.ops4j.pax.url.wrap:1.3.7]
+	at org.ops4j.pax.swissbox.bnd.BndUtils$1.run(BndUtils.java:174)[2:org.ops4j.pax.url.wrap:1.3.7]
+...
+...
+
+2) Spotted the following error while running tests. Should be better WARN instead of ERROR, see also https://issues.apache.org/jira/browse/AMQ-4819
+...
+...
+2014-04-26 16:47:08,587 [main           ] ERROR BrokerService                  - Memory Usage for the Broker (1024 mb) is more than the maximum available for the JVM: 910 mb - resetting to 70% of maximum available: 637 mb
+...
+...

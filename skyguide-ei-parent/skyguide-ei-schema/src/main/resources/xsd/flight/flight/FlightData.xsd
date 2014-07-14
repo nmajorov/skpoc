@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+   attributeFormDefault="unqualified"
+   elementFormDefault="unqualified"
+   targetNamespace="http://www.fixm.aero/flight/2.0"
+   version="2.0.0"
+   xmlns="http://www.w3.org/2001/XMLSchema"
+   xmlns:fb="http://www.fixm.aero/base/2.0"
+   xmlns:ff="http://www.fixm.aero/foundation/2.0"
+   xmlns:fx="http://www.fixm.aero/flight/2.0"
+   xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   
+   <annotation>
+      <documentation>
+         Copyright (c) 2013 FIXM CCB membership comprising: Airservices Australia, EUROCONTROL, 
+         JCAB, NATS, NavCanada, SESAR Joint Undertaking and US FAA 
+         =========================================== 
+         All rights reserved. 
+          
+         Redistribution and use in source and binary forms, with or without modification, 
+         are permitted provided that the following conditions are met: 
+         * Redistributions of source code must retain the above copyright notice, this list 
+         of conditions and the disclaimer. 
+         * Redistributions in binary form must reproduce the above copyright notice, this 
+         list of conditions and the disclaimer in the documentation and/or other materials 
+         provided with the distribution. 
+         * Neither the names of Airservices Australia, EUROCONTROL, JCAB, NATS, NavCanada, 
+         SESAR Joint Undertaking and US FAA nor the names of their contributors may be used 
+         to endorse or promote products derived from this specification without specific prior 
+         written permission. 
+          
+         DISCLAIMER 
+          
+         THIS SPECIFICATION IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+         AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+         WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+         IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, 
+         INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
+         TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
+         BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+         CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN 
+         ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
+         DAMAGE. 
+          
+         ========================================== 
+         Editorial note: this license is an instance of the BSD license template as provided 
+         by the Open Source Initiative: 
+         http://www.opensource.org/licenses/bsd-license.php 
+          
+         The authoritative reference for FIXM is www.FIXM.aero. 
+          
+         Details on Airservices Australia: http://www.airservicesaustralia.com/ 
+         Details on EUROCONTROL: http://www.eurocontrol.int/ 
+         Details on JCAB: http://www.mlit.go.jp/en/koku/index.html 
+         Details on NATS: http://www.nats.co.uk/ 
+         Details on NavCanada: http://www.navcanada.ca/ 
+         Details on the SESAR JU and its members: http://www.sesarju.eu/players/members 
+         Details on the US FAA: http://www.faa.gov/ 
+      </documentation>
+   </annotation>
+   <import namespace="http://www.fixm.aero/base/2.0" schemaLocation="./../../base/Base.xsd"/>
+   <import namespace="http://www.fixm.aero/foundation/2.0" schemaLocation="./../../foundation/Foundation.xsd"/>
+   <include schemaLocation="./../aircraft/Aircraft.xsd"/>
+   <include schemaLocation="./../enroute/EnRoute.xsd"/>
+   <include schemaLocation="./../cargo/Cargo.xsd"/>
+   <include schemaLocation="./../publication/Publication.xsd"/>
+   <include schemaLocation="./FlightRoute.xsd"/>
+   <include schemaLocation="./Flight.xsd"/>
+   <annotation>
+      <documentation>
+         The flight data package contains information describing all details associated with 
+         the flight. It is a central package of the FIXM logical model. 
+      </documentation>
+   </annotation>
+
+   <complexType name="AircraftOperatorType">
+      <annotation>
+         <documentation>
+            Contains information about the identify of aircraft operator. 
+            .Flight Plan Filer: The name of the unit, agency or person filing the flight plan. 
+            
+         </documentation>
+      </annotation>
+      <sequence>
+         <element name="operatingOrganization" type="ff:PersonOrOrganizationType" minOccurs="1" maxOccurs="1" nillable="true" > 
+            <annotation>
+               <documentation>
+                  .Aircraft Operator Identity: Identity of a person, organization or enterprise engaged 
+                  in or offering to engage in aircraft operation. 
+               </documentation>
+            </annotation>
+         </element>
+      </sequence>
+      <attribute name="operatorCategory" type="fx:OperatorCategoryType" use="optional" > 
+         <annotation>
+            <documentation>
+               .Flight Operator Category: Specifies the category of the flight operator operating 
+               the flight. 
+            </documentation>
+         </annotation>
+      </attribute>
+   </complexType>
+   <element name="AircraftOperator" type="fx:AircraftOperatorType" /> 
+
+   <complexType name="ClearedFlightInformationType">
+      <annotation>
+         <documentation>
+            Groups cleared information about the fight 
+         </documentation>
+      </annotation>
+      <sequence>
+         <element name="cruisingSpeed" type="ff:TrueAirspeedType" minOccurs="0" maxOccurs="1" > 
+            <annotation>
+               <documentation>
+                  .Cleared Speed: The speed that has been cleared from the controller to the pilot. 
+                   The element is tactical in nature. 
+               </documentation>
+            </annotation>
+         </element>
+         <element name="directRoutingCleared" type="fx:DirectRoutingType" minOccurs="0" maxOccurs="1" > 
+            <annotation>
+               <documentation>
+                  .Cleared Direct To: Contains the optional starting location from which the direct 
+                  clearance is granted and the position that the aircraft has been cleared directly 
+                  to. 
+               </documentation>
+            </annotation>
+         </element>
+         <element name="flightLevel" type="ff:AltitudeType" minOccurs="0" maxOccurs="1" > 
+            <annotation>
+               <documentation>
+                  .Cleared Flight Level: The Altitude an aircraft is cleared to maintain as specified 
+                  by ATC.  It may differ from the Cruising Altitude, which is more strategic. 
+               </documentation>
+            </annotation>
+         </element>
+         <element name="heading" type="fb:DirectionType" minOccurs="0" maxOccurs="1" > 
+            <annotation>
+               <documentation>
+                  .Cleared Heading: The heading assigned to a flight by ATC.  It is the magnetic heading 
+                  that the aircraft's nose is pointing to. 
+               </documentation>
+            </annotation>
+         </element>
+         <element name="offset" type="ff:DistanceType" minOccurs="0" maxOccurs="1" > 
+            <annotation>
+               <documentation>
+                  .Cleared Offset: This field specifies the offset information that is applicable to 
+                  the route. 
+               </documentation>
+            </annotation>
+         </element>
+         <element name="rateOfClimbDescend" type="ff:VerticalRateType" minOccurs="0" maxOccurs="1" > 
+            <annotation>
+               <documentation>
+                  .Cleared Rate of Climb/Descent: The flight's current assigned Rate of climb/descent, 
+                  which is part of the current clearance. 
+               </documentation>
+            </annotation>
+         </element>
+      </sequence>
+   </complexType>
+   <element name="ClearedFlightInformation" type="fx:ClearedFlightInformationType" /> 
+
+   <complexType name="EnRouteDiversionType">
+      <annotation>
+         <documentation>
+            Contains information about the En Route Diversion of the flight such as diversion 
+            recovery. 
+         </documentation>
+      </annotation>
+      <attribute name="diversionRecoveryInformation" type="fb:GloballyUniqueFlightIdentifierType" use="optional" > 
+         <annotation>
+            <documentation>
+               .Diversion Recovery Information: The Diversion Recovery Information indicates that 
+               a flight is the recovery for a flight that changed its original destination. It is 
+               represented by the GUFI of the original flight 
+            </documentation>
+         </annotation>
+      </attribute>
+   </complexType>
+   <element name="EnRouteDiversion" type="fx:EnRouteDiversionType" /> 
+
+   <complexType name="FlightType">
+      <annotation>
+         <documentation>
+            Central object of the FIXM Logical Model. Groups all information about the flight. 
+            
+         </documentation>
+      </annotation>
+      <complexContent>
+         <extension base="fb:FeatureType">
+            <sequence>
+               <element name="aircraftDescription" type="fx:AircraftType" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        Describes the details of the aircraft used in the flight. 
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="arrival" type="fx:FlightArrivalType" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        Contains flight arrival information 
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="cleared" type="fx:ClearedFlightInformationType" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        Contains the cleared information about the flight. 
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="controllingUnit" type="fb:AtcUnitReferenceType" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        .Controlling Unit: Identifies the ATC sector in control of the aircraft. 
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="dangerousGoods" type="fx:DangerousGoodsType" minOccurs="0" maxOccurs="unbounded" > 
+                  <annotation>
+                     <documentation>
+                        Contains information about any board dangerous goods 
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="departure" type="fx:FlightDepartureType" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        Contains flight departure information 
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="emergency" type="fx:FlightEmergencyType" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        Contains flight emergency linformation 
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="enRoute" type="fx:EnRouteType" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        Groups the en route information about the flight such as the current position, coordination 
+                        between air traffic units, and boundary crossing throughout the duration of the flight. 
+                        
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="enRouteDiversion" type="fx:EnRouteDiversionType" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        Contains information about the En Route Diversion of the flight such as diversion 
+                        recovery. 
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="flightIdentification" type="fx:FlightIdentificationType" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        Groups flight identifying information. 
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="flightStatus" type="fx:FlightStatusType" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        Flight Status of the flight containing a set of indicators of the current flight 
+                        status. 
+                        .Flight Status: Identifies the aspect of the flight life cycle. 
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="operator" type="fx:AircraftOperatorType" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        Contains information about the identify of aircraft operator. 
+                        .Flight Plan Filer: The name of the unit, agency or person filing the flight plan. 
+                        
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="originator" type="fx:OriginatorType" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        Contains information about the flight originator that initiated the flight. 
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="publication" type="fx:FlightInformationPublicationType" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        List of recipients for the flight data. 
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="radioCommunicationFailure" type="fx:RadioCommunicationFailureType" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        Contains information about radio communication failure 
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="route" type="fx:RouteType" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        Contains information about the Flight Route. The route is comprised of Route Segments, 
+                        which are comprised of Route Points. Route also contains an expanded route. 
+                        .Route: The ICAO route string as depicted from the flight plan. 
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="routeToRevisedDestination" type="fx:RouteType" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        .Route - Revised Destination: The route from the current location to the revised 
+                        destination aerodrome. 
+                     </documentation>
+                  </annotation>
+               </element>
+               <element name="specialHandling" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        .Special Handling Reason: A property of the flight that requires ATS units to give 
+                        it special consideration. 
+                     </documentation>
+                  </annotation>
+                  <simpleType>
+                     <list itemType="fx:SpecialHandlingCodeType"/>
+                  </simpleType>
+               </element>
+               <element name="supplementalData" type="fx:SupplementalDataType" minOccurs="0" maxOccurs="1" > 
+                  <annotation>
+                     <documentation>
+                        Contains the supplemental data about the flight. 
+                     </documentation>
+                  </annotation>
+               </element>
+            </sequence>
+            <attribute name="flightType" type="fx:TypeOfFlightType" use="optional" > 
+               <annotation>
+                  <documentation>
+                     .Flight Type: Indication of the rule under which an air traffic controller provides 
+                     categorical handling of a flight. 
+                  </documentation>
+               </annotation>
+            </attribute>
+            <attribute name="gufi" type="fb:GloballyUniqueFlightIdentifierType" use="optional" > 
+               <annotation>
+                  <documentation>
+                     .Globally Unique Flight Identifier: A reference that uniquely identifies a specific 
+                     flight and that is independent of any particular system. 
+                  </documentation>
+               </annotation>
+            </attribute>
+            <attribute name="remarks" type="fb:FreeTextType" use="optional" > 
+               <annotation>
+                  <documentation>
+                     .Inter-Facility Remarks: Plain language remarks passed between ATS units with the 
+                     purpose of providing additional information about the flight (e.g., requested flight 
+                     level changes after takeoff). 
+                  </documentation>
+               </annotation>
+            </attribute>
+         </extension>
+      </complexContent>
+   </complexType>
+   <element name="Flight" type="fx:FlightType" substitutionGroup="fb:Feature" /> 
+
+   <complexType name="FlightIdentificationType">
+      <annotation>
+         <documentation>
+            Groups flight identifying data such as the aircraft and carrier information. 
+         </documentation>
+      </annotation>
+      <sequence>
+         <element name="marketingCarrierFlightIdentifier" minOccurs="0" maxOccurs="1" > 
+            <annotation>
+               <documentation>
+                  .Aircraft Identification - Marketing Carrier: The aircraft identification used by 
+                  a carrier who has sold tickets for the flight but is not involved with the operation 
+                  of the flight. 
+               </documentation>
+            </annotation>
+            <simpleType>
+               <list itemType="fb:FlightIdentifierType"/>
+            </simpleType>
+         </element>
+      </sequence>
+      <attribute name="aircraftIdentification" type="fb:FlightIdentifierType" use="optional" > 
+         <annotation>
+            <documentation>
+               .Aircraft Identification: Name used by ATS units to identify and communicate with 
+               an aircraft. 
+            </documentation>
+         </annotation>
+      </attribute>
+      <attribute name="majorCarrierIdentifier" type="fb:CarrierIdentifierType" use="optional" > 
+         <annotation>
+            <documentation>
+               .Major Carrier Identifier: The identification of the carrier who has contracted out 
+               the operation of the flight to a sub-carrier. 
+            </documentation>
+         </annotation>
+      </attribute>
+   </complexType>
+   <element name="FlightIdentification" type="fx:FlightIdentificationType" /> 
+
+   <simpleType name="OperatorCategoryType">
+      <annotation>
+         <documentation>
+            .Flight Operator Category: Specifies the category of the flight operator operating 
+            the flight. 
+         </documentation>
+      </annotation>
+      <restriction base="xs:string">
+         <enumeration value="AIR_CARRIER"/>
+         <enumeration value="FREIGHT_CARGO_CARRIER"/>
+         <enumeration value="GENERAL_AVIATION"/>
+         <enumeration value="MILITARY"/>
+         <enumeration value="AIR_TAXI"/>
+         <enumeration value="OTHER"/>
+      </restriction>
+   </simpleType>
+
+   <complexType name="OriginatorType">
+      <annotation>
+         <documentation>
+            .Flight Plan Originator: The originator's eight-letter AFTN address, or other appropriate 
+            contact details, in cases where the originator of the flight plan may not be readily 
+            identified. 
+         </documentation>
+      </annotation>
+      <sequence>
+         <element name="aftnAddress" type="fb:AftnUnitReferenceType" minOccurs="0" maxOccurs="1" > 
+            <annotation>
+               <documentation>
+                  Represents the Aeronautical Fixed Telecommunication Network station address 
+               </documentation>
+            </annotation>
+         </element>
+         <element name="flightOriginator" type="ff:PersonOrOrganizationType" minOccurs="0" maxOccurs="1" > 
+            <annotation>
+               <documentation>
+                  .Flight Originator: The originator's eight-letter AFTN address, or other appropriate 
+                  contact details, in cases where the originator of the flight plan may not be readily 
+                  identified. 
+               </documentation>
+            </annotation>
+         </element>
+      </sequence>
+   </complexType>
+   <element name="Originator" type="fx:OriginatorType" /> 
+
+   <simpleType name="SpecialHandlingCodeType">
+      <annotation>
+         <documentation>
+            .Special Handling Reason: A property of the flight that requires ATS units to give 
+            it special consideration. 
+         </documentation>
+      </annotation>
+      <restriction base="xs:string">
+         <enumeration value="ALTRV"/>
+         <enumeration value="ATFMS"/>
+         <enumeration value="FFR"/>
+         <enumeration value="FLTCK"/>
+         <enumeration value="HAZMAT"/>
+         <enumeration value="HEAD"/>
+         <enumeration value="HOSP"/>
+         <enumeration value="HUM"/>
+         <enumeration value="MARSA"/>
+         <enumeration value="MEDEVAC"/>
+         <enumeration value="NONRVSM"/>
+         <enumeration value="SAR"/>
+         <enumeration value="STATE"/>
+      </restriction>
+   </simpleType>
+
+   <complexType name="SupplementalDataType">
+      <annotation>
+         <documentation>
+            Contains the supplemental data about the flight. 
+         </documentation>
+      </annotation>
+      <sequence>
+         <element name="additionalFlightInformation" type="fb:NameValueListType" minOccurs="0" maxOccurs="1" > 
+            <annotation>
+               <documentation>
+                  .Other Flight Information: This element consists of an identification tag/indicator 
+                  and the relevant value. This information is   extra   information about the flight 
+                  that does not fall into some other predefined category. 
+               </documentation>
+            </annotation>
+         </element>
+         <element name="pilotInCommand" type="ff:PersonType" minOccurs="0" maxOccurs="1" > 
+            <annotation>
+               <documentation>
+                  .Pilot In Command: The name of the pilot in command of the aircraft. 
+               </documentation>
+            </annotation>
+         </element>
+      </sequence>
+      <attribute name="fuelEndurance" type="ff:DurationType" use="required" > 
+         <annotation>
+            <documentation>
+               .Fuel Endurance: The estimated maximum length of time the aircraft can spend in the 
+               cruise phase of flight, determined by the amount of fuel at takeoff 
+            </documentation>
+         </annotation>
+      </attribute>
+      <attribute name="personsOnBoard" type="fb:CountType" use="optional" > 
+         <annotation>
+            <documentation>
+               .Number of Persons on Board: The total number of persons (passengers and crew) on 
+               board the aircraft. 
+            </documentation>
+         </annotation>
+      </attribute>
+   </complexType>
+   <element name="SupplementalData" type="fx:SupplementalDataType" /> 
+
+   <simpleType name="TypeOfFlightType">
+      <annotation>
+         <documentation>
+            .Flight Type: Indication of the rule under which an air traffic controller provides 
+            categorical handling of a flight. 
+         </documentation>
+      </annotation>
+      <restriction base="xs:string">
+         <enumeration value="MILITARY"/>
+         <enumeration value="GENERAL"/>
+         <enumeration value="NON_SCHEDULED"/>
+         <enumeration value="SCHEDULED"/>
+         <enumeration value="OTHER"/>
+      </restriction>
+   </simpleType>
+</schema>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>ch.skyguide.fuse.prototype</groupId>
+    <artifactId>skyguide-ei-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>skyguide-ei-commons</artifactId>
+  <packaging>bundle</packaging>
+  <name>Asterix Integration Flow Prototype :: Commons</name>
+
+  <dependencies>
+
+    <!-- apache modules -->
+    <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>activemq-all</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-blueprint</artifactId>
+      <exclusions>
+      	<exclusion>
+      		<artifactId>slf4j-api</artifactId>
+      		<groupId>org.slf4j</groupId>
+      	</exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-jaxb</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-jms</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-netty</artifactId>
+    </dependency>
+
+    <!-- own modules -->
+    <dependency>
+      <groupId>ch.skyguide.fuse.prototype</groupId>
+      <artifactId>skyguide-ei-schema</artifactId>
+    </dependency>
+
+    <!-- inhouse 3rd party libraries -->
+    <dependency>
+      <groupId>ch.skyguide.simulation</groupId>
+      <artifactId>message</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>ch.skyguide.simulation</groupId>
+      <artifactId>rdps</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>ch.skyguide.tools</groupId>
+      <artifactId>translib</artifactId>
+    </dependency>
+
+    <!-- logging support -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <exclusions>
+      	<exclusion>
+      		<artifactId>slf4j-api</artifactId>
+      		<groupId>org.slf4j</groupId>
+      	</exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <exclusions>
+      	<exclusion>
+      		<artifactId>slf4j-api</artifactId>
+      		<groupId>org.slf4j</groupId>
+      	</exclusion>
+      </exclusions>
+    </dependency>
+
+    <!-- testing support -->
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-test-blueprint</artifactId>
+    </dependency>
+  </dependencies>
+</project>

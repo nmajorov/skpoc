@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><Airspace>
+
+<!--Type AftnUnitReferenceType-->
+   <AftnUnitReferenceType aftnAddress="string" delegated="AUTHORITY_DELEGATED" sectorIdentifier="string"/>
+
+<!--Type UnknownUnitReferenceType-->
+   <UnknownUnitReferenceType delegated="AUTHORITY_DELEGATED" sectorIdentifier="string" unitName="string">
+      <unitLocation srsName="string">
+         <pos>0.0 0.0</pos>
+      </unitLocation>
+   </UnknownUnitReferenceType>
+</Airspace>

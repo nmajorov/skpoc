@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><Arrival>
+
+<!--Type FlightArrivalType-->
+   <FlightArrivalType arrivalFleetPrioritization="0" arrivalSequenceNumber="0" standardInstrumentArrival="string">
+      <approachFix type="LocationPointType">
+         <location srsName="string">
+            <pos>0.0 0.0</pos>
+         </location>
+      </approachFix>
+      <approachTime>
+         <actual center="string" source="string" system="string" time="1900-01-01T00:00:00" timestamp="1900-01-01T00:00:00"/>
+         <estimated center="string" source="string" system="string" time="1900-01-01T00:00:00" timestamp="1900-01-01T00:00:00"/>
+      </approachTime>
+      <arrivalAerodrome code="string" type="IcaoAerodromeReferenceType"/>
+      <arrivalAerodromeAlternate>
+         <!--suppressed expansion of duplicate type AerodromeReferenceType-->
+      </arrivalAerodromeAlternate>
+      <arrivalAerodromeOriginal>
+         <!--suppressed expansion of duplicate type AerodromeReferenceType-->
+      </arrivalAerodromeOriginal>
+      <arrivalFix>
+         <!--suppressed expansion of duplicate type SignificantPointType-->
+      </arrivalFix>
+      <arrivalFixTime>
+         <!--suppressed optional element actual of type ReportedTimeType-->
+         <!--suppressed optional element estimated of type ReportedTimeType-->
+      </arrivalFixTime>
+      <arrivalPositionsAndTimes>
+         <positionTime>
+            <arriveAtPosition>
+               <!--suppressed optional element actual of type ReportedTimeType-->
+               <!--suppressed optional element estimated of type ReportedTimeType-->
+               <controlled center="string" source="string" system="string" time="1900-01-01T00:00:00" timestamp="1900-01-01T00:00:00"/>
+               <initial center="string" source="string" system="string" time="1900-01-01T00:00:00" timestamp="1900-01-01T00:00:00"/>
+               <target center="string" source="string" system="string" time="1900-01-01T00:00:00" timestamp="1900-01-01T00:00:00"/>
+            </arriveAtPosition>
+            <departFromPosition>
+               <!--suppressed optional element actual of type ReportedTimeType-->
+               <!--suppressed optional element estimated of type ReportedTimeType-->
+               <!--suppressed optional element controlled of type ReportedTimeType-->
+               <!--suppressed optional element initial of type ReportedTimeType-->
+               <!--suppressed optional element target of type ReportedTimeType-->
+            </departFromPosition>
+            <position standName="string" terminalName="string" type="StandPositionType"/>
+         </positionTime>
+      </arrivalPositionsAndTimes>
+   </FlightArrivalType>
+</Arrival>

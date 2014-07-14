@@ -1,0 +1,413 @@
+//------------------------------------------------------------------------------
+// PROJECT:
+//      Skyguide BEAM
+// LAYER:
+//      System Interaction
+// COPYRIGHT:
+//      Copyright (c) 1998-2007 Skyguide AG, Wangen bei Dubendorf, Switzerland
+//      All rights reserved.
+// REVISION:
+//      $Id:$
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+
+package ch.skyguide.communication.rdps.asterix.structure;
+
+//------------------------------------------------------------------------------
+
+import java.nio.ByteBuffer;
+import java.util.BitSet;
+
+import ch.skyguide.message.structure.type.FieldSpecificationType;
+
+//------------------------------------------------------------------------------
+
+/*******************************************************************************
+ * The class represents the Asterix field specification
+ * 
+ * @author R. Wilson
+ */
+public class AsterixFieldSpecificationType implements FieldSpecificationType {
+
+	// --------------------------------------------------------------------------
+	// public static final data members (constants)
+
+	// --------------------------------------------------------------------------
+	// public constructors
+
+	/***************************************************************************
+	 * Public defined constructor for a specification to be set.
+	 * 
+	 */
+	public AsterixFieldSpecificationType() {
+
+	}
+
+	/***************************************************************************
+	 * Public defined constructor taking a byte array to determine the field
+	 * specification of the message.
+	 * 
+	 * @param inBuffer
+	 *            Creates the Field Specification from a byte buffer.
+	 */
+	public AsterixFieldSpecificationType(ByteBuffer inBuffer) {
+		super();
+
+		if (inBuffer == null) {
+
+			throw new NullPointerException(
+					"field specification not initialized");
+		}
+
+		final ByteBuffer fieldSpecification = inBuffer.slice();
+
+		// ----------------------------------------------------------------------
+		// Iterate through the field specification buffer byte for byte until
+		// the last bit of the byte being set to zero.
+		m_fieldSpecification = new BitSet();
+
+		short field = 0;
+		do {
+
+			field = (short) (fieldSpecification.get() & 0xFF);
+			int exponent = 0;
+			// Process each byte
+			for (int bit = 7; bit > 0; bit--) {
+
+				// Select only the desired bit.
+				exponent = ((int) Math.pow(2, bit));
+				if ((field & exponent) == exponent) {
+
+					m_fieldSpecification.set(m_position);
+					m_position++;
+				} else {
+					
+					m_fieldSpecification.clear(m_position);
+					m_position++;
+				}
+			}
+		} while (((field & 0x01) == 0x01) && fieldSpecification.hasRemaining());
+
+		inBuffer.position(inBuffer.position() + fieldSpecification.position());
+	}
+
+	// --------------------------------------------------------------------------
+	// public member functions
+
+	/***************************************************************************
+	 * Creates and returns a copy of this object. The method performs a
+	 * "deep copy" of this object. By convention, the object returned by this
+	 * method should be independent of this object (which is being cloned).
+	 * Typically, this means copying any mutable objects that comprise the
+	 * internal "deep structure" of the object being cloned and replacing the
+	 * references to these objects with references to the copies.
+	 * 
+	 * See also description of class <code>Object</code>.
+	 * 
+	 * @see java.lang.Object
+	 * @see java.lang.Cloneable
+	 * 
+	 * @return A "deep copy" of this object.
+	 */
+	@Override
+	public AsterixFieldSpecificationType clone() {
+
+		// ----------------------------------------------------------------------
+		// Obtain an object by invoking the base class' clone method.
+		AsterixFieldSpecificationType clonedSpecification;
+
+		try {
+			clonedSpecification = (AsterixFieldSpecificationType) super.clone();
+		} catch (CloneNotSupportedException e) {
+
+			throw new UnsupportedOperationException(e.getMessage());
+		}
+
+		// ----------------------------------------------------------------------
+		// Copy attributes.
+		clonedSpecification.m_fieldSpecification = (BitSet) m_fieldSpecification
+				.clone();
+
+		clonedSpecification.m_position = m_position;
+
+		return clonedSpecification;
+	}
+
+	/***************************************************************************
+	 * Retrieves the number of bits set in the field specification.
+	 * 
+	 * @return The number of bits set in the field specification.
+	 */
+	@Override
+	public int cardinality() {
+
+		return m_fieldSpecification.cardinality();
+	}
+
+	/***************************************************************************
+	 * Enable (modify) a field specification
+	 * 
+	 * Precondition: fieldReferenceNumber > 0
+	 * 
+	 * @param fieldReferenceNumber
+	 */
+	@Override
+	public void enableField(int fieldReferenceNumber) {
+
+		if (fieldReferenceNumber <= 0) {
+
+			throw new IllegalArgumentException("FieldReferenceNumber "
+					+ fieldReferenceNumber + " cannot be enabled");
+		}
+
+		m_fieldSpecification.set(fieldReferenceNumber - 1, true);
+	}
+
+	/***************************************************************************
+	 * Disable a field specification Precondition: fieldReferenceNumber > 0
+	 * 
+	 * @param fieldReferenceNumber
+	 */
+	@Override
+	public void disableField(int fieldReferenceNumber) {
+		if (fieldReferenceNumber <= 0) {
+
+			throw new IllegalArgumentException("FieldReferenceNumber "
+					+ fieldReferenceNumber + " cannot be disabled");
+		}
+
+		m_fieldSpecification.set(fieldReferenceNumber - 1, false);
+	}
+
+	/***************************************************************************
+	 * Retrieves the last Field Reference Number (FRN) in the Specification.
+	 * 
+	 * @return The last field reference number set in the specification.
+	 */
+	@Override
+	public int end() {
+		return m_fieldSpecification.length();
+	}
+
+	/***************************************************************************
+	 * Retrieves the number of bytes the field specification would occupy when
+	 * converted to an array of bytes.
+	 * 
+	 * @return The number of bytes occupied by the byte array of the field
+	 *         specification
+	 */
+	@Override
+	public int getBytes() {
+		
+		// Determine size of the array in bytes.
+		int numberOfBytes = m_fieldSpecification.length() / 7;
+
+		if (m_fieldSpecification.length() % 7 > 0) {
+
+			numberOfBytes++;
+		}
+
+		return numberOfBytes;
+	}
+
+	/***************************************************************************
+	 * Retrieves the current field reference number.
+	 * 
+	 * @return The current field reference number.
+	 */
+	public int getFieldReferenceNumber() {
+		
+		return m_position+1;
+	}
+
+	/***************************************************************************
+	 * Retrieves the current position of field reference number.
+	 * 
+	 * @return The current position within the specification.
+	 */
+	@Override
+	public int getPosition() {
+		
+		return m_position;
+	}
+
+	/***************************************************************************
+	 * Retrieves the next set field reference number.
+	 * 
+	 * @return The next field reference number set in the specification.
+	 */
+	@Override
+	public int nextFieldReferenceNumber() {
+
+		// Remember the m_fieldSpecifiation.position + 1 is current field
+		// specification number.
+		final int nextFieldReferenceNumber 
+			= m_fieldSpecification.nextSetBit(m_position+1)+1;
+		
+		return nextFieldReferenceNumber;
+	}
+
+	/***************************************************************************
+	 * Retrieves the previous set field reference number.
+	 * 
+	 * @return The previous field reference number set within the specification.
+	 */
+	@Override
+	public int previousFieldReferenceNumber() {
+		
+		// Remember the m_fieldSpecifiation.position + 1 is current field
+		// specification number.
+		final int previousFieldReferenceNumber 
+			= m_fieldSpecification.previousSetBit(m_position-1)+1;
+		
+		return previousFieldReferenceNumber;
+	}
+
+	/***************************************************************************
+	 * Reset the position to the first field reference number and returns the
+	 * first number.
+	 * 
+	 * The field reference numbers are a sequence from one to n based upon the
+	 * set bits. 
+	 * 
+	 * @return The first field reference number in the specification or -1 if
+	 *         nothing is set in the specification.
+	 */
+	@Override
+	public int rewind() {
+		// Only need to set the position to minus one and determine first set
+		// bit.
+		if(m_fieldSpecification.isEmpty()) {
+			
+			return -1;
+		}
+		
+		m_position = 0;
+
+		return getFieldReferenceNumber();
+	}
+
+	/***************************************************************************
+	 * The logical space that the field specification occupies in bits.
+	 * 
+	 * @return Logical space in bits.
+	 */
+	@Override
+	public int size() {
+		
+		return m_fieldSpecification.size();
+	}
+
+	/***************************************************************************
+	 * Returns the FieldSpecification as a byte array.
+	 * 
+	 * @return The byte array containing the Field Specification.
+	 */
+	@Override
+	public byte[] toByteArray() {
+		// Determine size of the array in bytes.
+		int numberOfBytes = getBytes();
+
+		byte temp = 0;
+		ByteBuffer byteBuffer = ByteBuffer.allocate(numberOfBytes);
+
+		for (int byteIndex = 0; byteIndex < numberOfBytes; byteIndex++) {
+
+			temp = 0;
+
+			for (int bitIndex = 7; bitIndex > 0; bitIndex--) {
+
+				if (m_fieldSpecification.get((byteIndex * 8) + (7 - bitIndex))) {
+
+					temp |= (int) Math.pow(2, bitIndex);
+				}
+			}
+			
+			if(byteIndex < numberOfBytes) {
+				
+				temp |= 0x1;
+			}
+
+			byteBuffer.put(temp);
+		}
+
+		return byteBuffer.array();
+	}
+
+	/***************************************************************************
+	 * See description of superclass/interface.
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		str.append("Specification : " + m_fieldSpecification.toString());
+		return str.toString();
+	}
+
+	// -------------------------------------------------------------------------
+	// public static member functions
+
+	// -------------------------------------------------------------------------
+	// protected constructors
+
+	// -------------------------------------------------------------------------
+	// protected member functions
+
+	// -------------------------------------------------------------------------
+	// protected static member functions
+
+	// -------------------------------------------------------------------------
+	// protected data members
+
+	// -------------------------------------------------------------------------
+	// protected static data members
+
+	// -------------------------------------------------------------------------
+	// package constructors
+
+	// -------------------------------------------------------------------------
+	// package member functions
+
+	// -------------------------------------------------------------------------
+	// public static member functions
+
+	// -------------------------------------------------------------------------
+	// protected constructors
+
+	// -------------------------------------------------------------------------
+	// protected member functions
+
+	// -------------------------------------------------------------------------
+	// protected static member functions
+
+	// -------------------------------------------------------------------------
+	// protected data members
+
+	// -------------------------------------------------------------------------
+	// protected static data members
+
+	// -------------------------------------------------------------------------
+	// package constructors
+
+	// -------------------------------------------------------------------------
+	// package member functions
+
+	/**
+	 * The field specification containing the set fields of the message.
+	 */
+	private BitSet m_fieldSpecification = new BitSet();
+
+	/**
+	 * Position of the current field reference number.
+	 */
+	private int m_position = -1;
+
+	// -------------------------------------------------------------------------
+	// private static data members
+
+	// -------------------------------------------------------------------------
+	// Static initialization block
+}

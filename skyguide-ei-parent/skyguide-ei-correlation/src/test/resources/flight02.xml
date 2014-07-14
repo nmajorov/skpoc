@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:Flight xmlns:ns2="http://www.fixm.aero/flight/2.0" xmlns:ns3="http://www.fixm.aero/base/2.0" xmlns:ns4="http://www.fixm.aero/foundation/2.0" xmlns:ns5="http://www.fixm.aero/flight/2.0/skyguide">
+  <aircraftDescription aircraftColours="red" engineType="TURBO_JET" wakeTurbulence="L" />
+  <arrival>
+    <arrivalAerodrome xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns3:IcaoAerodromeReferenceType" code="GVA" />
+  </arrival>
+  <departure>
+    <departureAerodrome xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns3:IcaoAerodromeReferenceType" code="BER" />
+  </departure>
+  <flightIdentification aircraftIdentification="SWR100" />
+</ns2:Flight>

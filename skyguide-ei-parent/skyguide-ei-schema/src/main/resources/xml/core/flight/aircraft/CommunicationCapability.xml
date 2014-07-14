@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><CommunicationCapability>
+
+<!--Type CommunicationCapabilitiesType-->
+   <CommunicationCapabilitiesType otherCommunicationCapabilities="string" otherDataLinkCapabilities="string" selectiveCallingCode="string">
+      <communicationCode>E1 E2</communicationCode>
+      <dataLinkCode>J1 J2</dataLinkCode>
+   </CommunicationCapabilitiesType>
+</CommunicationCapability>

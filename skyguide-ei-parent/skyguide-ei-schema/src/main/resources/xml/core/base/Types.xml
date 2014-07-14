@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><Types>
+
+<!--Type BeaconCodeType-->
+   <BeaconCodeType ssrMode="A">string</BeaconCodeType>
+
+<!--Type NameValueListType-->
+   <NameValueListType>
+      <nameValue name="string" value="string"/>
+   </NameValueListType>
+
+<!--Type NameValuePairType-->
+   <NameValuePairType name="string" value="string"/>
+
+<!--Type RadioFrequencyType-->
+   <RadioFrequencyType band="HIGH_FREQUENCY" uom="MEGAHERTZ">string</RadioFrequencyType>
+</Types>

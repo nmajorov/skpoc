@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><FlightPublication>
+
+<!--Type FlightInformationPublicationType-->
+   <FlightInformationPublicationType publisherName="string">
+      <recipient aftnAddress="string" delegated="AUTHORITY_DELEGATED" recipientReason="VICINITY" sectorIdentifier="string"/>
+   </FlightInformationPublicationType>
+
+<!--Type FlightInformationRecipientType-->
+   <FlightInformationRecipientType aftnAddress="string" delegated="AUTHORITY_DELEGATED" recipientReason="TRAVERSED" sectorIdentifier="string"/>
+</FlightPublication>

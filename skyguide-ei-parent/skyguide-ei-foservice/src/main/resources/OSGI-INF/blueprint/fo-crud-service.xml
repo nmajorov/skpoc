@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs"
+    xmlns:cxf="http://cxf.apache.org/blueprint/core"
+    xsi:schemaLocation="
+      http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+      http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/jaxrs.xsd
+      http://cxf.apache.org/blueprint/core http://cxf.apache.org/schemas/blueprint/core.xsd">
+      
+  <jaxrs:server id="service" address="/foservice">
+    <jaxrs:serviceBeans>
+      <ref component-id="serviceScenarioOne" />
+      <ref component-id="serviceScenarioTwo" />
+    </jaxrs:serviceBeans>
+  </jaxrs:server>
+
+  
+  <bean id="serviceScenarioTwo" class="ch.skyguide.ei.prototype.foservice.FlightObjectService" >
+   <property name="repository" ref="flightObjectRepositoryTwo" />
+  </bean>
+
+   <bean id="serviceScenarioOne" class="ch.skyguide.ei.prototype.foservice.FlightObjectServiceScenarioOne" >
+        <property name="repository" ref="flightObjectRepository" />
+   </bean>
+   
+  
+   <bean id="flightObjectRepository" class="ch.skyguide.ei.prototype.foservice.forepository.FlightObjectRepository">
+        <argument value="OperationDatabase.d4o"/>
+   </bean>
+   
+    <bean id="flightObjectRepositoryTwo" class="ch.skyguide.ei.prototype.foservice.forepository.FlightObjectRepository">
+        <argument value="OperationDatabase2.d4o"/>
+   </bean>
+   
+   
+  <cxf:bus>
+        <cxf:features>
+          <cxf:logging />
+        </cxf:features>
+  </cxf:bus>
+
+
+</blueprint>

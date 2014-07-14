@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>ch.skyguide.fuse.prototype</groupId>
+    <artifactId>skyguide-ei-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>skyguide-ei-schema</artifactId>
+  <packaging>bundle</packaging>
+  <name>Asterix Integration Flow Prototype :: FIXM Schema</name>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.jvnet.jaxb2.maven2</groupId>
+        <artifactId>maven-jaxb2-plugin</artifactId>
+        <version>${maven-jaxb2-plugin-version}</version>
+        <executions>
+          <execution>
+            <id>generate-jaxb-pojos</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <args>
+                <arg>-Xannotate</arg>
+              </args>
+              <bindingDirectory>${basedir}/src/main/resources/xjb</bindingDirectory>
+              <extension>true</extension>
+              <generateDirectory>${project.build.directory}/generated-sources</generateDirectory>
+              <schemaDirectory>${basedir}/src/main/resources/xsd</schemaDirectory>
+              <schemaIncludes>
+                <include>base/*.xsd</include>
+                <include>extension/**/*.xsd</include>
+                <include>flight/*.xsd</include>
+                <include>foundation/*.xsd</include>
+              </schemaIncludes>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.jvnet.jaxb2_commons</groupId>
+            <artifactId>jaxb2-basics-annotate</artifactId>
+            <version>${maven-jaxb2-basics-annotate-version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+</project>

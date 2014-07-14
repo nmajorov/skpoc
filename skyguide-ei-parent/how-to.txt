@@ -1,0 +1,144 @@
+* Prerequisite:
+
+- JDK1.7+
+- Maven 3.0.5+
+- Eclipse or JBoss Developer Studio
+- JBoss Fuse 6.1
+
+
+* How to build:
+
+- There're some inhouse-3rd-party libraries we depend on (see the parent pom). Make sure you've got access to them
+
+- From inside this folder simply run Maven:
+~/dev/workspace/skyguide-ei-parent> mvn
+
+- If you prefer to skip running tests while building, then do:
+~/dev/workspace/skyguide-ei-parent> mvn -Pfastinstall
+
+
+* How to import the project into your IDE:
+
+- First from inside this folder run:
+~/dev/workspace/skyguide-ei-parent> mvn eclipse:eclipse
+
+- Then import the complete project tree into your IDE:
+Import => Existing Projects into Workspace  => Select the skyguide-ei-parent folder
+
+
+* How to run the application standalone at the console:
+
+- First launch the AMQ broker at the level of 'skyguide-ei-commons' module:
+~/dev/workspace/skyguide-ei-parent/skyguide-ei-commons> mvn activemq:run
+
+- Start the inflow Camel context at the level of 'skyguide-ei-inflow' module:
+~/dev/workspace/skyguide-ei-parent/skyguide-ei-inflow> mvn camel:run
+
+- Also start the outflow Camel context at the level of 'skyguide-ei-outflow' module:
+~/dev/workspace/skyguide-ei-parent/skyguide-ei-outflow> mvn camel:run
+
+- Run ch.skyguide.ei.prototype.test.UDPProduceConsumeEndToEndRunner from inside your IDE to trigger the data flow between the skyguide-inflow & skyguide-outflow modules
+
+
+* How to install and run the application inside JBoss Fuse:
+
+
+- Build the application with rhel profiles
+
+
+ts\prototype\skyguide-ei-parent> >mvn -P rehl  clean  install
+
+- You need first to build the application (see above)
+
+- Start JBoss Fuse:
+~/dev/jboss-fuse-6.1.0.redhat-379/bin> ./fuse clean
+
+- Set up the user we need for the broker access:
+JBossFuse:karaf@root> esb:create-admin-user --new-user skyguide --new-user-password secret --new-user-role admin
+
+- Install the application karaf features:
+JBossFuse:karaf@root> features:addurl mvn:ch.skyguide.fuse.prototype/skyguide-ei-features/0.0.1-SNAPSHOT/xml/features
+JBossFuse:karaf@root> features:install skyguide-correlation
+JBossFuse:karaf@root> features:install skyguide-foproxy
+JBossFuse:karaf@root> features:install skyguide-foservice
+JBossFuse:karaf@root> features:install skyguide-inflow
+JBossFuse:karaf@root> features:install skyguide-outflow
+
+- In case typing the upper 4 Karaf 'features:install' commands one after the other seems too verbose to you, you could also install them all together in one single step:
+JBossFuse:karaf@root> features:addurl mvn:ch.skyguide.fuse.prototype/skyguide-ei-features/0.9.1-SNAPSHOT/xml/features
+JBossFuse:karaf@root> features:install skyguide-all
+
+- Following some steps to verify the installed application modules:
+  - WADL of the skyguide-foservice module is reachable at http://localhost:8181/cxf/foservice?_wadl
+  - To access the Rest API of the skyguide-foservice module try the URL (HTTP GET) http://localhost:8181/cxf/foservice/crud/position/<id>
+  
+ Check availability for Flight Object CRUD scenario one by calling in the browser url:
+ 
+			http://localhost:8181/cxf/foservice/crudone/status
+			
+			
+Check wadl by calling url:
+
+			
+			http://localhost:8181/cxf/foservice/crudone?_wadl
+		
+		
+	
+	
+  - First run ch.skyguide.ei.prototype.test.UDPProduceConsumeEndToEndRunner from inside your IDE to trigger the data flow between the skyguide-inflow & skyguide-outflow modules
+  - Then from inside the JBoss Fuse console run the following command to see the logs about the payloads being routed (between the skyguide-inflow, skyguide-outflow and skyguide-correlation modules):
+    JBossFuse:karaf@root> log:display
+
+
+* How to see more about the application's routing-logic and it's data-flow by the previous step:
+
+- Log-in into the JBoss Fuse Management Console (http://localhost:8181/) using the credential created above
+
+- Check the Camel tab to see the 2 Camel routes, their sources and profiles etc.
+
+- Check the ActiveMQ tab to see about the JMS topic 'skyguide.radar.data' and it's attributes etc.
+
+
+
+Install native translib library on linux
+=========================================
+
+Install as root g++ compiler and jdk development release:
+
+		yum install java-1.7.0-openjdk-devel.x86_64
+		yum install gcc-c++
+
+
+I used the CentOS 6 repository:
+		
+		http://mirror.centos.org/centos/6/os/x86_64/
+
+because we do not have the subscription for the official REDHAT release.
+ 
+call go.bash script:
+
+			cd ~/nmajorov/release_protovc2>
+			pwd
+			/home/fuse/nmajorov/release_protovc2
+			./go.bash
+			
+
+		
+
+Create Release
+==============
+
+Choose release:
+mvn fdpz-release:prepare  -DreleaseVersion=<your version> -DpreparationGoals="clean deploy"
+mvn fdpz-release:clean
+ 
+
+see more:  
+http://fdpz.skyguide.corp/index.php/How-to_maven_build#Using_command_line_2
+
+
+ 
+ 
+		
+
+

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><Datalink>
+
+<!--Type CpdlcConnectionType-->
+   <CpdlcConnectionType atnLogonParameters="string" connectionStatus="NO_CONNECTION" fans1ALogonParameters="string" frequencyUsage="VOICE" sendCpldcIndicator="SEND_CPDLC_START_REQUEST">
+      <receivingUnitFrequency band="HIGH_FREQUENCY" uom="MEGAHERTZ">string</receivingUnitFrequency>
+   </CpdlcConnectionType>
+</Datalink>

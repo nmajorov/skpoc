@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><Altitude>
+
+<!--Type AltitudeType-->
+   <AltitudeType ref="MEAN_SEA_LEVEL" uom="FEET">0.0</AltitudeType>
+
+<!--Type VerticalRateType-->
+   <VerticalRateType uom="FEET_PER_MINUTE">0.0</VerticalRateType>
+</Altitude>

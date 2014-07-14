@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><Packaging>
+
+<!--Type AllPackedInOneType-->
+   <AllPackedInOneType numberOfPackages="0" qValue="0.0"/>
+
+<!--Type CompatibilityGroupType-->
+   <CompatibilityGroupType hazardClass="string">string</CompatibilityGroupType>
+
+<!--Type DangerousGoodsDimensionsType-->
+   <DangerousGoodsDimensionsType>
+      <grossWeight uom="KILOGRAMS">0.0</grossWeight>
+      <netWeight uom="POUNDS">0.0</netWeight>
+      <volume uom="LITERS">0.0</volume>
+   </DangerousGoodsDimensionsType>
+
+<!--Type DangerousGoodsPackageGroupType-->
+   <DangerousGoodsPackageGroupType shipmentUseIndicator="EXCLUSIVE">
+      <dangerousGoodsPackage dangerousGoodsLimitation="PASSENGER_AND_CARGO_AIRCRAFT" dangerousGoodsQuantity="0" marinePollutantIndicator="MARINE_POLLUTANT" overpackIndicator="OVERPACK_USED" packingGroup="I" packingInstructionNumber="string" productName="string" properShippingName="string" reportableQuantity="0" shipmentType="RADIOACTIVE" supplementaryInformation="string" technicalName="string" typeOfPackaging="string" unNumber="string">
+         <allPackedInOne numberOfPackages="0" qValue="0.0"/>
+         <compatibilityGroup hazardClass="string">string</compatibilityGroup>
+         <hazardClassAndDivision hazardClass="string" hazardDivision="0"/>
+         <packageDimensions>
+            <height uom="FEET">0.0</height>
+            <length uom="INCHES">0.0</length>
+            <width uom="METERS">0.0</width>
+         </packageDimensions>
+         <radioactiveMaterials category="I_WHITE" criticalitySafetyIndex="0.0" fissileExceptedIndicator="EXCEPTED" transportIndex="0.0">
+            <radionuclide lowDispersibleMaterialIndicator="LOW_DISPERSIBLE" physicalChemicalForm="string" radionuclideId="string" radionuclideName="string" specialFormIndicator="SPECIAL_FORM">
+               <activity uom="GRAMS">0.0</activity>
+            </radionuclide>
+         </radioactiveMaterials>
+         <shipmentDimensions>
+            <grossWeight uom="KILOGRAMS">0.0</grossWeight>
+            <netWeight uom="POUNDS">0.0</netWeight>
+            <volume uom="GALLONS">0.0</volume>
+         </shipmentDimensions>
+         <subsidiaryHazardClassDivision hazardClass="string" hazardDivision="0"/>
+         <temperatures>
+            <controlTemperature uom="FARENHEIT">0.0</controlTemperature>
+            <emergencyTemperature uom="CELSIUS">0.0</emergencyTemperature>
+            <flashpointTemperature uom="KELVIN">0.0</flashpointTemperature>
+         </temperatures>
+      </dangerousGoodsPackage>
+      <shipmentDimensions>
+         <grossWeight uom="KILOGRAMS">0.0</grossWeight>
+         <netWeight uom="POUNDS">0.0</netWeight>
+         <volume uom="LITERS">0.0</volume>
+      </shipmentDimensions>
+   </DangerousGoodsPackageGroupType>
+
+<!--Type DangerousGoodsPackageType-->
+   <DangerousGoodsPackageType dangerousGoodsLimitation="CARGO_AIRCRAFT_ONLY" dangerousGoodsQuantity="0" marinePollutantIndicator="MARINE_POLLUTANT" overpackIndicator="OVERPACK_USED" packingGroup="II" packingInstructionNumber="string" productName="string" properShippingName="string" reportableQuantity="0" shipmentType="RADIOACTIVE" supplementaryInformation="string" technicalName="string" typeOfPackaging="string" unNumber="string">
+      <!--suppressed optional element allPackedInOne of type AllPackedInOneType-->
+      <!--suppressed optional element compatibilityGroup of type CompatibilityGroupType-->
+      <!--suppressed optional element hazardClassAndDivision of type HazardClassDivisionType-->
+      <packageDimensions>
+         <!--suppressed optional element height of type LengthType-->
+         <!--suppressed optional element length of type LengthType-->
+         <!--suppressed optional element width of type LengthType-->
+      </packageDimensions>
+      <!--suppressed optional element radioactiveMaterials of type RadioactiveMaterialType-->
+      <!--suppressed optional element shipmentDimensions of type DangerousGoodsDimensionsType-->
+      <!--suppressed optional element subsidiaryHazardClassDivision of type HazardClassDivisionType-->
+      <!--suppressed optional element temperatures of type TemperaturesType-->
+   </DangerousGoodsPackageType>
+
+<!--Type HazardClassDivisionType-->
+   <HazardClassDivisionType hazardClass="string" hazardDivision="0"/>
+
+<!--Type TemperaturesType-->
+   <TemperaturesType>
+      <!--suppressed optional element controlTemperature of type TemperatureType-->
+      <!--suppressed optional element emergencyTemperature of type TemperatureType-->
+      <!--suppressed optional element flashpointTemperature of type TemperatureType-->
+   </TemperaturesType>
+</Packaging>

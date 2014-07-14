@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 
+           	 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+             http://camel.apache.org/schema/blueprint
+             http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+
+
+ <bean class="ch.skyguide.ei.prototype.netty.handler.codec.bytes.ByteArrayEncoder" id="nettyEncoder" />
+
+ <camelContext id="outFlowCamelContext" xmlns="http://camel.apache.org/schema/blueprint">
+
+
+
+  <route id="radarDataOutFlow">
+   <from uri="activemq:topic:skyguide.enriched.surveillance.data" />
+   <unmarshal>
+    <jaxb contextPath="ch.skyguide.fixm.extension.flight.enroute" prettyPrint="true" />
+   </unmarshal>
+
+   <to uri="log:ch.skyguide.ei.prototype.outflow?level=DEBUG" />
+   <to uri="bean:translator?method=translateCoordinate" />
+   <convertBodyTo type="java.lang.byte[]" charset="UTF-8" />
+   <to uri="${netty.out.url}" />
+  </route>
+ </camelContext>
+
+ <bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+  <property name="brokerURL" value="${broker.url}" />
+  <property name="userName" value="skyguide" />
+  <property name="password" value="secret" />
+ </bean>
+
+ <bean id="pooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory"
+  init-method="start" destroy-method="stop">
+  <property name="connectionFactory" ref="jmsConnectionFactory" />
+ </bean>
+
+ <bean id="jmsConfig" class="org.apache.camel.component.jms.JmsConfiguration">
+  <property name="connectionFactory" ref="pooledConnectionFactory" />
+ </bean>
+
+ <bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
+  <property name="configuration" ref="jmsConfig" />
+ </bean>
+
+ <bean id="translator" class="ch.skyguide.ei.prototype.bean.TranslatorInvoker" />
+
+</blueprint>
+

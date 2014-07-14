@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:fb="http://www.fixm.aero/base/2.0" xmlns:ff="http://www.fixm.aero/foundation/2.0" xmlns:fx="http://www.fixm.aero/flight/2.0" xmlns:fs="http://www.fixm.aero/flight/2.0/skyguide" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fixm.aero/flight/2.0/skyguide" elementFormDefault="unqualified" attributeFormDefault="unqualified" version="2.0.0">
+	<annotation>
+		<documentation>
+         Copyright (c) 2013 FIXM CCB membership comprising: Airservices Australia, EUROCONTROL, 
+         JCAB, NATS, NavCanada, SESAR Joint Undertaking and US FAA 
+         =========================================== 
+         All rights reserved. 
+          
+         Redistribution and use in source and binary forms, with or without modification, 
+         are permitted provided that the following conditions are met: 
+         * Redistributions of source code must retain the above copyright notice, this list 
+         of conditions and the disclaimer. 
+         * Redistributions in binary form must reproduce the above copyright notice, this 
+         list of conditions and the disclaimer in the documentation and/or other materials 
+         provided with the distribution. 
+         * Neither the names of Airservices Australia, EUROCONTROL, JCAB, NATS, NavCanada, 
+         SESAR Joint Undertaking and US FAA nor the names of their contributors may be used 
+         to endorse or promote products derived from this specification without specific prior 
+         written permission. 
+          
+         DISCLAIMER 
+          
+         THIS SPECIFICATION IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+         AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+         WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+         IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, 
+         INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
+         TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
+         BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+         CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN 
+         ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
+         DAMAGE. 
+          
+         ========================================== 
+         Editorial note: this license is an instance of the BSD license template as provided 
+         by the Open Source Initiative: 
+         http://www.opensource.org/licenses/bsd-license.php 
+          
+         The authoritative reference for FIXM is www.FIXM.aero. 
+          
+         Details on Airservices Australia: http://www.airservicesaustralia.com/ 
+         Details on EUROCONTROL: http://www.eurocontrol.int/ 
+         Details on JCAB: http://www.mlit.go.jp/en/koku/index.html 
+         Details on NATS: http://www.nats.co.uk/ 
+         Details on NavCanada: http://www.navcanada.ca/ 
+         Details on the SESAR JU and its members: http://www.sesarju.eu/players/members 
+         Details on the US FAA: http://www.faa.gov/ 
+      </documentation>
+	</annotation>
+	<import namespace="http://www.fixm.aero/base/2.0" schemaLocation="./../../../../../base/Base.xsd"/>
+	<import namespace="http://www.fixm.aero/foundation/2.0" schemaLocation="./../../../../../foundation/Foundation.xsd"/>
+	<import namespace="http://www.fixm.aero/flight/2.0" schemaLocation="./../../../../../flight/FlightObject.xsd"/>
+	<annotation>
+		<documentation>
+         The Position package contains information about the flight's current and planned 
+         reporting positions. 
+      </documentation>
+	</annotation>
+	<simpleType name="Identification">
+		<restriction base="xs:string">
+			<maxLength value="7"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="AcasStatusType" >
+		<restriction base="xs:string">
+			<enumeration value="UNKNOWN"/>
+			<enumeration value="ACAS_NOT_OPERATIONAL"/>
+			<enumeration value="ACAS_OPERATIONAL"/>
+			<enumeration value="INVALID"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="CommunicationCapabilityType" >
+		<restriction base="xs:string">
+			<enumeration value="NO_COMMUNICATION"/>
+			<enumeration value="COMMUNICATION_AB"/>
+			<enumeration value="COMMUNICATION_AB_UPLINK_ELM"/>
+			<enumeration value="COMMUNICATION_AB_UPLINK__DOWNLINK_ELM"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="DifferentialCorrectionStatusType" >
+		<restriction base="xs:string">
+			<enumeration value="UNKNOWN"/>
+			<enumeration value="DIFFERENTIAL_CORRECTION"/>
+			<enumeration value="NO_DIFFERENTIAL_CORRECTION"/>
+			<enumeration value="INVALID"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="AdsbFlightStatusType" >
+		<restriction base="xs:string">
+			<enumeration value="NO_EMERGENCY"/>
+			<enumeration value="GENERAL_EMERGENCY"/>
+			<enumeration value="LIFE_GUARD_MEDICAL"/>
+			<enumeration value="MINIMUM_FUEL"/>
+			<enumeration value="NO_COMMUNICATIONS"/>
+			<enumeration value="UNLAWFUL_INTERFERENCE"/>
+			<enumeration value="DOWNED_AIRCRAFT"/>
+			<enumeration value="UNKNOWN"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="ComAcasFlightStatusType" >
+		<restriction base="xs:string">
+			<enumeration value="NO_ALERT_NO_SPI_AIRCRAFT_AIRBOURNE"/>
+			<enumeration value="NO_ALERT_NO_SPI_AIRCRAFT_ON_GROUND"/>
+			<enumeration value="ALERT_NO_SPI_AIRCRAFT_AIRBOURNE"/>
+			<enumeration value="ALERT_NO_SPI_AIRCRAFT_ON_GROUND"/>
+			<enumeration value="ALERT_SPI_AIRCRAFT_AIRBOURNE_OR_ON_GROUND"/>
+			<enumeration value="NO_ALERT_SPI_AIRCRAFT_AIRBOURNE_OR_ON_GROUND"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="MultipleNavStatusType" >
+		<restriction base="xs:string">
+			<enumeration value="UNKNOWN"/>
+			<enumeration value="MULTIPLE_NAV_NOT_OPERATING"/>
+			<enumeration value="MULTIPLE_NAV_OPERATING"/>
+			<enumeration value="INVALID"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="ModeSMbDataType" >
+		<list itemType="xs:unsignedLong"/>
+	</simpleType>
+	<simpleType name="PointType" >
+		<restriction base="xs:string">
+			<enumeration value="UNKNOWN" />
+			<enumeration value="FLY_BY" />
+			<enumeration value="FLY_OVER" />
+			<enumeration value="HOLD_PATTERN" />
+			<enumeration value="PROCEDURE_HOLD" />
+			<enumeration value="PROCEDURE_TURN" />
+			<enumeration value="RF_LEG" />
+			<enumeration value="TOC" />
+			<enumeration value="TOD" />
+			<enumeration value="SOL" />
+			<enumeration value="CROSS_OVER_ALTITUDE" />
+			<enumeration value="TRANSITION_ALTITUDE" />
+		</restriction>
+	</simpleType>
+	<simpleType name="TurnDirectionType" >
+		<restriction base="xs:string">
+			<enumeration value="NOT_APPLICABLE"/>
+			<enumeration value="TURN_RIGHT"/>
+			<enumeration value="TURN_LEFT"/>
+			<enumeration value="NO_TURN"/>
+		</restriction>
+	</simpleType>
+	<complexType name="TrajectoryIntentDataType" >
+		<sequence>
+			<element name="trajectoryChangePointAvailable" type="xs:boolean" />
+			<element name="trajectoryChangePointCompliance" type="xs:boolean" />
+			<element name="trajectoryChangePointNumber" type="xs:unsignedByte" />
+			<element name="altitude" type="xs:short" />
+			<element name="latitude" type="xs:integer" />
+			<element name="longitude" type="xs:integer" />
+			<element name="pointType" type="fs:PointType" />
+			<element name="turnDirection" type="fs:TurnDirectionType" />
+			<element name="turnRadiusAvailability" type="xs:boolean" />
+			<element name="timeOverPointAvailability" type="xs:boolean" />
+			<element name="timeOverPoint" type="xs:unsignedInt" />
+			<element name="trajectoryChangePointTurnRadius" type="xs:unsignedShort" />
+		</sequence>
+	</complexType>
+	<complexType name="ComAcasCapabilityAndStatus" >
+		<sequence>
+			<element name="communicationCapability" type="fs:CommunicationCapabilityType"/>
+			<element name="flightStatus" type="fs:ComAcasFlightStatusType"/>
+			<element name="specificServiceCapability" type="xs:boolean"/>
+			<element name="altitudeReportingCapability" type="xs:boolean"/>
+			<element name="aircraftIdentificationCapability" type="xs:boolean"/>
+			<element name="b1a" type="xs:boolean"/>
+			<element name="b1b" type="xs:unsignedByte"/>
+		</sequence>
+	</complexType>
+	<complexType name="AdsbStatusType" >
+		<sequence>
+			<element name="acasStatus" type="fs:AcasStatusType"/>
+			<element name="multipleNavStatus" type="fs:MultipleNavStatusType"/>
+			<element name="diffCorrectionStatus" type="fs:DifferentialCorrectionStatusType"/>
+			<element name="groundBitStatus" type="xs:boolean"/>
+			<element name="flightStatus" type="fs:AdsbFlightStatusType"/>
+			<element name="b1a" type="xs:boolean"/>
+			<element name="b1b" type="xs:unsignedByte"/>
+		</sequence>
+	</complexType>
+	<complexType name="AircraftDerivedDataType">
+		<sequence>
+			<element name="targetAddress" type="xs:unsignedInt" minOccurs="0"/>
+			<element name="targetIdentification" type="fs:Identification" minOccurs="0"/>
+			<element name="magneticHeading" type="xs:unsignedInt" minOccurs="0"/>
+			<element name="indicatedAirspeedMachNo" type="ff:TrueAirspeedType" minOccurs="0"/>
+			<element name="trueAirspeed" type="ff:TrueAirspeedType" minOccurs="0"/>
+			<element name="selectedAltitude" type="xs:unsignedShort" minOccurs="0"/>
+			<element name="finalStateSelectedAltitude" type="xs:unsignedShort" minOccurs="0"/>
+			<element name="trajectoryIntentStatus" type="xs:unsignedByte" minOccurs="0"/>
+			<element name="trajectoryIntentData" type="fs:TrajectoryIntentDataType" minOccurs="0"/>
+			<element name="comAcasCapabilityAndStatus" type="fs:ComAcasCapabilityAndStatus" minOccurs="0"/>
+			<element name="adsbStatus" type="fs:AdsbStatusType" minOccurs="0"/>
+			<element name="acasResolutionAdvisoryReport" type="xs:unsignedLong" minOccurs="0"/>
+			<element name="barometricVerticalRate" type="xs:unsignedShort" minOccurs="0"/>
+			<element name="geometricVerticalRate" type="xs:unsignedShort" minOccurs="0"/>
+			<element name="rollAngle" type="xs:unsignedShort" minOccurs="0"/>
+			<element name="trackAngleRate" type="xs:unsignedShort" minOccurs="0"/>
+			<element name="trackAngle" type="xs:unsignedShort" minOccurs="0"/>
+			<element name="groundSpeed" type="xs:unsignedShort" minOccurs="0"/>
+			<element name="velocityUncertainty" type="xs:unsignedByte" minOccurs="0"/>
+			<element name="metData" type="xs:unsignedLong" minOccurs="0"/>
+			<element name="emitterCategory" type="xs:unsignedByte" minOccurs="0"/>
+			<element name="position" type="xs:unsignedLong" minOccurs="0"/>
+			<element name="geometricAltitude" type="xs:unsignedShort" minOccurs="0"/>
+			<element name="positionUncertainty" type="xs:unsignedByte" minOccurs="0"/>
+			<element name="modeSMbData" type="fs:ModeSMbDataType" minOccurs="0"/>
+			<element name="indicatedAirspeed" type="xs:unsignedShort" minOccurs="0"/>
+			<element name="machNumber" type="xs:unsignedShort" minOccurs="0"/>
+			<element name="barometricPressureSetting" type="xs:unsignedShort" minOccurs="0"/>
+		</sequence>
+	</complexType>
+	<element name="aircraftDerivedData" type="fs:AircraftDerivedDataType"/>
+</schema>

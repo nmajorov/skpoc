@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><Position>
+
+<!--Type ActualSpeedType-->
+   <ActualSpeedType>
+      <calculated uom="KILOMETERS_PER_HOUR">0.0</calculated>
+      <pilotReported uom="KILOMETERS_PER_HOUR">0.0</pilotReported>
+      <surveillance uom="KNOTS">0.0</surveillance>
+   </ActualSpeedType>
+
+<!--Type AircraftPositionType-->
+   <AircraftPositionType positionTime="1900-01-01T00:00:00" source="PROGRESS_REPORT">
+      <actualSpeed>
+         <!--suppressed optional element calculated of type GroundspeedType-->
+         <!--suppressed optional element pilotReported of type TrueAirspeedType-->
+         <!--suppressed optional element surveillance of type GroundspeedType-->
+      </actualSpeed>
+      <altitude ref="MEAN_SEA_LEVEL" uom="FEET">0.0</altitude>
+      <followingPosition positionEstimatedTime="1900-01-01T00:00:00">
+         <position fix="string" type="FixPointType"/>
+         <positionAltitude ref="FLIGHT_LEVEL" uom="METERS">0.0</positionAltitude>
+      </followingPosition>
+      <nextPosition positionEstimatedTime="1900-01-01T00:00:00">
+         <!--suppressed optional element position of type SignificantPointType-->
+         <!--suppressed optional element positionAltitude of type AltitudeType-->
+      </nextPosition>
+      <position>
+         <!--suppressed expansion of duplicate type SignificantPointType-->
+      </position>
+      <track ref="TRUE">0.0</track>
+   </AircraftPositionType>
+
+<!--Type PlannedReportingPositionType-->
+   <PlannedReportingPositionType positionEstimatedTime="1900-01-01T00:00:00">
+      <!--suppressed optional element position of type SignificantPointType-->
+      <!--suppressed optional element positionAltitude of type AltitudeType-->
+   </PlannedReportingPositionType>
+</Position>

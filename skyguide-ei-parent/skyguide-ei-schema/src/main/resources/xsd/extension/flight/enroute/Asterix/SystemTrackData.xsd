@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:fb="http://www.fixm.aero/base/2.0" xmlns:ff="http://www.fixm.aero/foundation/2.0" xmlns:fx="http://www.fixm.aero/flight/2.0" xmlns:fs="http://www.fixm.aero/flight/2.0/skyguide" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.fixm.aero/flight/2.0/skyguide" elementFormDefault="unqualified" attributeFormDefault="unqualified" version="2.0.0">
+	<annotation>
+		<documentation>
+         Copyright (c) 2014 FIXM Skyguide, swiss air navigation services ltd. 
+         =========================================== 
+         All rights reserved. 
+          
+         Redistribution and use in source and binary forms, with or without modification, 
+         are permitted provided that the following conditions are met: 
+         * Redistributions of source code must retain the above copyright notice, this list 
+         of conditions and the disclaimer. 
+         * Redistributions in binary form must reproduce the above copyright notice, this 
+         list of conditions and the disclaimer in the documentation and/or other materials 
+         provided with the distribution. 
+         * Neither the names of Skyguide, swiss air navigation services ltd nor the names of their contributors may be used 
+         to endorse or promote products derived from this specification without specific prior 
+         written permission. 
+          
+         DISCLAIMER 
+          
+         THIS SPECIFICATION IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+         AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+         WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+         IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, 
+         INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
+         TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
+         BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+         CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN 
+         ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
+         DAMAGE. 
+          
+         ========================================== 
+         Editorial note: this license is an instance of the BSD license template as provided 
+         by the Open Source Initiative: 
+         http://www.opensource.org/licenses/bsd-license.php 
+          
+         The authoritative reference for FIXM is www.FIXM.aero. 
+      </documentation>
+	</annotation>
+	<import namespace="http://www.fixm.aero/base/2.0" schemaLocation="./../../../../base/Base.xsd"/>
+	<import namespace="http://www.fixm.aero/foundation/2.0" schemaLocation="./../../../../foundation/Foundation.xsd"/>
+	<import namespace="http://www.fixm.aero/flight/2.0" schemaLocation="./../../../../flight/FlightObject.xsd"/>
+	<include schemaLocation="./AsterixRecord.xsd"/>
+	<include schemaLocation="./DataItems/DataSourceIdentifier.xsd"/>
+	<include schemaLocation="./DataItems/ServiceIdentifier.xsd"/>
+	<include schemaLocation="./DataItems/TrackNumber.xsd"/>
+	<include schemaLocation="./DataItems/TrackStatus.xsd"/>
+	<include schemaLocation="./DataItems/Mode5And1Code.xsd"/>
+	<include schemaLocation="./DataItems/ModeOfMovement.xsd"/>
+	<include schemaLocation="./DataItems/SystemTrackUpdateAges.xsd"/>
+	<include schemaLocation="./DataItems/TrackDataAges.xsd"/>
+	<include schemaLocation="./DataItems/VehicleFleetIdentification.xsd"/>
+	<include schemaLocation="./DataItems/MeasuredInformation.xsd"/>
+	<include schemaLocation="./DataItems/AircraftDerivedData.xsd"/>
+	<include schemaLocation="./DataItems/FlightPlanRelatedData.xsd"/>
+	<include schemaLocation="./DataItems/EstimatedAccuracies.xsd"/>
+	<include schemaLocation="./DataItems/ComposedTrackNumber.xsd"/>
+	<annotation>
+		<documentation>
+         The Asterix message structure for the transmission of System Track Data to a user.  This defines the data out of Category 062. 
+      </documentation>
+	</annotation>
+	<complexType name="CalculatedAccelerationType">
+		<sequence>
+			<element name="Ax" type="xs:short"/>
+			<element name="Ay" type="xs:short"/>
+		</sequence>
+	</complexType>
+	<complexType name="CalculatedTrackVelocityType">
+		<sequence>
+			<element name="Vx" type="xs:unsignedShort"/>
+			<element name="Vy" type="xs:unsignedShort"/>
+		</sequence>
+	</complexType>
+	<complexType name="TargetSizeAndOrientationType">
+		<sequence>
+			<element name="length" type="xs:unsignedByte"/>
+			<element name="orientation" type="xs:unsignedByte" minOccurs="0"/>
+			<element name="width" type="xs:unsignedByte" minOccurs="0"/>
+		</sequence>
+	</complexType>
+	<complexType name="SystemTrackDataType">
+		<annotation>
+			<documentation>TODO</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="fs:AsterixRecordType">
+				<sequence>
+					<element ref="fs:dataSourceIdentifier"/>
+					<element ref="fs:serviceIdentifier" minOccurs="0"/>
+					<element ref="fs:trackNumber"/>
+					<element name="trackMode3ACode" type="xs:unsignedShort" minOccurs="0"/>
+					<element name="timeOfTrackInformation" type="xs:unsignedInt"/>
+					<element ref="fs:trackStatus"/>
+					<element name="calculatedTrackPositionCartesian" type="fb:LocationPointType" minOccurs="0"/>
+					<element name="calculatedTrackPositionWGS84Coordinates" type="fb:LocationPointType" minOccurs="0"/>
+					<element ref="fs:mode5And1Code" minOccurs="0"/>
+					<element name="trackMode2Code" type="xs:integer" minOccurs="0"/>
+					<element name="calculatedTrackGeometricAltitude" type="xs:integer" minOccurs="0"/>
+					<element name="calculatedTrackBarometricAltitude" type="xs:integer" minOccurs="0"/>
+					<element name="measuredFlightLevel" type="xs:unsignedInt" minOccurs="0"/>
+					<element name="calculatedTrackVelocityCartesian" type="fs:CalculatedTrackVelocityType" minOccurs="0"/>
+					<element ref="fs:modeOfMovement" minOccurs="0"/>
+					<element name="calculatedAccelerationCartesian" type="fs:CalculatedAccelerationType" minOccurs="0"/>
+					<element name="calculatedRateOfClimb" type="xs:integer" minOccurs="0"/>
+					<element name="targetIdentification" type="xs:string" minOccurs="0"/>
+					<element name="targetSizeAndOrientation" type="fs:TargetSizeAndOrientationType" minOccurs="0"/>
+					<element ref="fs:systemTrackUpdateAges" minOccurs="0"/>
+					<element ref="fs:trackDataAges" minOccurs="0"/>
+					<element ref="fs:vehicleFleetIdentification" minOccurs="0"/>
+					<element ref="fs:measuredInformation" minOccurs="0"/>
+					<element ref="fs:aircraftDerivedData" minOccurs="0"/>
+					<element ref="fs:flightPlanRelatedData" minOccurs="0"/>
+					<element ref="fs:estimatedAccuracies" minOccurs="0"/>
+					<element ref="fs:composedTrackNumber" minOccurs="0"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<element name="fixmSystemTrackData" type="fs:SystemTrackDataType"/>
+</schema>

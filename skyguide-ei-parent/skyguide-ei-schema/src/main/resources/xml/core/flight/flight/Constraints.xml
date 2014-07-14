@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><Constraints>
+
+<!--Type ClimbToLevelConstraintType-->
+   <ClimbToLevelConstraintType altitudeQualification="AT_OR_ABOVE_ALTITUDE" constraintType="EXECUTIVE_CONTROL">
+      <climbToLevel ref="MEAN_SEA_LEVEL" uom="FEET">0.0</climbToLevel>
+   </ClimbToLevelConstraintType>
+
+<!--Type LevelConstraintType-->
+   <LevelConstraintType constraintType="CONTROLLER_TACTICAL_PLANNING" positionQualification="AT_OR_BEFORE_POINT">
+      <level ref="FLIGHT_LEVEL" uom="METERS">0.0</level>
+      <timeConstraint constraintType="NETWORK_STRATEGIC" requiredTime="1900-01-01T00:00:00" timeQualification="AT_OR_BEFORE_TIME"/>
+   </LevelConstraintType>
+
+<!--Type SpeedConstraintType-->
+   <SpeedConstraintType constraintType="OPERATOR_CONSTRAINT" positionQualification="AT_POINT">
+      <speed uom="KILOMETERS_PER_HOUR">0.0</speed>
+      <timeConstraint constraintType="FLIGHT_PLAN_EXPECTATION" requiredTime="1900-01-01T00:00:00" timeQualification="AT_TIME"/>
+   </SpeedConstraintType>
+
+<!--Type TimeConstraintType-->
+   <TimeConstraintType constraintType="EXECUTIVE_CONTROL" requiredTime="1900-01-01T00:00:00" timeQualification="AT_OR_AFTER_TIME"/>
+</Constraints>

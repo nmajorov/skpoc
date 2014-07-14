@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features>
+
+  <repository>mvn:org.apache.activemq/activemq-karaf/${activemq-version}/xml/features</repository>
+  <repository>mvn:org.apache.camel.karaf/apache-camel/${camel-version}/xml/features</repository>
+  <repository>mvn:org.apache.cxf.karaf/apache-cxf/${cxf-version}/xml/features</repository>
+
+  <feature name="skyguide-3rd-party" version="${project.version}" resolver='(obr)' start-level='100'>
+    <bundle>wrap:mvn:ch.skyguide.simulation/exception/${skyguide-exception-version}</bundle>
+    <bundle>wrap:mvn:ch.skyguide.simulation/message/${skyguide-message-version}</bundle>
+    <bundle>wrap:mvn:ch.skyguide.simulation/rdps/${skyguide-rdps-version}</bundle>
+    <bundle>wrap:mvn:ch.skyguide.tools/translib/${skyguide-translib-version}</bundle>
+    <bundle>wrap:mvn:ch.skyguide.simulation/util/${skyguide-util-version}</bundle>
+    <bundle>wrap:mvn:ch.skyguide.db4o/db4o/${skyguide-db4o-version}</bundle>
+  </feature>
+
+  <feature name="skyguide-commons" version="${project.version}" resolver='(obr)' start-level='100'>
+    <feature version="${activemq-version}">activemq-camel</feature>
+    <feature version="${camel-version}">camel-blueprint</feature>
+    <feature version="${camel-version}">camel-jaxb</feature>
+    <feature version="${camel-version}">camel-netty</feature>
+    <feature version="${project.version}">skyguide-3rd-party</feature>
+    <bundle>mvn:ch.skyguide.fuse.prototype/skyguide-ei-commons/${project.version}</bundle>
+    <bundle>mvn:ch.skyguide.fuse.prototype/skyguide-ei-schema/${project.version}</bundle>
+  </feature>
+
+  <feature name="skyguide-correlation" version="${project.version}" resolver='(obr)' start-level='100'>
+    <feature version="${project.version}">skyguide-commons</feature>
+    <bundle>mvn:ch.skyguide.fuse.prototype/skyguide-ei-correlation/${project.version}</bundle>
+  </feature>
+
+  <feature name="skyguide-foproxy" version="${project.version}" resolver='(obr)' start-level='100'>
+    <feature version="${cxf-version}">cxf-jaxrs</feature>
+    <feature version="${project.version}">skyguide-commons</feature>
+    <bundle>mvn:ch.skyguide.fuse.prototype/skyguide-ei-foproxy/${project.version}</bundle>
+    <bundle>mvn:ch.skyguide.fuse.prototype/skyguide-ei-schema/${project.version}</bundle>
+  </feature>
+
+  <feature name="skyguide-foservice" version="${project.version}" resolver='(obr)' start-level='100'>
+    <feature version="${cxf-version}">cxf-jaxrs</feature>
+    <feature version="${camel-version}">camel-leveldb</feature>
+    <bundle>mvn:ch.skyguide.fuse.prototype/skyguide-ei-foservice/${project.version}</bundle>
+    <bundle>mvn:ch.skyguide.fuse.prototype/skyguide-ei-schema/${project.version}</bundle>
+  </feature>
+
+  <feature name="skyguide-inflow" version="${project.version}" resolver='(obr)' start-level='100'>
+    <feature version="${project.version}">skyguide-commons</feature>
+    <bundle>mvn:ch.skyguide.fuse.prototype/skyguide-ei-inflow/${project.version}</bundle>
+  </feature>
+
+  <feature name="skyguide-outflow" version="${project.version}" resolver='(obr)' start-level='100'>
+    <feature version="${project.version}">skyguide-commons</feature>
+    <bundle>mvn:ch.skyguide.fuse.prototype/skyguide-ei-outflow/${project.version}</bundle>
+  </feature>
+
+  <feature name="skyguide-ifpservice" version="${project.version}" resolver="(orb)" start-level="100">
+      <bundle>mvn:ch.skyguide.fuse.prototype/skyguide-ei-ifpservice/${project.version}</bundle>
+  </feature>
+  
+  <feature name="skyguide-all" version="${project.version}" resolver='(obr)' start-level='100'>
+    <!-- the proper code adjustment of skyguide-correlation is still an outstanding task (Samuel) -->
+    <!-- feature version="${project.version}">skyguide-correlation</feature> -->
+    <feature version="${project.version}">skyguide-foproxy</feature>
+    <feature version="${project.version}">skyguide-foservice</feature>
+    <feature version="${project.version}">skyguide-inflow</feature>
+    <feature version="${project.version}">skyguide-outflow</feature>
+    <feature version="${project.version}">skyguide-correlation</feature>
+    <feature version="${project.version}">skyguide-ifpservice</feature>
+  </feature>
+</features>

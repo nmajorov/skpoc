@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><Route>
+
+<!--Type ElapsedTimeLocationType-->
+   <ElapsedTimeLocationType>
+      <!--alternative 1 of choice type ElapsedTimeLocationType-->
+      <longitude>0.0</longitude>
+   </ElapsedTimeLocationType>
+
+<!--Type EstimatedElapsedTimeType-->
+   <EstimatedElapsedTimeType elapsedTime="P00H00M00S">
+      <location>
+         <!--alternative 2 of choice type ElapsedTimeLocationType-->
+         <point fix="string" type="FixPointType"/>
+      </location>
+   </EstimatedElapsedTimeType>
+
+<!--Type ExpandedRoutePointType-->
+   <ExpandedRoutePointType airTrafficType="OAT" delayAtPoint="P00H00M00S" estimatedTime="1900-01-01T00:00:00" flightRules="IFR">
+      <point>
+         <!--suppressed expansion of duplicate type SignificantPointType-->
+      </point>
+      <constraint constraintType="EXECUTIVE_CONTROL" positionQualification="AT_OR_BEFORE_POINT" type="SpeedConstraintType">
+         <speed uom="KILOMETERS_PER_HOUR">0.0</speed>
+         <timeConstraint constraintType="CONTROLLER_TACTICAL_PLANNING" requiredTime="1900-01-01T00:00:00" timeQualification="AT_OR_BEFORE_TIME"/>
+      </constraint>
+      <estimatedLevel ref="MEAN_SEA_LEVEL" uom="FEET">0.0</estimatedLevel>
+   </ExpandedRoutePointType>
+
+<!--Type ExpandedRouteType-->
+   <ExpandedRouteType>
+      <routeImpactList>
+         <predictedAirway>string string</predictedAirway>
+         <predictedSector>string string</predictedSector>
+         <predictedUnit delegated="AUTHORITY_DELEGATED" sectorIdentifier="string" type="UnitBoundaryType" unitBoundaryIndicator="PAST">
+            <boundaryCrossing>
+               <boundaryCrossingCoordinated crossingTime="1900-01-01T00:00:00">
+                  <altitude ref="FLIGHT_LEVEL" uom="METERS">0.0</altitude>
+                  <assignedSpeed speedCondition="AT_OR_LESS" uom="KNOTS">0.0</assignedSpeed>
+                  <clearedBlock>
+                     <lowerBoundaryCrossingLevel ref="MEAN_SEA_LEVEL" uom="FEET">0.0</lowerBoundaryCrossingLevel>
+                     <upperBoundaryCrossingLevel ref="FLIGHT_LEVEL" uom="METERS">0.0</upperBoundaryCrossingLevel>
+                  </clearedBlock>
+                  <crossingPoint>
+                     <!--suppressed expansion of duplicate type SignificantPointType-->
+                  </crossingPoint>
+                  <offTrackDeviation deviationDirection="LEFT" deviationReason="OFFSET">
+                     <deviationDistance uom="NAUTICAL_MILES">0.0</deviationDistance>
+                  </offTrackDeviation>
+                  <transitionAltitude crossingCondition="AT_OR_ABOVE" ref="MEAN_SEA_LEVEL" uom="FEET">0.0</transitionAltitude>
+               </boundaryCrossingCoordinated>
+               <boundaryCrossingProposed crossingTime="1900-01-01T00:00:00">
+                  <altitude ref="FLIGHT_LEVEL" uom="METERS">0.0</altitude>
+                  <crossingPoint>
+                     <!--suppressed expansion of duplicate type SignificantPointType-->
+                  </crossingPoint>
+                  <directRoutingRequest>
+                     <from>
+                        <!--suppressed expansion of duplicate type SignificantPointType-->
+                     </from>
+                     <to>
+                        <!--suppressed expansion of duplicate type SignificantPointType-->
+                     </to>
+                  </directRoutingRequest>
+                  <offTrackDeviation deviationDirection="RIGHT" deviationReason="WEATHER">
+                     <deviationDistance uom="MILES">0.0</deviationDistance>
+                  </offTrackDeviation>
+                  <requestedRoute airfileRouteStartTime="1900-01-01T00:00:00" flightDuration="P00H00M00S" initialFlightRules="VFR" routeText="string">
+                     <estimatedElapsedTime elapsedTime="P00H00M00S">
+                        <location>
+                           <!--alternative 3 of choice type ElapsedTimeLocationType-->
+                           <region>string</region>
+                        </location>
+                     </estimatedElapsedTime>
+                     <expandedRoute>
+                        <!--suppressed optional element routeImpactList of type RouteImpactListType-->
+                        <routePoint airTrafficType="GAT" delayAtPoint="P00H00M00S" estimatedTime="1900-01-01T00:00:00" flightRules="IFR">
+                           <point>
+                              <!--suppressed expansion of duplicate type SignificantPointType-->
+                           </point>
+                           <!--suppressed optional element constraint of type RouteConstraintType-->
+                           <!--suppressed optional element estimatedLevel of type AltitudeType-->
+                        </routePoint>
+                     </expandedRoute>
+                     <holdFix>
+                        <!--suppressed expansion of duplicate type SignificantPointType-->
+                     </holdFix>
+                     <initialCruisingSpeed uom="MACH">0.0</initialCruisingSpeed>
+                     <requestedAltitude ref="MEAN_SEA_LEVEL" uom="FEET">0.0</requestedAltitude>
+                     <segment airway="string">
+                        <routePoint airTrafficType="OAT" delayAtPoint="P00H00M00S" flightRules="VFR">
+                           <point>
+                              <!--suppressed expansion of duplicate type SignificantPointType-->
+                           </point>
+                           <constraint>
+                              <!--suppressed expansion of duplicate type RouteConstraintType-->
+                           </constraint>
+                        </routePoint>
+                     </segment>
+                  </requestedRoute>
+                  <transitionAltitude crossingCondition="AT_OR_BELOW" ref="FLIGHT_LEVEL" uom="METERS">0.0</transitionAltitude>
+               </boundaryCrossingProposed>
+            </boundaryCrossing>
+            <downstreamUnit>
+               <!--suppressed expansion of duplicate type AtcUnitReferenceType-->
+            </downstreamUnit>
+            <handoff>
+               <coordinationStatus abrogationReason="TFL" coordinationStatus="NOTIFIED" nonStandardCommunicationReason="LATE_ACTIVATION" releaseConditions="CLIMB"/>
+               <receivingUnit>
+                  <!--suppressed expansion of duplicate type AtcUnitReferenceType-->
+               </receivingUnit>
+               <transferringUnit>
+                  <!--suppressed expansion of duplicate type AtcUnitReferenceType-->
+               </transferringUnit>
+            </handoff>
+            <upstreamUnit>
+               <!--suppressed expansion of duplicate type AtcUnitReferenceType-->
+            </upstreamUnit>
+         </predictedUnit>
+      </routeImpactList>
+      <!--suppressed optional element routePoint of type ExpandedRoutePointType-->
+   </ExpandedRouteType>
+
+<!--Type RouteImpactListType-->
+   <RouteImpactListType>
+      <!--suppressed optional element predictedAirway of type null-->
+      <!--suppressed optional element predictedSector of type null-->
+      <!--suppressed optional element predictedUnit of type AtcUnitReferenceType-->
+   </RouteImpactListType>
+
+<!--Type RoutePointType-->
+   <RoutePointType airTrafficType="GAT" delayAtPoint="P00H00M00S" flightRules="IFR">
+      <point>
+         <!--suppressed expansion of duplicate type SignificantPointType-->
+      </point>
+      <!--suppressed optional element constraint of type RouteConstraintType-->
+   </RoutePointType>
+
+<!--Type RouteSegmentType-->
+   <RouteSegmentType airway="string">
+      <!--suppressed optional element routePoint of type RoutePointType-->
+   </RouteSegmentType>
+
+<!--Type RouteType-->
+   <RouteType airfileRouteStartTime="1900-01-01T00:00:00" flightDuration="P00H00M00S" initialFlightRules="VFR" routeText="string">
+      <!--suppressed optional element estimatedElapsedTime of type EstimatedElapsedTimeType-->
+      <!--suppressed optional element expandedRoute of type ExpandedRouteType-->
+      <!--suppressed optional element holdFix of type SignificantPointType-->
+      <!--suppressed optional element initialCruisingSpeed of type TrueAirspeedType-->
+      <!--suppressed optional element requestedAltitude of type AltitudeType-->
+      <!--suppressed optional element segment of type RouteSegmentType-->
+   </RouteType>
+</Route>

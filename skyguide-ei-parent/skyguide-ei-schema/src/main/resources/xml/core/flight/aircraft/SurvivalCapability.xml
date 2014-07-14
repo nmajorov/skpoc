@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><SurvivalCapability>
+
+<!--Type DinghyColourType-->
+   <DinghyColourType>
+      <!--alternative 1 of choice type DinghyColourType-->
+      <colourCode>ORANGE</colourCode>
+   </DinghyColourType>
+
+<!--Type DinghyType-->
+   <DinghyType covered="COVERED" quantity="0" totalCapacity="0">
+      <colour>
+         <!--alternative 2 of choice type DinghyColourType-->
+         <otherColour>string</otherColour>
+      </colour>
+   </DinghyType>
+
+<!--Type SurvivalCapabilitiesType-->
+   <SurvivalCapabilitiesType survivalEquipmentRemarks="string">
+      <dinghyInformation covered="COVERED" quantity="0" totalCapacity="0">
+         <!--suppressed optional element colour of type DinghyColourType-->
+      </dinghyInformation>
+      <emergencyRadioCode>ULTRA_HIGH_FREQUENCY VERY_HIGH_FREQUENCY</emergencyRadioCode>
+      <lifeJacketCode>FLUORESCEIN VERY_HIGH_FREQUENCY</lifeJacketCode>
+      <survivalEquipmentCode>POLAR DESERT</survivalEquipmentCode>
+   </SurvivalCapabilitiesType>
+</SurvivalCapability>

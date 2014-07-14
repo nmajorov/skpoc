@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><SurveillanceCapability>
+
+<!--Type SurveillanceCapabilitiesType-->
+   <SurveillanceCapabilitiesType otherSurveillanceCapabilities="string">
+      <surveillanceCode>A B1</surveillanceCode>
+   </SurveillanceCapabilitiesType>
+</SurveillanceCapability>

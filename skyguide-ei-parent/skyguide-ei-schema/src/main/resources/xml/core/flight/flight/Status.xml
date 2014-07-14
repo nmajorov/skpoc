@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><Status>
+
+<!--Type FlightStatusType-->
+   <FlightStatusType accepted="ACCEPTED" airborne="AIRBORNE" airborneHold="AIRBORNE_HOLD" airfile="AIRFILE" cancelled="CANCELLED" completed="COMPLETED" filed="FILED"/>
+</Status>

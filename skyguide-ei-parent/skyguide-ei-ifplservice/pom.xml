@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <artifactId>skyguide-ei-parent</artifactId>
+    <groupId>ch.skyguide.fuse.prototype</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>skyguide-ei-ifplservice</artifactId>
+  <packaging>bundle</packaging>
+  <name>FlightPlans consumer service</name>
+  <url>http://www.skyguide.ch</url>
+  
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <skyguide-osgi-default-import>*,
+      aero.fixm.model.base,
+      aero.fixm.model.flight,
+      aero.fixm.model.foundation,
+      ch.skyguide.fixm.extension.flight.enroute
+    </skyguide-osgi-default-import>
+  </properties>
+
+  <dependencies>
+<!--   
+   <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-spring</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+    </dependency>
+    -->
+    
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-netty</artifactId>
+    </dependency>
+    
+        <!-- own modules -->
+    <dependency>
+      <groupId>ch.skyguide.fuse.prototype</groupId>
+      <artifactId>skyguide-ei-commons</artifactId>
+      <exclusions>
+        <exclusion>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <groupId>org.slf4j</groupId>
+        </exclusion>
+        <exclusion>
+            <artifactId>slf4j-log4j12</artifactId>
+            <groupId>org.slf4j</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    
+    <!-- inhouse 3rd party libraries -->
+    <dependency>
+      <groupId>ch.skyguide.simulation</groupId>
+      <artifactId>message</artifactId>
+    </dependency>
+    
+    <!-- testing -->
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-test-blueprint</artifactId>
+      <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>skyguide-ei-commons</artifactId>
+        <type>test-jar</type>
+        <scope>test</scope>
+    </dependency>
+    
+  </dependencies>
+
+  <build>
+      <!-- allows the route to be ran via 'mvn camel:run' -->
+      <plugins>
+      <plugin>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+     <resources>
+     <resource>
+       <directory>src/main/resources</directory>
+       <filtering>true</filtering>
+     </resource>
+    </resources>
+  </build>
+
+</project>

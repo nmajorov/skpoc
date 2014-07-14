@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><Location>
+
+<!--Type GeographicLocationType-->
+   <GeographicLocationType srsName="string">
+      <pos>0.0 0.0</pos>
+   </GeographicLocationType>
+</Location>

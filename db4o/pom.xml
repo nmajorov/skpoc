@@ -1,0 +1,47 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>ch.skyguide.db4o</groupId>
+  <artifactId>db4o</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+
+  <name>Db for Objects(db4o)</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.7</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.apache.ant</groupId>
+    	<artifactId>ant</artifactId>
+    	<version>1.8.4</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.osgi</groupId>
+    	<artifactId>core</artifactId>
+    	<version>4.3.0</version>
+    </dependency>
+  </dependencies>
+  
+  <distributionManagement> 
+        <repository> 
+            <id>ei-internal-repository</id> 
+            <name>ei-internal-repository</name> 
+            <url>http://156.135.81.68/artifactory/ei-internal-repository</url> 
+        </repository> 
+        <snapshotRepository> 
+            <id>ei-internal-repository</id> 
+            <name>ei-internal-repository-snapshots</name> 
+            <url>http://156.135.81.68/artifactory/ei-internal-repository</url> 
+        </snapshotRepository> 
+  </distributionManagement> 
+</project>
