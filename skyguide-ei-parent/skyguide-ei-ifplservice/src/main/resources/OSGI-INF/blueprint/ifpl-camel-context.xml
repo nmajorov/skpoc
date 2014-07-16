@@ -1,37 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+           
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" 
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+           xmlns:cxf="http://camel.apache.org/schema/blueprint/cxf"       
+           xmlns:cxfcore="http://cxf.apache.org/blueprint/core"           
+ 
  xsi:schemaLocation="
              http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
              http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
 
-
  <camelContext id="ifplCamelContext" xmlns="http://camel.apache.org/schema/blueprint">
-   <properties>
-        <property key="CamelLogDebugBodyMaxChars" value="8192"/>
-   </properties>
-   
-  <route id="ifplRoute">
-
-   <from uri="${netty.ifpl.url}" />
-   <marshal>
-    <jaxb contextPath="ch.skyguide.fixm.extension.flight.enroute" prettyPrint="true" />
-   </marshal>
-   <to uri="log:ch.skyguide.fuse.prototype.ifplservice?level=DEBUG" />
-   <!--
-   <to uri="bean:aggregationStrategy?method=mapRequestToFoService" />
-   <recipientList strategyRef="aggregationStrategy">
-     <simple>cxfrs://http://localhost:8181/cxf/foservice/crud/id/${header.FlightId}/departure/${header.FlightDepartureAerodrome}/arrival/${header.FlightArrivalAerodrome}</simple>
-   </recipientList>
-   -->
-  </route>
+	<properties>
+	     <property key="CamelLogDebugBodyMaxChars" value="8192"/>
+	</properties>
+    <!--  
+    <cxf:rsClient id="rsClient" address="${rest.url}"
+        serviceClass="ch.skyguide.ei.prototype.foservice.FlightObjectService" 
+        loggingFeatureEnabled="true" />
+    -->
+    
+    <route id="ifplRoute">
+        <from uri="${netty.ifpl.url}" />
+        <marshal>
+            <jaxb contextPath="ch.skyguide.fixm.extension.flight.enroute" prettyPrint="true" />
+        </marshal>
+        <to uri="log:ch.skyguide.fuse.prototype.ifplservice?level=DEBUG" />
+        <!--  
+        <to uri="cxfrs://bean://rsClient?providers=#myProvider"/>
+        -->
+    </route>
  </camelContext>
-
- <!-- 
- <bean id="aggregationStrategy" class="ch.skyguide.ei.prototype.foproxy.FlightObjectProxyAggregationStrategy" />
-  -->
+ <!--  
+ <bean id="myProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider" />
+ <bean class="ch.skyguide.ei.prototype.foservice.FlightObjectService"  id="flightObjectService" />
+ -->
  <bean class="ch.skyguide.ei.prototype.netty.handler.codec.ifpl.IcaoAtsDecoder" id="IcaoAtsDecoder"/>
  <bean class="ch.skyguide.ei.prototype.netty.handler.codec.ifpl.IcaoAtsServerPipelineFactory" id="IcaoAtsServerPipelineFactory"/>
 
 </blueprint>
+<!--
+<camel-cxf:cxfEndpoint id="routerEndpoint"
+          address="http://localhost:9001/router"
+          serviceClass="org.apache.servicemix.examples.cxf.HelloWorld">
+    <camel-cxf:properties>            
+        <entry key="dataFormat" value="MESSAGE"/>        
+    </camel-cxf:properties>
+</camel-cxf:cxfEndpoint>
+      
+<camel-cxf:cxfEndpoint id="serviceEndpoint"
+            address="http://localhost:9000/SoapContext/SoapPort"
+            serviceClass="org.apache.servicemix.examples.cxf.HelloWorld">
+</camel-cxf:cxfEndpoint>     
+
+<camelContext xmlns="http://camel.apache.org/schema/blueprint">
+    <route>            
+        <from uri="routerEndpoint"/>            
+        <to uri="log:request"/>        
+    </route>    
+</camelContext> 
+-->
+ 

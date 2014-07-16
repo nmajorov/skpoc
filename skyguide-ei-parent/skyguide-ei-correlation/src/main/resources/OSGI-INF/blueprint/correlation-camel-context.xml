@@ -22,14 +22,14 @@
         <constant>GET</constant>
       </setHeader>
       <recipientList strategyRef="aggregationStrategy">
-        <simple>cxfrs://${restone.url}/flights/${header.SkyguideFlightPositionId}</simple>
+        <simple>cxfrs://${rest.url}/flights/${header.SkyguideFlightPositionId}</simple>
       </recipientList>
       
       <setHeader headerName="CamelHttpMethod">
         <constant>POST</constant>
       </setHeader>
       <recipientList>
-        <simple>cxfrs://${restone.url}/flights/update</simple>
+        <simple>cxfrs://${rest.url}/flights/update</simple>
       </recipientList>
       
     -->

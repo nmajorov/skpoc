@@ -217,6 +217,13 @@
       </dependency>
       <dependency>
         <groupId>ch.skyguide.fuse.prototype</groupId>
+        <artifactId>skyguide-ei-ifplservice</artifactId>
+        <version>${project.version}</version>
+        <scope>test</scope>
+        <type>test-jar</type>
+      </dependency>
+      <dependency>
+        <groupId>ch.skyguide.fuse.prototype</groupId>
         <artifactId>skyguide-ei-foservice</artifactId>
         <version>${project.version}</version>
         <scope>test</scope>
@@ -380,7 +387,7 @@
          <netty.out.url>netty:udp://239.193.192.3:25002?encoder=#nettyEncoder&amp;amp;broadcast=true&amp;amp;sync=false&amp;amp;networkInterface=eth1</netty.out.url>
          <netty.ifpl.url>netty:tcp://192.168.0.1:12345?decoder=#IcaoAtsDecoder&amp;amp;networkInterface=eth1&amp;amp;sync=false&amp;amp;serverPipelineFactory=#IcaoAtsServerPipelineFactory</netty.ifpl.url>
          <broker.url>vm://localhost</broker.url>
-		 <restone.url>http://192.168.0.1:8181/cxf/foservice/crudone</restone.url>
+		 <rest.url>http://192.168.0.1:8181/cxf/foservice</rest.url>
       </properties>
     </profile>
     <profile>
@@ -391,7 +398,7 @@
           <netty.out.url>netty:udp://239.193.192.3:25002?encoder=#nettyEncoder&amp;amp;broadcast=true&amp;amp;sync=false</netty.out.url>
           <netty.ifpl.url>netty:tcp://localhost:12345?decoder=#IcaoAtsDecoder&amp;amp;sync=false&amp;amp;serverPipelineFactory=#IcaoAtsServerPipelineFactory</netty.ifpl.url>
           <broker.url>vm://localhost</broker.url>
-		  <restone.url>http://localhost:8181/cxf/foservice/crudone</restone.url>
+		  <rest.url>http://localhost:8181/cxf/foservice</rest.url>
       </properties>
     </profile>
   </profiles>

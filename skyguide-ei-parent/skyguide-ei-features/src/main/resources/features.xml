@@ -7,7 +7,10 @@
 
   <feature name="skyguide-3rd-party" version="${project.version}" resolver='(obr)' start-level='100'>
     <bundle>wrap:mvn:ch.skyguide.simulation/exception/${skyguide-exception-version}</bundle>
+    <bundle>wrap:mvn:ch.skyguide.simulation/environment/${skyguide-environment-version}</bundle>
+    <bundle>wrap:mvn:ch.skyguide.simulation/flightplan/${skyguide-flightplan-version}</bundle>
     <bundle>wrap:mvn:ch.skyguide.simulation/message/${skyguide-message-version}</bundle>
+    <bundle>wrap:mvn:ch.skyguide.simulation/quantity/${skyguide-quantity-version}</bundle>
     <bundle>wrap:mvn:ch.skyguide.simulation/rdps/${skyguide-rdps-version}</bundle>
     <bundle>wrap:mvn:ch.skyguide.tools/translib/${skyguide-translib-version}</bundle>
     <bundle>wrap:mvn:ch.skyguide.simulation/util/${skyguide-util-version}</bundle>
@@ -53,8 +56,10 @@
     <bundle>mvn:ch.skyguide.fuse.prototype/skyguide-ei-outflow/${project.version}</bundle>
   </feature>
 
-  <feature name="skyguide-ifpservice" version="${project.version}" resolver="(orb)" start-level="100">
-      <bundle>mvn:ch.skyguide.fuse.prototype/skyguide-ei-ifpservice/${project.version}</bundle>
+  <feature name="skyguide-ifplservice" version="${project.version}" resolver="(orb)" start-level="100">
+    <feature version="${cxf-version}">cxf-jaxrs</feature>
+    <feature version="${project.version}">skyguide-commons</feature>
+      <bundle>mvn:ch.skyguide.fuse.prototype/skyguide-ei-ifplservice/${project.version}</bundle>
   </feature>
   
   <feature name="skyguide-all" version="${project.version}" resolver='(obr)' start-level='100'>
@@ -65,6 +70,6 @@
     <feature version="${project.version}">skyguide-inflow</feature>
     <feature version="${project.version}">skyguide-outflow</feature>
     <feature version="${project.version}">skyguide-correlation</feature>
-    <feature version="${project.version}">skyguide-ifpservice</feature>
+    <feature version="${project.version}">skyguide-ifplservice</feature>
   </feature>
 </features>

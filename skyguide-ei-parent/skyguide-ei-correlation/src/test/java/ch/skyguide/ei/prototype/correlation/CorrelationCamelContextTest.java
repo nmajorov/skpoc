@@ -1,28 +1,22 @@
 package ch.skyguide.ei.prototype.correlation;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
-
-import ch.skyguide.ei.prototype.test.DataFlowTestSupport;
-import ch.skyguide.ei.prototype.test.RestServiceHelper;
-import ch.skyguide.fixm.extension.flight.enroute.FixmAsterixMessage;
-import ch.skyguide.fixm.extension.flight.enroute.SkyguideAircraftPosition;
 
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
+
+import ch.skyguide.ei.prototype.test.DataFlowTestSupport;
+import ch.skyguide.ei.prototype.test.RestServiceHelper;
+import ch.skyguide.fixm.extension.flight.enroute.SkyguideAircraftPosition;
 
 
 public class CorrelationCamelContextTest extends DataFlowTestSupport {
 
     static RestServiceHelper restServiceHelper;
-    private static final String URL = "http://localhost:8181/cxf/foservice/crudone";
+    private static final String URL = "http://localhost:8181/cxf/foservice";
     
     
     @BeforeClass
@@ -55,7 +49,7 @@ public class CorrelationCamelContextTest extends DataFlowTestSupport {
         template.sendBody("activemq:topic:skyguide.surveillance.data",xmlString);
     }
     
-    //@Test
+//    @Test
     public void enrichAircraftPositionFoundOnRSService() throws Exception {
         // first create & upload the position we want to test with
         final WebClient client = restServiceHelper.createWebClient("/crud/position/123");

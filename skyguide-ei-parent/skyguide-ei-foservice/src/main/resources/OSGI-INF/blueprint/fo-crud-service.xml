@@ -10,35 +10,22 @@
       
   <jaxrs:server id="service" address="/foservice">
     <jaxrs:serviceBeans>
-      <ref component-id="serviceScenarioOne" />
-      <ref component-id="serviceScenarioTwo" />
+      <ref component-id="flightObjectService" />
     </jaxrs:serviceBeans>
   </jaxrs:server>
-
   
-  <bean id="serviceScenarioTwo" class="ch.skyguide.ei.prototype.foservice.FlightObjectService" >
-   <property name="repository" ref="flightObjectRepositoryTwo" />
+  <bean id="flightObjectService" class="ch.skyguide.ei.prototype.foservice.FlightObjectService" >
+   <property name="repository" ref="flightObjectRepository" />
   </bean>
 
-   <bean id="serviceScenarioOne" class="ch.skyguide.ei.prototype.foservice.FlightObjectServiceScenarioOne" >
-        <property name="repository" ref="flightObjectRepository" />
-   </bean>
-   
-  
    <bean id="flightObjectRepository" class="ch.skyguide.ei.prototype.foservice.forepository.FlightObjectRepository">
-        <argument value="OperationDatabase.d4o"/>
+        <argument value="data/OperationDatabase.d4o"/>
    </bean>
-   
-    <bean id="flightObjectRepositoryTwo" class="ch.skyguide.ei.prototype.foservice.forepository.FlightObjectRepository">
-        <argument value="OperationDatabase2.d4o"/>
-   </bean>
-   
    
   <cxf:bus>
         <cxf:features>
           <cxf:logging />
         </cxf:features>
   </cxf:bus>
-
 
 </blueprint>

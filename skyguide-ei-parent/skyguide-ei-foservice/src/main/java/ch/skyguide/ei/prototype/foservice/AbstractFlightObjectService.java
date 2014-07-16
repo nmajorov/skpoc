@@ -277,7 +277,7 @@ public abstract class AbstractFlightObjectService {
     		else {
     			
     			fixmFlight.setFlightType(TypeOfFlightType.valueOf(String
-    				.valueOf(typeOfFlight.getCharacterRepresentation())));
+    				.valueOf(typeOfFlight.name())));
     		}
     	}
     	

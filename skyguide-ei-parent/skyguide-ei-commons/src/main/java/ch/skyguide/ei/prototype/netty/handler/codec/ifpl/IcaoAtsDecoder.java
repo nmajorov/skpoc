@@ -105,10 +105,12 @@ public class IcaoAtsDecoder extends OneToOneDecoder {
 		// Extract the message.
 		final ChannelBuffer channelBuffer = (ChannelBuffer) msg;
 		
-		LOG.info("Raw icao ats message: " + channel.toString());
+		LOG.info("Channel id: " + channel.toString());
 		
 		final CharBuffer messageBuffer 
 			= extractMessageFromChannel(channelBuffer);
+
+		LOG.info("Raw icao ats message: " + messageBuffer.toString());
 
 		//----------------------------------------------------------------------
 		// Return converted message.
