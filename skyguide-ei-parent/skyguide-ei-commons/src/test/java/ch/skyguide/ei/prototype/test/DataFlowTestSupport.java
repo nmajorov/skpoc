@@ -1,11 +1,9 @@
 package ch.skyguide.ei.prototype.test;
 
 import org.apache.activemq.broker.BrokerService;
-
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.blueprint.CamelBlueprintTestSupport;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
@@ -13,7 +11,7 @@ public abstract class DataFlowTestSupport extends CamelBlueprintTestSupport {
 
     private static BrokerService broker;
 
-   // @BeforeClass
+    @BeforeClass
     public static void startBroker() throws Exception {
         broker = new BrokerService();
         broker.addConnector("tcp://localhost:61616");
@@ -21,7 +19,7 @@ public abstract class DataFlowTestSupport extends CamelBlueprintTestSupport {
         broker.start();
     }
 
-//    @AfterClass
+    @AfterClass
     public static void stopBroker() throws Exception {
         broker.stop();
     }
