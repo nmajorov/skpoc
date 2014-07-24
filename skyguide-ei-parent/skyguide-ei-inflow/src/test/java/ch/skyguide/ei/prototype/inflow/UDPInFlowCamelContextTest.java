@@ -33,6 +33,31 @@ public class UDPInFlowCamelContextTest extends DataFlowTestSupport {
 //        assertTrue(fixmMessage.contains("http://www.fixm.aero/foundation/2.0"));
     }
 
+    @Test
+    public void testUDPDataInFlow2() throws Exception {
+        
+    	getInterceptingEndpoint().expectedMessageCount(1);
+
+        final byte[] asterixMessage = convert(byte[].class, getClass().getResourceAsStream("/multiple_62_65_messages.bin"));
+        ChannelBuffer messageChanneled = ChannelBuffers.buffer(asterixMessage.length);
+        
+        messageChanneled.writeBytes(asterixMessage);
+
+        template.sendBody("netty:udp://localhost:25001?decoder=#nettyDecoder&broadcast=true&sync=false&disconnectOnNoReply=false", messageChanneled);
+
+        assertMockEndpointsSatisfied();
+
+        final Object payload = getInterceptingEndpoint().getReceivedExchanges().get(0).getIn().getBody();
+        assertNotNull("payload", payload);
+        // TODO: rjw, add in correct test for the fixm message
+//        final String fixmMessage = assertIsInstanceOf(String.class, payload);
+//
+//        assertNotNull("fixmMessage", fixmMessage);
+//        assertTrue(fixmMessage.contains("http://www.fixm.aero/flight/2.0"));
+//        assertTrue(fixmMessage.contains("http://www.fixm.aero/flight/2.0/skyguide"));
+//        assertTrue(fixmMessage.contains("http://www.fixm.aero/foundation/2.0"));
+    }
+
     @Override
     protected RouteBuilder createAdvisingRouteBuilder() {
         return new RouteBuilder() {
