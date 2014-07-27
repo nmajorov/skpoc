@@ -22,17 +22,22 @@ public class CorrelatingAggregationStrategy implements AggregationStrategy {
     private static final String FLIGHT_POSITION_ID = "SkyguideFlightPositionId";
 
     public void enrichExchange(final Exchange exchange) {
+    	
         LOG.debug("start enrichExchange");
-        final FixmAsterixMessage asterixMessage = exchange.getIn().getBody(FixmAsterixMessage.class);
+        
+        final FixmAsterixMessage asterixMessage 
+        	= exchange.getIn().getBody(FixmAsterixMessage.class);
+        
         String targetIdentification = null;
         
         
-        for (final FixmAsterixDataBlock fixmAsterixDataBlock : asterixMessage
-                .getFixmAsterixDataBlocks()) {
-            for (final AsterixRecordType fixmAsterixRecord : fixmAsterixDataBlock
-                    .getFixmAsterixRecords()) {
+        for (final FixmAsterixDataBlock fixmAsterixDataBlock : 
+        		asterixMessage.getFixmAsterixDataBlocks()) {
+            
+        	for (final AsterixRecordType fixmAsterixRecord : 
+        			fixmAsterixDataBlock.getFixmAsterixRecords()) {
             	
-            	// Only operat on the System Track records
+            	// Only operate on the System Track records
                 if (fixmAsterixRecord instanceof FixmSystemTrackData) {
                     
                 	FixmSystemTrackData fixmSystemTrackData 

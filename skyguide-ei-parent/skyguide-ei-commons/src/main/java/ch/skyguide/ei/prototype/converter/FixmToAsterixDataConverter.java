@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.apache.camel.util.ObjectHelper;
 
+import aero.fixm.model.flight.TypeOfFlightType;
 import ch.skyguide.communication.dataitem.LoggingLengthPrefixUniversalRepetitiveDataItem;
 import ch.skyguide.communication.dataitem.LoggingUniversalExtendedDataItem;
 import ch.skyguide.communication.dataitem.LoggingUniversalFixedDataItem;
@@ -45,6 +46,9 @@ import ch.skyguide.fixm.extension.flight.enroute.FixmAsterixDataBlock;
 import ch.skyguide.fixm.extension.flight.enroute.FixmAsterixMessage;
 import ch.skyguide.fixm.extension.flight.enroute.FixmSdpsService;
 import ch.skyguide.fixm.extension.flight.enroute.FixmSystemTrackData;
+import ch.skyguide.fixm.extension.flight.enroute.FlightRuleType;
+import ch.skyguide.fixm.extension.flight.enroute.RvsmType;
+import ch.skyguide.fixm.extension.flight.enroute.WtcType;
 import ch.skyguide.message.structure.GenericDataBlock;
 import ch.skyguide.message.structure.GenericRecord;
 import ch.skyguide.message.structure.datafield.DataField;
@@ -264,7 +268,6 @@ public class FixmToAsterixDataConverter {
 			// -----------------------------------------------------------------
 			// FRN 3:  I242/030, Track number, N.A.	F/2
 			// Track Number taken from I062/020, copy track number
-			
 			if (fixmSystemTrackData.isSetTrackNumber()) {
 				
 				final AsterixInteger trackNumber 
@@ -324,7 +327,8 @@ public class FixmToAsterixDataConverter {
 
 					byte thirdExtent = trackStatusStructure.get(3).byteValue();
 					if((thirdExtent & 0x80) == 0x80) {
-							bsTrackStatusMainStrut.set(6, true); // CST.
+						
+						bsTrackStatusMainStrut.set(6, true); // CST.
 					}
 				}
 
@@ -343,10 +347,46 @@ public class FixmToAsterixDataConverter {
 
 				}
 				
-				bsTrackStatusMainStrut.set(9, false); // MIL.
-				bsTrackStatusMainStrut.set(10, false); // VFR.
+				if (fixmSystemTrackData.isSetFlightPlanRelatedData()
+						&& fixmSystemTrackData.getFlightPlanRelatedData()
+							.isSetFlightCategory() 
+						&& TypeOfFlightType.MILITARY.equals(fixmSystemTrackData
+									.getFlightPlanRelatedData()
+									.getFlightCategory().getTypeOfFlight())) {
+				
+					bsTrackStatusMainStrut.set(9, false); // MIL.
+				} else {
+					
+					bsTrackStatusMainStrut.set(9, false); // MIL.
+				}
+				
+				if (fixmSystemTrackData.isSetFlightPlanRelatedData()
+						&& fixmSystemTrackData.getFlightPlanRelatedData()
+							.isSetFlightCategory() 
+						&& fixmSystemTrackData.getFlightPlanRelatedData()
+								.getFlightCategory().isSetFlightRule() 
+						&& (FlightRuleType.CVFR.equals(fixmSystemTrackData
+							.getFlightPlanRelatedData().getFlightCategory()
+								.getFlightRule()) 
+							|| FlightRuleType.VFR.equals(fixmSystemTrackData
+									.getFlightPlanRelatedData()
+									.getFlightCategory().getFlightRule()))) {
+				
+					bsTrackStatusMainStrut.set(10, true); // VFR.
+				} else {
+					
+					bsTrackStatusMainStrut.set(10, false); // VFR.
+				}
+				
 				bsTrackStatusMainStrut.set(11, false); // SIM.
-				bsTrackStatusMainStrut.set(12, false); // FPC.
+				
+				if (fixmSystemTrackData.isSetFlightPlanRelatedData()) {
+					
+					bsTrackStatusMainStrut.set(12, true); // FPC.
+				} else {
+				
+					bsTrackStatusMainStrut.set(12, false); // FPC.
+				}
 				
 				if(trackStatusStructure.size()>2) {
 
@@ -376,7 +416,19 @@ public class FixmToAsterixDataConverter {
 				final BitSet bsTrackStatusFirstExt = new BitSet(16);
 				bsTrackStatusFirstExt.set(0, false); // ACD
 				bsTrackStatusFirstExt.set(1, false); // HLD
-				bsTrackStatusFirstExt.set(2, false); // FOR
+				
+				if (fixmSystemTrackData.isSetFlightPlanRelatedData()
+						&& fixmSystemTrackData.getFlightPlanRelatedData()
+							.isSetFlightCategory() 
+						&& fixmSystemTrackData.getFlightPlanRelatedData()
+							.getFlightCategory().isSetFormationFlight()) {
+				
+					bsTrackStatusFirstExt.set(2, true); // FOR
+				} else {
+					
+					bsTrackStatusFirstExt.set(2, false); // FOR
+				}
+				
 				bsTrackStatusFirstExt.set(3, false); // AAC
 				
 				if(trackStatusStructure.size()>2) {
@@ -385,6 +437,7 @@ public class FixmToAsterixDataConverter {
 					bsTrackStatusFirstExt.set(4, ((thirdExtent & 0x10) == 0x10)); // MSF
 				}
 				
+				// TODO: rjw, check when Altimetry Service is available.
 				bsTrackStatusFirstExt.set(5, false); // QNHM
 				bsTrackStatusFirstExt.set(6, false);  // QNHM
 				bsTrackStatusFirstExt.set(7, false);  // Reserved
@@ -478,7 +531,19 @@ public class FixmToAsterixDataConverter {
 					= (AbstractUniversalExtendedDataItem)cat242Uap.getDataItem(9);
 
 				final BitSet bsMainStructure = new BitSet(16);
-				bsMainStructure.set(14); // RVSM
+				
+				if (fixmSystemTrackData.isSetFlightPlanRelatedData() 
+						&& fixmSystemTrackData.getFlightPlanRelatedData().isSetFlightCategory()
+						&& RvsmType.APPROVED.equals(fixmSystemTrackData
+							.getFlightPlanRelatedData().getFlightCategory()
+								.getRvsm())) {
+				
+					bsMainStructure.set(14); // RVSM
+				} else {
+					
+					bsMainStructure.clear(14); // RVSM
+				}
+				
 				bsMainStructure.clear(4); // AOC (0, 1, 2, 3), default 1
 				bsMainStructure.clear(3); // AOC, setting alloc (0).
 				bsMainStructure.set(2, false); // Advised setting (1)
@@ -499,13 +564,21 @@ public class FixmToAsterixDataConverter {
 				final List<Number> list = new ArrayList<Number>();
 				final ByteBuffer bufFlightPlanTrackStatus 
 					= ByteBuffer.allocate(2).order(ByteOrder.LITTLE_ENDIAN);
-				bufFlightPlanTrackStatus
-					.put(bsMainStructure.toByteArray()).flip();
+				bufFlightPlanTrackStatus.put(bsMainStructure.toByteArray());
+				if(bufFlightPlanTrackStatus.position()<2) {
+					
+					bufFlightPlanTrackStatus.put((byte)0);
+				}
+				bufFlightPlanTrackStatus.flip();
 				list.add(bufFlightPlanTrackStatus.getShort());
 				bufFlightPlanTrackStatus.flip();
 				
-				bufFlightPlanTrackStatus
-					.put(bsFirstExtent.toByteArray()).flip();
+				bufFlightPlanTrackStatus.put(bsFirstExtent.toByteArray());
+				if(bufFlightPlanTrackStatus.position()<2) {
+					
+					bufFlightPlanTrackStatus.put((byte)0);
+				}
+				bufFlightPlanTrackStatus.flip();
 				list.add(bufFlightPlanTrackStatus.getShort());
 				
 				dataFields.put(9, flightPlanStatus.pack(list));
@@ -725,8 +798,28 @@ public class FixmToAsterixDataConverter {
 			
 			// -----------------------------------------------------------------
 			// FRN 20	I242/190, Emergency mode 3/A, N.A.	F/2
-			// TODO: rjw, not handling emergency mode 3/A code.
-			fieldSpecification.disableField(20);
+			// Enriched when set in an emergency state
+			if (fixmSystemTrackData.isSetFlightPlanRelatedData()
+					&& fixmSystemTrackData.getFlightPlanRelatedData()
+						.isSetPreEmergencyCode()) {
+			
+				final AbstractUniversalFixedDataItem emergencyTrackMode3A
+				= (AbstractUniversalFixedDataItem)cat242Uap.getDataItem(20);
+			
+				final ByteBuffer bufEmergencyTrackMode3A 
+				= ByteBuffer.allocate(emergencyTrackMode3A.getSizeFactor());
+				
+				final short fixmEmergencyTrackMode3A 
+					= fixmSystemTrackData.getTrackMode3ACode().shortValue(); 
+				// TODO: rjw, complete with the bit shifting.
+				bufEmergencyTrackMode3A.putShort(fixmEmergencyTrackMode3A)
+					.flip();
+				
+				dataFields.put(20, emergencyTrackMode3A
+					.pack(bufEmergencyTrackMode3A));
+	
+				fieldSpecification.enableField(20);
+			}
 			
 			// -----------------------------------------------------------------
 			// FRN 21	I242/200, Radar identification tag, N.A.	F/2
@@ -995,13 +1088,51 @@ public class FixmToAsterixDataConverter {
 			
 			// -----------------------------------------------------------------
 			// FRN 54	I242/580, Aircraft type, ASCII	F/4
-			// TODO: rjw, enrich with flight information when connected to repository.
-			fieldSpecification.disableField(54);
+			if(fixmSystemTrackData.isSetFlightPlanRelatedData() 
+					&& fixmSystemTrackData.getFlightPlanRelatedData()
+						.isSetTypeOfAircraft()) {
+				
+				final LoggingUniversalFixedDataItem typeOfAircraftDataItem
+					= (LoggingUniversalFixedDataItem)cat242Uap.getDataItem(54);
+			
+				final String typeOfAircraft 
+					= fixmSystemTrackData.getFlightPlanRelatedData()
+						.getTypeOfAircraft();
+				
+				final ByteBuffer bufTypeOfAircraft = ByteBuffer.allocate(4);
+				
+				bufTypeOfAircraft
+					.put(typeOfAircraft.getBytes(Charset.forName("US-ASCII")));
+				bufTypeOfAircraft.flip();
+				dataFields
+					.put(54, typeOfAircraftDataItem.pack(bufTypeOfAircraft));
+
+				fieldSpecification.enableField(54);
+			}
 			
 			// -----------------------------------------------------------------
 			// FRN 55	I242/590, Wake turbulence category, ASCII	F/1
-			// TODO: rjw, enrich with flight information when connected to repository.
-			fieldSpecification.disableField(55);
+			if(fixmSystemTrackData.isSetFlightPlanRelatedData() 
+					&& fixmSystemTrackData.getFlightPlanRelatedData()
+						.isSetWakeTurbulenceCategory()) {
+				
+				final LoggingUniversalFixedDataItem wakeTurbulenceDataItem
+					= (LoggingUniversalFixedDataItem)cat242Uap.getDataItem(55);
+			
+				final WtcType wakeTurbulence 
+					= fixmSystemTrackData.getFlightPlanRelatedData()
+						.getWakeTurbulenceCategory();
+				
+				final ByteBuffer bufWakeTurbulence = ByteBuffer.allocate(1);
+				
+				bufWakeTurbulence
+					.put(wakeTurbulence.name().getBytes(Charset.forName("US-ASCII")));
+				bufWakeTurbulence.flip();
+				dataFields
+					.put(55, wakeTurbulenceDataItem.pack(bufWakeTurbulence));
+
+				fieldSpecification.enableField(55);
+			}
 
 			// -----------------------------------------------------------------
 			// FRN 56	I242/600, Aircraft company, ASCII	Ex
@@ -1017,19 +1148,16 @@ public class FixmToAsterixDataConverter {
 			// -----------------------------------------------------------------
 			// FRN 58	I242/620, PTID2, ASCII	Ex
 			// Not Implemented in I242 v2.0
-			// TODO: rjw, enrich with flight information when connected to repository.
 			fieldSpecification.disableField(58);
 
 			// -----------------------------------------------------------------
 			// FRN 59	I242/630, PTID3, ASCII	Ex
 			// Not Implemented in I242 v2.0
-			// TODO: rjw, enrich with flight information when connected to repository.
 			fieldSpecification.disableField(59);
 
 			// -----------------------------------------------------------------
 			// FRN 60	I242/640, PTID4, ASCII	Ex
 			// Not Implemented in I242 v2.0
-			// TODO: rjw, enrich with flight information when connected to repository.
 			fieldSpecification.disableField(60);
 
 			// -----------------------------------------------------------------
@@ -1040,47 +1168,146 @@ public class FixmToAsterixDataConverter {
 
 			// -----------------------------------------------------------------
 			// FRN 62	I242/660, FL1, ¼ FL	F/2
-			// TODO: rjw, enrich with flight information when connected to repository.
-			fieldSpecification.disableField(62);
+			// TODO: rjw, only enrich with cleared flightlevel
+			if(fixmSystemTrackData.isSetFlightPlanRelatedData() 
+					&& fixmSystemTrackData.getFlightPlanRelatedData()
+						.isSetCurrentClearedFlightLevel()) {
+				
+				final LoggingUniversalFixedDataItem flightLevel1DataItem
+					= (LoggingUniversalFixedDataItem)cat242Uap.getDataItem(62);
+			
+				final long clearedFlightLevel 
+					= fixmSystemTrackData.getFlightPlanRelatedData()
+						.getCurrentClearedFlightLevel();
+				
+				final ByteBuffer bufFlightLevel1 = ByteBuffer.allocate(2);
+				
+				bufFlightLevel1.putShort((short)clearedFlightLevel);
+				bufFlightLevel1.flip();
+				dataFields
+					.put(62, flightLevel1DataItem.pack(bufFlightLevel1));
+
+				fieldSpecification.enableField(62);
+			}
 			
 			// -----------------------------------------------------------------
 			// FRN 63	I242/670, FL2, ¼ FL	F/2
 			// Not Implemented in I242 v2.0
-			// TODO: rjw, enrich with flight information when connected to repository.
 			fieldSpecification.disableField(63);
 
 			// -----------------------------------------------------------------
 			// FRN 64	I242/680, FL3, ¼ FL	F/2
 			// Not Implemented in I242 v2.0
-			// TODO: rjw, enrich with flight information when connected to repository.
 			fieldSpecification.disableField(64);
 
 			// -----------------------------------------------------------------
 			// FRN 65	I242/690, FL4, ¼ FL	F/2
 			// Not Implemented in I242 v2.0
-			// TODO: rjw, enrich with flight information when connected to repository.
 			fieldSpecification.disableField(65);
 
 			// -----------------------------------------------------------------
 			// FRN 66	I242/700, FL5,¼ FL	F/2
-			// TODO: rjw, enrich with flight information when connected to repository.
 			fieldSpecification.disableField(66);
+			if(fixmSystemTrackData.isSetFlightPlanRelatedData() 
+					&& fixmSystemTrackData.getFlightPlanRelatedData()
+						.isSetCurrentClearedFlightLevel()) {
+				
+				final LoggingUniversalFixedDataItem flightLevel5DataItem
+					= (LoggingUniversalFixedDataItem)cat242Uap.getDataItem(66);
+			
+				final long clearedFlightLevel 
+					= fixmSystemTrackData.getFlightPlanRelatedData()
+						.getCurrentClearedFlightLevel();
+				
+				final ByteBuffer bufFlightLevel5 = ByteBuffer.allocate(2);
+				
+				bufFlightLevel5.putShort((short)clearedFlightLevel);
+				bufFlightLevel5.flip();
+				dataFields
+					.put(66, flightLevel5DataItem.pack(bufFlightLevel5));
+
+				fieldSpecification.enableField(66);
+			}
 			
 			// -----------------------------------------------------------------
 			// FRN 67	I242/710, CFL, ¼ FL	F/2
-			// TODO: rjw, enrich with flight information when connected to repository.
-			// TODO: rjw, CFL needs to be transmitted for scenario II.
-			fieldSpecification.disableField(67);
+			// Enriched by correlation service, unit is same from 
+			// Fixm AST CAT 062
+			if(fixmSystemTrackData.isSetFlightPlanRelatedData() 
+					&& fixmSystemTrackData.getFlightPlanRelatedData()
+						.isSetCurrentClearedFlightLevel()) {
+				
+				final LoggingUniversalFixedDataItem clearedFlightLevelDataItem
+					= (LoggingUniversalFixedDataItem)cat242Uap.getDataItem(67);
+			
+				final long clearedFlightLevel 
+					= fixmSystemTrackData.getFlightPlanRelatedData()
+						.getCurrentClearedFlightLevel();
+				
+				final ByteBuffer bufClearedFlightLevel = ByteBuffer.allocate(2);
+				
+				bufClearedFlightLevel
+					.putShort((short)clearedFlightLevel);
+				bufClearedFlightLevel.flip();
+				dataFields
+					.put(67, clearedFlightLevelDataItem.pack(bufClearedFlightLevel));
+
+				fieldSpecification.enableField(67);
+			}
 			
 			// -----------------------------------------------------------------
 			// FRN 68	I242/720, ADEP, ASCII	F/4
-			// TODO: rjw, enrich with flight information when connected to repository.
-			fieldSpecification.disableField(68);
+			// Enriched from the correlation service, units are the same.
+			if(fixmSystemTrackData.isSetFlightPlanRelatedData() 
+					&& fixmSystemTrackData.getFlightPlanRelatedData()
+						.isSetDepartureAerodrome()) {
+				
+				final LoggingUniversalFixedDataItem departureAerodromeDataItem
+					= (LoggingUniversalFixedDataItem)cat242Uap.getDataItem(68);
+			
+				final String departureAerodromeDesignator 
+					= fixmSystemTrackData.getFlightPlanRelatedData()
+						.getDepartureAerodrome();
+				
+				final ByteBuffer bufDepartureAerodromeDesignator 
+					= ByteBuffer.allocate(4);
+				
+				bufDepartureAerodromeDesignator
+					.put(departureAerodromeDesignator
+						.getBytes(Charset.forName("US-ASCII")));
+				bufDepartureAerodromeDesignator.flip();
+				dataFields
+					.put(68, departureAerodromeDataItem.pack(bufDepartureAerodromeDesignator));
+
+				fieldSpecification.enableField(68);
+			}
 			
 			// -----------------------------------------------------------------
 			// FRN 69	I242/730, ADES, ASCII	F/4
-			// TODO: rjw, enrich with flight information when connected to repository.
-			fieldSpecification.disableField(69);
+			// Enriched from the correlation service, units are the same.
+			if(fixmSystemTrackData.isSetFlightPlanRelatedData() 
+					&& fixmSystemTrackData.getFlightPlanRelatedData()
+						.isSetDestinationAerodrome()) {
+				
+				final LoggingUniversalFixedDataItem destinationAerodromeDataItem
+					= (LoggingUniversalFixedDataItem)cat242Uap.getDataItem(69);
+			
+				final String destinationAerodromeDesignator 
+					= fixmSystemTrackData.getFlightPlanRelatedData()
+						.getDestinationAerodrome();
+				
+				final ByteBuffer bufDestinationAerodromeDesignator 
+					= ByteBuffer.allocate(4);
+				
+				bufDestinationAerodromeDesignator
+					.put(destinationAerodromeDesignator
+						.getBytes(Charset.forName("US-ASCII")));
+				bufDestinationAerodromeDesignator.flip();
+				dataFields
+					.put(69, destinationAerodromeDataItem.pack(bufDestinationAerodromeDesignator));
+
+				fieldSpecification.enableField(69);
+			}
 			
 			// -----------------------------------------------------------------
 			// FRN 70	I242/740, Allocated SSR code, N.A.	R/1 + nx2
@@ -1185,7 +1412,6 @@ public class FixmToAsterixDataConverter {
 				final ByteBuffer bufAddSelectedAltitude 
 					= ByteBuffer.allocate(selectedAltitude.getSizeFactor());
 				
-				// TODO: check conversion factors.
 				// Upper three bits are Source Info Indicator and Source.
 				// MV doesn't require the information, therefore discard.
 				bufAddSelectedAltitude
@@ -1401,7 +1627,31 @@ public class FixmToAsterixDataConverter {
 			// Only utilize when I242/500 is changed on association with another
 			// flight track.  Currently for prototype we will never send the
 			// data.
-			fieldSpecification.disableField(84);
+			// Enriched upon detection of emergency state.
+			if(fixmSystemTrackData.isSetFlightPlanRelatedData() 
+					&& fixmSystemTrackData.getFlightPlanRelatedData()
+						.isSetPreEmergencyCallsign()) {
+				
+				final LoggingLengthPrefixUniversalRepetitiveDataItem destinationAerodromeDataItem
+					= (LoggingLengthPrefixUniversalRepetitiveDataItem)cat242Uap.getDataItem(84);
+			
+				final String preEmergencyCallsign 
+					= fixmSystemTrackData.getFlightPlanRelatedData()
+						.getPreEmergencyCallsign();
+				
+				final ByteBuffer bufPreEmergencyCallsign 
+					= ByteBuffer.allocate(7);
+				
+				bufPreEmergencyCallsign
+					.put(preEmergencyCallsign
+						.getBytes(Charset.forName("US-ASCII")));
+				bufPreEmergencyCallsign.flip();
+				dataFields
+					.put(84, destinationAerodromeDataItem
+						.pack(bufPreEmergencyCallsign.array()));
+
+				fieldSpecification.enableField(84);
+			}
 			
 			// -----------------------------------------------------------------
 			// FRN 85	I242/890, C-ATSU, N.A.	F/4
@@ -1447,7 +1697,8 @@ public class FixmToAsterixDataConverter {
 				
 				bufBaroPressSetting.flip();
 				
-				dataFields.put(89, barometricPressureSetting.pack(bufBaroPressSetting));
+				dataFields.put(89, barometricPressureSetting
+					.pack(bufBaroPressSetting));
 
 				fieldSpecification.enableField(89);
 			}
