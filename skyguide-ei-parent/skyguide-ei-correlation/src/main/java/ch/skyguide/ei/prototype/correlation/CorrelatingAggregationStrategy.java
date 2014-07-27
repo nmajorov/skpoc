@@ -69,20 +69,27 @@ public class CorrelatingAggregationStrategy implements AggregationStrategy {
 
     @Override
     public Exchange aggregate(final Exchange oldExchange, final Exchange newExchange) {
-        LOG.debug("start aggregate");
-        // for now let's just provide a dummy implementation
+        
+    	LOG.debug("start aggregate");
+        
+    	// for now let's just provide a dummy implementation
         final SkyguideAircraftPosition consumedAircraftPosition = newExchange.getIn().getHeader(CONSUMED_POSITION_POJO, SkyguideAircraftPosition.class);
         final double oldValue = consumedAircraftPosition.getTrack().getValue().getValue().getValue();
 
         SkyguideAircraftPosition currentAircraftPosition;
         boolean currentAircraftPositionExisting = false;
+
         try {
-            final Response response = newExchange.getIn().getMandatoryBody(Response.class);
+        
+        	final Response response = newExchange.getIn().getMandatoryBody(Response.class);
             final Object entity = response.getEntity();
+            
             LOG.info("The returned message entity from the foservice is {}", entity);
+            
             if (entity != null) {
                 // it could be an empty string if the postion doesn't exist
                 final String string = newExchange.getContext().getTypeConverter().convertTo(String.class, entity);
+            
                 if (!ObjectHelper.isEmpty(string)) {
                     // we've got a proper position as xml, so let's demarshall it and do our "business logic"...
                     currentAircraftPosition = newExchange.getContext().getTypeConverter().convertTo(SkyguideAircraftPosition.class, string);

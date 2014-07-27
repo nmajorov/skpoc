@@ -6,6 +6,7 @@ import org.jboss.netty.buffer.ChannelBuffers;
 import org.junit.Test;
 
 import ch.skyguide.ei.prototype.test.DataFlowTestSupport;
+import ch.skyguide.fixm.extension.flight.enroute.FixmAsterixMessage;
 
 public class UDPInFlowCamelContextTest extends DataFlowTestSupport {
 	

@@ -51,7 +51,7 @@
 	<import namespace="http://www.fixm.aero/base/2.0" schemaLocation="./../../../../../base/Base.xsd"/>
 	<import namespace="http://www.fixm.aero/foundation/2.0" schemaLocation="./../../../../../foundation/Foundation.xsd"/>
 	<import namespace="http://www.fixm.aero/flight/2.0" schemaLocation="./../../../../../flight/FlightObject.xsd"/>
-	<include schemaLocation="./DataItems/DataSourceIdentifier.xsd"/>
+	<include schemaLocation="./DataSourceIdentifier.xsd"/>
 	<annotation>
 		<documentation>
          The Position package contains information about the flight's current and planned 
@@ -90,16 +90,60 @@
             <enumeration value="J" />
         </restriction>
     </simpleType>
+    <simpleType name="StandEmptyStatusType">
+        <restriction base="xs:string">
+            <enumeration value="EMPTY" />
+            <enumeration value="OCCUPIED" />
+            <enumeration value="UNKNOWN" />
+            <enumeration value="INVALID" />
+        </restriction>
+    </simpleType>
+    <simpleType name="StandAvailabilityStatusType">
+        <restriction base="xs:string">
+            <enumeration value="AVAILABLE" />
+            <enumeration value="UNAVAILABLE" />
+            <enumeration value="UNKNOWN" />
+            <enumeration value="INVALID" />
+        </restriction>
+    </simpleType>
     <complexType name="FlightCategoryType">
         <annotation>
             <documentation>TODO</documentation>
         </annotation>
         <sequence>
-            <element name="gat_oat" type="GAT_OAT_Type" />
-            <element name="flightRule" type="FlightRuleType" />
-            <element name="rvsm" type="RvsmType" />
-            <element name="highPriority" type="xs:boolean" />
-            <element name="reserved" type="xs:boolean" />
+            <element name="gat_oat" type="fs:GAT_OAT_Type" minOccurs="1"/>
+            <element name="typeOfFlight" type="fx:TypeOfFlightType" minOccurs="1"/>
+            <element name="flightRule" type="fs:FlightRuleType" minOccurs="1"/>
+            <element name="rvsm" type="fs:RvsmType" minOccurs="1"/>
+            <element name="highPriority" type="xs:boolean" minOccurs="1"/>
+            <element name="formationFlight" type="xs:boolean" minOccurs="1"/>
+        </sequence>
+    </complexType>
+    <complexType name="ControlPositionType">
+        <annotation>
+            <documentation>TODO</documentation>
+        </annotation>
+        <sequence>
+            <element name="centre" type="xs:unsignedShort" />
+            <element name="postion" type="xs:unsignedShort" />
+        </sequence>
+    </complexType>
+    <complexType name="TimeOfArrivalDepartureType">
+        <annotation>
+            <documentation>TODO</documentation>
+        </annotation>
+        <sequence>
+            <element name="type" type="xs:unsignedShort" />
+            <element name="dateTime" type="xs:dateTime" />
+        </sequence>
+    </complexType>
+    <complexType name="StandStatusType">
+        <annotation>
+            <documentation>TODO</documentation>
+        </annotation>
+        <sequence>
+            <element name="empty" type="fs:StandEmptyStatusType" />
+            <element name="availability" type="fs:StandAvailabilityStatusType" />
         </sequence>
     </complexType>
 	<complexType name="FlightPlanRelatedDataType">
@@ -110,14 +154,21 @@
 	        <element ref="fs:dataSourceIdentifier" minOccurs="0"/>
 	        <element name="callsign" type="xs:string" minOccurs="0"/>
             <element name="ifps_flight_id" type="xs:unsignedInt" minOccurs="0"/>
-            <element name="flightCategory" type="fx:FlightCategoryType" minOccurs="0"/>
+            <element name="flightCategory" type="fs:FlightCategoryType" minOccurs="0"/>
             <element name="typeOfAircraft" type="xs:string" minOccurs="0"/>
-            <element name="wakeTurbulenceCategory" type="fx:WtcType" minOccurs="0"/>
+            <element name="wakeTurbulenceCategory" type="fs:WtcType" minOccurs="0"/>
             <element name="departureAerodrome" type="xs:string" minOccurs="0"/>
             <element name="destinationAerodrome" type="xs:string" minOccurs="0"/>
             <element name="runwayDesignation" type="xs:unsignedInt" minOccurs="0"/>
             <element name="currentClearedFlightLevel" type="xs:unsignedInt" minOccurs="0"/>
-            <element name="currentControlPosition" type="xs:unsignedShort" minOccurs="0"/>
+            <element name="currentControlPosition" type="fs:ControlPositionType" minOccurs="0"/>
+            <element name="timeOfArrivalDeparture" type="fs:TimeOfArrivalDepartureType" minOccurs="0" maxOccurs="255"/>
+            <element name="aircraftStand" type="xs:string" minOccurs="0"/>
+            <element name="standStatus" type="fs:StandStatusType" minOccurs="0"/>
+            <element name="standardInstrumentDeparture" type="xs:string" minOccurs="0"/>
+            <element name="standardInstrumentArrival" type="xs:string" minOccurs="0"/>
+            <element name="preEmergencyCode" type="xs:unsignedShort" minOccurs="0"/>
+            <element name="preEmergencyCallsign" type="xs:string" minOccurs="0"/>
 	    </sequence>
 	</complexType>
 	<element name="flightPlanRelatedData" type="fs:FlightPlanRelatedDataType"/>

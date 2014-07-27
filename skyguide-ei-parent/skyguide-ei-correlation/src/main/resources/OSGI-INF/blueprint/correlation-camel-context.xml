@@ -8,15 +8,11 @@
   <camelContext id="correlationCamelContext" xmlns="http://camel.apache.org/schema/blueprint">
     <route id="correlator">
       <from uri="activemq:topic:skyguide.surveillance.data" />
-      
-    
-      
-      <!-- 
-       ///TODO FIX restful service 
-         <unmarshal>
+
+      <unmarshal>
         <jaxb contextPath="ch.skyguide.fixm.extension.flight.enroute" prettyPrint="true" />
       </unmarshal>
-       
+
       <to uri="bean:aggregationStrategy?method=enrichExchange" />
       <setHeader headerName="CamelHttpMethod">
         <constant>GET</constant>
@@ -31,8 +27,6 @@
       <recipientList>
         <simple>cxfrs://${rest.url}/flights/update</simple>
       </recipientList>
-      
-    -->
     
       <to uri="activemq:topic:skyguide.enriched.surveillance.data"/>
      </route>

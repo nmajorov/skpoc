@@ -51,27 +51,24 @@
 	<import namespace="http://www.fixm.aero/base/2.0" schemaLocation="./../../../base/Base.xsd"/>
 	<import namespace="http://www.fixm.aero/foundation/2.0" schemaLocation="./../../../foundation/Foundation.xsd"/>
 	<import namespace="http://www.fixm.aero/flight/2.0" schemaLocation="./../../../flight/FlightObject.xsd"/>
-	<include schemaLocation="./SurveillanceData.xsd"/>
 	<annotation>
 		<documentation>
-         The Position package contains information about the flight's current and planned 
-         reporting positions. 
+         The flight container contains multiple flights. 
       </documentation>
 	</annotation>
-	<complexType name="SkyguideAircraftPositionType">
+	<complexType name="FlightContainerType">
 		<annotation>
 			<documentation>
-            An extended Aircraft Position contains the current position and associated data of the aircraft. 
-            Including additional surveillance supplied data.
-         </documentation>
+            The flight container contains multiple flights. 
+            </documentation>
 		</annotation>
 		<complexContent>
-			<extension base="fx:AircraftPositionType">
+			<extension base="fb:ExtensionType">
 				<sequence>
-					<element ref="fs:surveillanceData"/>
+					<element ref="fx:Flight" minOccurs="0" maxOccurs="unbounded"/>
 				</sequence>
 			</extension>
 		</complexContent>
 	</complexType>
-	<element name="skyguideAircraftPosition" type="fs:SkyguideAircraftPositionType"/>
+	<element name="flightContainer" type="fs:FlightContainerType"/>
 </schema>
