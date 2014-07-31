@@ -47,7 +47,7 @@ public class TCPInFlowIfplCamelContextTest extends DataFlowTestSupport {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                interceptSendToEndpoint("log:ch.skyguide.fuse.prototype.ifplservice").to(getInterceptingEndpoint());
+                interceptSendToEndpoint("log:ch.skyguide.fuse.prototype.ifplservice?level=DEBUG").to(getInterceptingEndpoint());
             }
         };
     }

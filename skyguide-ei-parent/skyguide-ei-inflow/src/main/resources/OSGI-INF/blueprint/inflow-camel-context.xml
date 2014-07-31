@@ -11,17 +11,18 @@
  <bean class="ch.skyguide.ei.prototype.netty.handler.codec.bytes.ByteArrayDecoder" id="nettyDecoder" />
 
  <camelContext id="inFlowCamelContext" xmlns="http://camel.apache.org/schema/blueprint">
+  <properties>
+       <property key="CamelLogDebugBodyMaxChars" value="65536"/>
+  </properties>
   
   <route id="radarDataInFlow">
 
    <from uri="${netty.in.url}" />
-
    <convertBodyTo type="ch.skyguide.fixm.extension.flight.enroute.FixmAsterixMessage" />
    <marshal>
     <jaxb contextPath="ch.skyguide.fixm.extension.flight.enroute" prettyPrint="true" />
    </marshal>
-   <to uri="log:ch.skyguide.ei.prototype.inflow?level=DEBUG" />
-
+   <to uri="log:ch.skyguide.ei.prototype.inflow?level=INFO" />
    <to uri="activemq:topic:skyguide.surveillance.data" />
 
   </route>

@@ -902,23 +902,25 @@ public class AsterixToFixmDataConverter {
 			// octets, followed by the indicated subfields.
 			if(record.getDataField(21) != null) {
 
-				final DataItem dataItem 
-					= record.getDataField(21).getAssociatedDataItem();
-			
-				final DataField dataField = record.getDataField(21);
-				
-				final List<Number> fltPlanRelData 
-					= ((AbstractUniversalExtendedDataItem)dataItem)
-						.unpack((NonCompoundField)dataField);
-
-				List<Short> fixmFltPlanRelData 
-				= fixmAsterixRecord.getFlightPlanRelatedData().getValues();
-			
-				for (Number fltPlanData : fltPlanRelData) {
-				
-					fixmFltPlanRelData
-					.add(Short.valueOf((short)fltPlanData.byteValue()));
-				}
+				// TODO: rjw, currently ignoring anything coming in the AST for 
+				//		 flight plan related data.
+//				final DataItem dataItem 
+//					= record.getDataField(21).getAssociatedDataItem();
+//			
+//				final DataField dataField = record.getDataField(21);
+//				
+//				final List<Number> fltPlanRelData 
+//					= ((AbstractUniversalExtendedDataItem)dataItem)
+//						.unpack((NonCompoundField)dataField);
+//
+//				List<Short> fixmFltPlanRelData 
+//				= fixmAsterixRecord.getFlightPlanRelatedData().getValues();
+//			
+//				for (Number fltPlanData : fltPlanRelData) {
+//				
+//					fixmFltPlanRelData
+//					.add(Short.valueOf((short)fltPlanData.byteValue()));
+//				}
 			}
 
 			// -----------------------------------------------------------------
