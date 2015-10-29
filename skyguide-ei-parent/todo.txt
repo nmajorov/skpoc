@@ -1,3 +1,0 @@
-- Study & understand the rdps module API
-- Study & understand the translib module API
-- Make use of real calls by RdpsInvoker & TranslatorInvoker
