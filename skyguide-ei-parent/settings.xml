@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd">
+  <profiles>
+    <profile>
+      <!-- ths: manually added according to https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Fuse/6.2/html-single/Getting_Started/#Develop -->
+      <id>jboss-fuse-dev</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <repositories>
+        <repository>
+          <id>fusesource</id>
+          <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+          <releases>
+            <enabled>true</enabled>            
+          </releases>
+        </repository>
+         <repository>
+          <id>jboss-ea</id>
+          <url>https://repository.jboss.org/nexus/content/groups/ea/</url>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+        </repository>
+	<repository>
+          <id>fuse-public</id>
+          <url>http://repo.fusesource.com/nexus/content/groups/public/</url>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+	</repository>
+     </repositories>
+    </profile>
+    <profile>
+      <id>redhat-techpreview-all-repository</id>
+      <repositories>
+        <repository>
+          <id>redhat-techpreview-all-repository</id>
+          <name>Red Hat Tech Preview repo (all)</name>
+          <url>http://maven.repository.redhat.com/techpreview/all/</url>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>daily</updatePolicy>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>daily</updatePolicy>
+          </snapshots>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>redhat-techpreview-all-repository</id>
+          <name>Red Hat Tech Preview repo (all)</name>
+          <url>http://maven.repository.redhat.com/techpreview/all/</url>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>daily</updatePolicy>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>daily</updatePolicy>
+          </snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
+</settings>
+
