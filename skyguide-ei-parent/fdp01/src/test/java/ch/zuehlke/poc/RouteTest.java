@@ -23,7 +23,7 @@ public class RouteTest extends TestCase {
 	 protected MockEndpoint result;
 
 	 
-	 @Produce(ref = "start")
+	 @Produce
 	 protected ProducerTemplate template;
 	 
 	 
@@ -31,13 +31,13 @@ public class RouteTest extends TestCase {
 
     @Test
     public void testCustomerFuse() throws Exception {
-         
-    	 template.sendBodyAndHeader( "<root><poc>skyguide</poc></root>","","");
+    	
+    	String out = template.requestBody("netty-http:http://localhost:8088/foo","<root><poc>skyguide</poc></root>",String.class);
 
-    	 Exchange out = result.getExchanges().get(0);
+    	 
     	 
        
-    	 assertEquals("<root><poc>skyguide</poc></root>", out.getOut().getBody(String.class));
+    	 assertEquals("<root><poc>skyguide</poc></root>", out);
 
     }
 }
