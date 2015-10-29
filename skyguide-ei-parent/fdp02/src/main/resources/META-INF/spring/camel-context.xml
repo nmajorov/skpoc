@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+  <camelContext trace="false" xmlns="http://camel.apache.org/schema/spring">
+  <route>
+    <from id="start" uri="netty-http:http://localhost:8088/foo?bridgeEndpoint=true&amp;throwExceptionOnFailure=false"/>
+     <to uri="log:result"/>
+     <to uri="mock:result"/>
+     <to uri="activemq:queue:FOC.DATA" />
+     <to id="end" uri="netty-http:http://0.0.0.0:8000/test"/>
+   </route>
+  </camelContext>
+  
+  <bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+ 
+  <property name="brokerURL" value="vm://localhost?broker.persistent=false" />
+ </bean>
+
+ <bean id="pooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory"
+  init-method="start" destroy-method="stop">
+  <property name="connectionFactory" ref="jmsConnectionFactory" />
+ </bean>
+
+ <bean id="jmsConfig" class="org.apache.camel.component.jms.JmsConfiguration">
+  <property name="connectionFactory" ref="pooledConnectionFactory" />
+ </bean>
+
+ <bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
+  <property name="configuration" ref="jmsConfig" />
+ </bean>
+ 
+</beans>
