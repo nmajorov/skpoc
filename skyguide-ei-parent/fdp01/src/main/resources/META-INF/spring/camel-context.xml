@@ -7,8 +7,7 @@
 
   <camelContext trace="false" xmlns="http://camel.apache.org/schema/spring">
   <route>
- 
-    <from uri="netty-http:http://localhost:8088/mockFlightObjectServiceImplPortBinding"/>
+    <from id="start" uri="netty-http:http://localhost:8088/foo"/>
     <camel:log message="end"/>
   </route>
 </camelContext>

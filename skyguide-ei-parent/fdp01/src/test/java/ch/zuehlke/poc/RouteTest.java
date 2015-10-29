@@ -1,28 +1,43 @@
 package ch.zuehlke.poc;
 
-import org.apache.camel.EndpointInject;
-import org.apache.camel.component.log.LogEndpoint;
-import org.apache.camel.test.spring.CamelSpringTestSupport;
+import junit.framework.TestCase;
 
+import org.apache.camel.EndpointInject;
+import org.apache.camel.Exchange;
+import org.apache.camel.Produce;
+import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.test.spring.CamelSpringTestSupport;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.context.support.AbstractXmlApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("/META-INF/spring/camel-context.xml")
+public class RouteTest extends TestCase {
+	
+	 @EndpointInject(uri = "mock:result")
+	 protected MockEndpoint result;
 
-public class RouteTest extends CamelSpringTestSupport {
-    @EndpointInject(uri = "log:customers")
-    protected LogEndpoint resultEndpoint;
-
-    @Override
-    protected AbstractXmlApplicationContext createApplicationContext() {
-        return new ClassPathXmlApplicationContext("META-INF/spring/spring-context.xml");
-    }
+	 
+	 @Produce(ref = "start")
+	 protected ProducerTemplate template;
+	 
+	 
+   
 
     @Test
     public void testCustomerFuse() throws Exception {
-         template.sendBody("direct:in", "");
+         
+    	 template.sendBodyAndHeader( "<root><poc>skyguide</poc></root>","","");
 
-         assertTrue(resultEndpoint.isStarted());
+    	 Exchange out = result.getExchanges().get(0);
+    	 
+       
+    	 assertEquals("<root><poc>skyguide</poc></root>", out.getOut().getBody(String.class));
 
     }
 }
