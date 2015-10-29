@@ -25,9 +25,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/META-INF/spring/camel-context.xml")
 public class RouteTest extends TestCase {
-	
-	@SuppressWarnings("restriction")
-	private HttpServer localServer;
 
 	@EndpointInject(uri = "mock:result")
 	protected MockEndpoint result;
@@ -38,7 +35,7 @@ public class RouteTest extends TestCase {
 	@SuppressWarnings("restriction")
 	static class MyHandler implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
-            String response = "<root><poc>skyguide</poc></root>";
+            String response = "<root><poc>OK</poc></root>";
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());
@@ -66,6 +63,6 @@ public class RouteTest extends TestCase {
 		String out = template.requestBody("start",
 				"<root><poc>skyguide</poc></root>", String.class);
 
-		assertEquals("<root><poc>skyguide</poc></root>", out);
+		assertEquals("<root><poc>OK</poc></root>", out);
 	}
 }
