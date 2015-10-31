@@ -16,7 +16,7 @@ port = 8008
 
 def save(a):
     print("called save with parameter {0}".format(a)) 
-    return "saved"
+    return "{0} saved".format(a)
 
 dispatcher = SoapDispatcher(
     'my_dispatcher',
