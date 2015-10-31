@@ -1,36 +1,86 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:camel="http://camel.apache.org/schema/spring"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:lang="http://www.springframework.org/schema/lang"
+              xsi:schemaLocation="
+              http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+              http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+              http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+           ">
+
+
+ <lang:groovy id="focProcessor">
+    <lang:inline-script>
+      import org.apache.camel.*
+      import org.apache.http.client.methods.HttpPost
+      import org.apache.http.client.*
+      import org.apache.http.impl.client.*
+      import org.apache.http.entity.*
+      import org.apache.commons.io.IOUtils
+
+
+      public class FocProcessor implements Processor {
+        String urlFOC1="http://localhost:8008"
+        String urlFOC2="http://localhost:8009"
+
+
+        public void process(Exchange exchange) throws Exception {
+            println("### processor callled exchange $exchange.in.headers ###")
+            //println("### in body $exchange.in.body ###")
+
+            HttpClient httpclient = new DefaultHttpClient()
+            HttpPost post = new HttpPost(urlFOC1)
+            if (exchange.in.headers.containsKey("Content-Type")){
+               post.setHeader("Content-Type",exchange.in.getHeader("Content-Type"))
+            }
+
+            if (exchange.in.headers.containsKey("SOAPAction")){
+               post.setHeader("SOAPAction",exchange.in.getHeader("SOAPAction"))
+            }
+
+            StringWriter writer = new StringWriter();
+            IOUtils.copy(exchange.in.body, writer, "UTF-8")
+            println("in body: $writer.buffer)")
+
+            def entity =  new StringEntity(writer.toString(),ContentType.APPLICATION_XML)
+            post.setEntity(entity)
+            def response = httpclient.execute(post)
+            println("response code: $response.statusLine.statusCode")
+
+
+            println("response ----------------------")
+            def rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            String line = "";
+            while ((line = rd.readLine()) != null) {
+              println(line);
+            }
+
+            println("----------------------")
+
+
+            exchange.in.setBody(response.getEntity().getContent())
+        }
+      }
+
+    </lang:inline-script>
+  </lang:groovy>
+
+
 
   <camelContext trace="false" xmlns="http://camel.apache.org/schema/spring">
   <route>
-    <from id="start" uri="netty-http:http://localhost:8088/foo?bridgeEndpoint=true&amp;throwExceptionOnFailure=false"/>
-     <to uri="log:result"/>
-     <to uri="mock:result"/>
-     <to uri="activemq:queue:FOC.DATA" />
-     <to id="end" uri="netty-http:http://0.0.0.0:8000/test"/>
-   </route>
+    <from id="start" uri="netty-http:http://localhost:8088/foo?sync=true"/>
+    <process ref="focProcessor" />
+<!--
+     <script>
+     <groovy><![CDATA[
+       resource:classpath:desider.groovy}
+     ]]></groovy>
+     </script>
+-->
+
+    </route>
   </camelContext>
-  
-  <bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
- 
-  <property name="brokerURL" value="vm://localhost?broker.persistent=false" />
- </bean>
 
- <bean id="pooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory"
-  init-method="start" destroy-method="stop">
-  <property name="connectionFactory" ref="jmsConnectionFactory" />
- </bean>
 
- <bean id="jmsConfig" class="org.apache.camel.component.jms.JmsConfiguration">
-  <property name="connectionFactory" ref="pooledConnectionFactory" />
- </bean>
 
- <bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
-  <property name="configuration" ref="jmsConfig" />
- </bean>
- 
 </beans>
