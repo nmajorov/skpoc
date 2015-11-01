@@ -27,26 +27,76 @@
 
          println("### transformation is called  $exchange.in.headers ###")
 
-         HttpClient httpclient = new DefaultHttpClient()
-         HttpPost post = new HttpPost(urlFOC1)
-         if (exchange.in.headers.containsKey("Content-Type")){
-            post.setHeader("Content-Type",exchange.in.getHeader("Content-Type"))
+         /**
+          * method to call webservice
+          */
+         def callWebService(String url,String xml){
+             HttpClient httpclient = new DefaultHttpClient()
+             HttpPost post = new HttpPost(url)
+             if (exchange.in.headers.containsKey("Content-Type")){
+                post.setHeader("Content-Type",exchange.in.getHeader("Content-Type"))
+             }
+
+             if (exchange.in.headers.containsKey("SOAPAction")){
+                post.setHeader("SOAPAction",exchange.in.getHeader("SOAPAction"))
+             }
+
+
+
+             def entity =  new StringEntity(xml,ContentType.APPLICATION_XML)
+             post.setEntity(entity)
+             def response = httpclient.execute(post)
+
+             return response
          }
 
-         if (exchange.in.headers.containsKey("SOAPAction")){
-            post.setHeader("SOAPAction",exchange.in.getHeader("SOAPAction"))
-         }
-
+         //transform exchange to xml
          StringWriter writer = new StringWriter();
          IOUtils.copy(exchange.in.body, writer, "UTF-8")
-         println("in body: $writer.buffer)")
+         requstXML = writer.toString()
+         println("requstXML: $requstXML")
+         //Call FOC1
+         def responseFOC1 =  callWebService(urlFOC1,requstXML)
+         println("response FOC1 status code: $responseFOC1.statusLine.statusCode")
 
-         def entity =  new StringEntity(writer.toString(),ContentType.APPLICATION_XML)
-         post.setEntity(entity)
-         def response = httpclient.execute(post)
-         println("response code: $response.statusLine.statusCode")
 
-         exchange.out.body = response.entity.content
+         if (responseFOC1.statusLine.statusCode != 500){
+          // we did successful call to FOC1 and trying to call FOC2
+
+
+          def responseFOC2
+
+          try{
+            responseFOC2 = callWebService(urlFOC2,requstXML)
+          } catch(ex){
+            println("error at calling FOC2")
+            ex.printStackTrace()
+          }
+
+          if (responseFOC2 ==null || responseFOC2.statusLine.statusCode == 500){
+                //TODO: call soap delete command ...
+                // we don't know any wsdl at the moment
+                // Also we will send raw xml content to soap  delete operation
+                //for example :
+                '''\
+                <![CDATA[
+
+                <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://skyguide.ch/web">
+                   <soapenv:Header/>
+                   <soapenv:Body>
+                      <web:delete>
+                         <web:a>skyguide</web:a>
+                      </web:delete>
+                   </soapenv:Body>
+                 </soapenv:Envelope>
+                ]]>
+                '''
+           }
+         }
+
+         //propagande response back  to the caller
+         exchange.out.body = responseFOC1.entity.content
+
 
        </groovy>
 
