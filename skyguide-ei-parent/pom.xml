@@ -1,99 +1,145 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>ch.zuehke.poc</groupId>
-  <artifactId>skyguide-poc-parent</artifactId>
-  <packaging>pom</packaging>
-  <version>0.0.1-SNAPSHOT</version>
+    <groupId>ch.zuehke.poc</groupId>
+    <artifactId>skyguide-poc-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <name>Skyguide :: Poc :: Parent</name>
+
+    <properties>
+        <maven-bundle-plugin-version>2.3.7</maven-bundle-plugin-version>
+        <maven-build-helper-plugin-version>1.8</maven-build-helper-plugin-version>
+        <maven-compiler-plugin-version>2.5.1</maven-compiler-plugin-version>
+        <maven-eclipse-plugin-version>2.9</maven-eclipse-plugin-version>
+        <maven-jar-plugin-version>2.4</maven-jar-plugin-version>
+        <maven-jaxb2-basics-annotate-version>0.6.5</maven-jaxb2-basics-annotate-version>
+        <maven-jaxb2-plugin-version>0.9.0</maven-jaxb2-plugin-version>
+        <maven-resource-plugin-version>2.6</maven-resource-plugin-version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <slf4j-version>1.6.6</slf4j-version>
+
+        <!-- the version of the JBoss Fuse BOM, defining all the dependency versions -->
+        <jboss.fuse.bom.version>6.2.0.redhat-133</jboss.fuse.bom.version>
+
+    </properties>
+
+    <modules>
+        <module>fdp01</module>
+        <module>fdp02</module>
+    </modules>
 
 
-  <properties>
-    <maven-bundle-plugin-version>2.3.7</maven-bundle-plugin-version>
-    <maven-build-helper-plugin-version>1.8</maven-build-helper-plugin-version>
-    <maven-compiler-plugin-version>2.5.1</maven-compiler-plugin-version>
-    <maven-eclipse-plugin-version>2.9</maven-eclipse-plugin-version>
-    <maven-jar-plugin-version>2.4</maven-jar-plugin-version>
-    <maven-jaxb2-basics-annotate-version>0.6.5</maven-jaxb2-basics-annotate-version>
-    <maven-jaxb2-plugin-version>0.9.0</maven-jaxb2-plugin-version>
-    <maven-resource-plugin-version>2.6</maven-resource-plugin-version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <slf4j-version>1.6.6</slf4j-version>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.fuse.bom</groupId>
+                <artifactId>jboss-fuse-parent</artifactId>
+                <version>${jboss.fuse.bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- assuming camel is pulling aries 1.0.0, pull asm 4.0 first -->
+            <!-- this is needed when unit testing camel-cxf with camel-test-blueprint -->
+            <dependency>
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm-all</artifactId>
+                <version>4.0</version>
+                <scope>test</scope>
+            </dependency>
 
-    <!-- the version of the JBoss Fuse BOM, defining all the dependency versions -->
-    <jboss.fuse.bom.version>6.2.0.redhat-133</jboss.fuse.bom.version>
+        </dependencies>
+    </dependencyManagement>
 
-  </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>${maven-bundle-plugin-version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-Name>${project.artifactId}</Bundle-Name>
+                        <Import-Package>${skyguide-osgi-default-import}</Import-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin-version}</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                        <configuration>
+                            <forceCreation>true</forceCreation>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
-
-
-  <modules>
-    <module>fdp01</module>
-    <module>fdp02</module>
-  </modules>
-
-
-   <dependencyManagement>
-    <dependencies>
-
-      <dependency>
-        <groupId>org.jboss.fuse.bom</groupId>
-        <artifactId>jboss-fuse-parent</artifactId>
-        <version>${jboss.fuse.bom.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <!-- assuming camel is pulling aries 1.0.0, pull asm 4.0 first -->
-      <!-- this is needed when unit testing camel-cxf with camel-test-blueprint -->
-      <dependency>
-        <groupId>org.ow2.asm</groupId>
-        <artifactId>asm-all</artifactId>
-        <version>4.0</version>
-        <scope>test</scope>
-      </dependency>
-
-    </dependencies>
-  </dependencyManagement>
-
-<build>
-   <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <version>${maven-bundle-plugin-version}</version>
-        <extensions>true</extensions>
-        <configuration>
-          <instructions>
-            <Bundle-Name>${project.artifactId}</Bundle-Name>
-            <Import-Package>${skyguide-osgi-default-import}</Import-Package>
-          </instructions>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-       <version>${maven-jar-plugin-version}</version>
-        <configuration>
-          <archive>
-            <manifest>
-              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-            </manifest>
-          </archive>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>test-jar</goal>
-            </goals>
-            <configuration>
-              <forceCreation>true</forceCreation>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-   </plugins>
-</build>
+    <repositories>
+        <repository>
+            <id>fusesource-public-repository</id>
+            <name>FuseSource Release Repository</name>
+            <url>https://repository.jboss.org/nexus/content/repositories/fs-public/</url>
+        </repository>
+        <repository>
+            <id>jboss-public-repository</id>
+            <name>JBoss.org Public Maven Repository Group</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+        </repository>
+        <repository>
+            <id>jboss-fuse-ea</id>
+            <url>https://repository.jboss.org/nexus/content/groups/ea</url>
+        </repository>
+        <repository>
+            <id>jboss-releases</id>
+            <name>JBoss.org Fuse Releases</name>
+            <url>https://repository.jboss.org/nexus/content/repositories/fs-releases/</url>
+        </repository>
+        <repository>
+            <id>Maven Central</id>
+            <url>http://repo1.maven.org/maven2/</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>fusesource-public-repository</id>
+            <name>FuseSource Release Repository</name>
+            <url>https://repository.jboss.org/nexus/content/repositories/fs-public/</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>jboss-public-repository-group</id>
+            <name>JBoss.org Public Maven Repository Group</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>jboss-fuse-releases</id>
+            <name>JBoss.org Fuse Releases</name>
+            <url>https://repository.jboss.org/nexus/content/repositories/fs-releases</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>jboss-fuse-ea</id>
+            <url>https://repository.jboss.org/nexus/content/groups/ea</url>
+        </pluginRepository>
+    </pluginRepositories>
 </project>

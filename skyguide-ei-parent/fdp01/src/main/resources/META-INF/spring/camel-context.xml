@@ -6,7 +6,7 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
   <camelContext trace="false" xmlns="http://camel.apache.org/schema/spring">
-  <route>
+  <route id="from-netty-to-http">
     <from id="start" uri="netty-http:http://localhost:8088/foo?bridgeEndpoint=true&amp;throwExceptionOnFailure=false"/>
      <to uri="log:result"/>
      <to uri="mock:result"/>
