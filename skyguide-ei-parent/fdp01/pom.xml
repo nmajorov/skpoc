@@ -10,6 +10,9 @@
 	</parent>
 	<artifactId>fdp01</artifactId>
 	<packaging>bundle</packaging>
+	
+	<name>Skyguide :: Poc :: fdp01</name>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
